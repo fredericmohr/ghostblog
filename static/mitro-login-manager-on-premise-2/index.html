@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HashtagSecurity</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="wot-verification" content="06cd687a47e37736daed"/> 
+    <link rel="stylesheet" type="text/css" href="../assets/css/mofirst-min.css?v=8ff1f2e80d"/>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script> <!-- disqus loader needs latest jquery -->
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="fredericmohr.github.io/ghostblog/mitro-login-manager-on-premise-2/amp/" />
+    
+    <meta property="og:site_name" content="HashtagSecurity" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Mitro Login Manager On-Premise" />
+    <meta property="og:description" content="On 31 Jul 2014, the cloud based login manager &amp;quot;Mitro&amp;quot; was published under the GPL on github. In this blogpost, I&#x27;ll go through the steps of setting up the server and browser extensions. The login manager Mitro has been developed by a small team based in NYC, wich" />
+    <meta property="og:url" content="fredericmohr.github.io/ghostblog/mitro-login-manager-on-premise-2/" />
+    <meta property="article:published_time" content="2014-09-20T12:37:02.000Z" />
+    <meta property="article:modified_time" content="2014-09-22T16:01:14.000Z" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Mitro Login Manager On-Premise" />
+    <meta name="twitter:description" content="On 31 Jul 2014, the cloud based login manager &amp;quot;Mitro&amp;quot; was published under the GPL on github. In this blogpost, I&#x27;ll go through the steps of setting up the server and browser extensions. The login manager Mitro has been developed by a small team based in NYC, wich" />
+    <meta name="twitter:url" content="fredericmohr.github.io/ghostblog/mitro-login-manager-on-premise-2/" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Frederic Mohr" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "HashtagSecurity",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "fredericmohr.github.io/ghostblog/content/images/2014/Oct/tw-logo_400x400-1.png",
+            "width": 60,
+            "height": 60
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Frederic Mohr",
+        "url": "fredericmohr.github.io/ghostblog/author/frederic/",
+        "sameAs": []
+    },
+    "headline": "Mitro Login Manager On-Premise",
+    "url": "fredericmohr.github.io/ghostblog/mitro-login-manager-on-premise-2/",
+    "datePublished": "2014-09-20T12:37:02.000Z",
+    "dateModified": "2014-09-22T16:01:14.000Z",
+    "description": "On 31 Jul 2014, the cloud based login manager &amp;quot;Mitro&amp;quot; was published under the GPL on github. In this blogpost, I&#x27;ll go through the steps of setting up the server and browser extensions. The login manager Mitro has been developed by a small team based in NYC, wich",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "fredericmohr.github.io/ghostblog/"
+    }
+}
+    </script>
+
+    <script src="../public/ghost-sdk.min.js?v=8ff1f2e80d"></script>
+<script>
+ghost.init({
+	clientId: "ghost-frontend",
+	clientSecret: "5a567477c5aa"
+});
+</script>
+    <meta name="generator" content="Ghost 2.23" />
+    <link rel="alternate" type="application/rss+xml" title="HashtagSecurity" href="../rss/index.html" />
+</head>
+<body>
+<!--NAVIGATION-->
+<div class="nav_bar">
+	<div class="nav_container">	
+		<ul class="nav">
+			<li id="nav-index"><a href="../index.html" class="icon-home"></a></li>
+			<li id="nav-kalibook"><a href="../getting-started-with-kali-linux/index.html" class="icon-book"></a></li>
+			<li id="nav-about"><a href="../about/index.html" class="icon-info"></a></li>
+		</ul>
+
+		<!-- Follow Me -->
+		<div class="follow_me">
+			<a href="https://twitter.com/HashtagSecurity" title="Twitter"><img alt="twitter" src="../assets/images/twi.png?v=8ff1f2e80d"></a>
+			<a href="https://www.hashtagsecurity.com/rss" title="RSS"><img alt="rss" src="../assets/images/rss.png?v=8ff1f2e80d"></a>
+		</div>
+	</div>
+</div>
+<div class="navline"></div>
+<!-- End Header -->
+<div class="outer_container">
+	<!-- PAGE -->
+	<div class="page_container">
+		<!-- CONTENT -->
+		<div class="post_container">
+			    <article class="post">
+
+
+        <h1 class="post-title">Mitro Login Manager On-Premise</h1>
+		<span class="post-meta"><a href="http://de.linkedin.com/in/fredericmohr"><b>Frederic Mohr</b></a> - <time datetime="2014-09-20">20 Sep 2014</time> </span>
+
+        <section class="post-content">
+            <!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="../content/images/2014/Sep/mitro_server_cover.jpeg" alt=""><br>
+On 31 Jul 2014, the cloud based login manager &quot;Mitro&quot; was published under the GPL on github. In this blogpost, I'll go through the steps of setting up the server and browser extensions.</p>
+<p>The login manager Mitro has been developed by a small team based in NYC, wich was recently aquired by Twitter. Part of the deal, as I recall, was that the Mitro project had to be published under an open source license, which is great since I contacted the devs a few months ago if there is going to be an on-premise version of it. Well now there is, but it takes a bit of work to get everything up and running.</p>
+<p>At the time of writing, I do not see Mitro On-Premise as production ready software as there are a few issues that have to be sorted out. But I'll do my best to help get it there and I'm happy to see that many others are actively working towards the same goal.</p>
+<p><strong>TL;DR</strong><br><br>
+If you just want to install Mitro without understanding what you're doing - you can use my <a href="https://github.com/fredericmohr/mitro/blob/master/mitro-debian-setup.sh">mitro-debian-setup.sh</a> script which should do all of this automatically. Make sure to check the <a href="https://github.com/fredericmohr/mitro/blob/master/README.md">REAME.md</a> for instructions first and run <code>tail -f mitro-debian-setup.log</code> in a second shell to catch problems like this:<br>
+<img src="../content/images/2014/Sep/mitro_server_cover1.jpeg" alt=""></p>
+<p>You can avoid this completely by running <code>apt-get update &amp;&amp; apt-get upgrade</code> prior to the script. Also, just to be on the same page - this is what my Debian image looks like:</p>
+<p><img src="../content/images/2014/Sep/AppleID_Delete1.png" alt=""></p>
+<p><strong>A few notes before we get started</strong> - for those of you actually reading this...<br><br>
+I will generally not work under the <code>root</code> user but under <code>admin</code> with sudo. I will not print whole files but mark the changes like this:</p>
+<pre><code>user@host: $ vi /etc/example.conf
+ + added line
+ - removed line
+</code></pre>
+<p>Or with numbered lines if the file is to huge or similar lines exist.</p>
+<pre><code>user@host: $ vi /etc/example.conf
+98: + added line
+98: - removed line
+</code></pre>
+<p>While I always try to make things understandable even for unexperienced users, keep in mind that this is a very critical application and you should know what you're doing before you attempt to host it for yourself or even others. Therefore, I will not go into any detail on basic commands such as how to exit vim or login via ssh. If you can't do that, you lack serious basics for this post!</p>
+<p>For now, I got the server up and running under Debian 7, and the extensions working with my server with chromium-browser in Kubuntu 14.04. Keep in mind that right now, everything is in a state of constant change, so I'll either update this blogpost or look for a better way to keep the info up to date.</p>
+<p>The whole setup consists of three main parts</p>
+<ul>
+<li>The mitro server daemon</li>
+<li>The mitro mailing daemon</li>
+<li>The mitro browser extensions</li>
+</ul>
+<p>I'll try to get any changes I make in the code or scripts into the official Mitro repository, but I will note all important changes in this blogpost. If you're missing anything, you can always checkout my fork on github for commits that haven't been merged yet</p>
+<p><strong>Preparations</strong><br><br>
+Some general info about the environment I used for this setup.</p>
+<pre><code>Server OS: Debian 7 Non-GUI (Connect via SSH)
+Server VM: Virtualbox - 192.168.0.110
+Client OS: Kubuntu 14.04 64bit
+Client VM: Virtualbox - 
+Git Mitro: https://github.com/mitro-co/mitro
+Git Fork: https://github.com/fredericmohr/mitro
+</code></pre>
+<p>Before you do anything, make sure that your server has installed all package updates.</p>
+<pre><code>root@debian:~ # apt-get update &amp;&amp; apt-get upgrade
+</code></pre>
+<p>Since this is a critical application, we'll try to keep security in mind from the beginning.</p>
+<p>Setup an <code>admin</code> user with sudo rights and one called <code>mitro</code> to run the services under. You should of course choose different, and strong password for both users as they build the foundation of your new login manager!</p>
+<pre><code>root@debian:~ # echo mitro-server &gt; /etc/hostname
+root@debian:~ # vi /etc/hosts
+ - 127.0.0.1       localhost
+ + 127.0.0.1       localhost mitro-server
+
+root@debian:~ # hostname -F /etc/hostname
+root@mitro-server:~ # adduser admin
+root@mitro-server:~ # adduser mitro
+</code></pre>
+<p>And in case you haven't done so during the installation of your os, set a strong password for root as well.</p>
+<pre><code>root@mitro-server:~ # passwd root
+</code></pre>
+<p>Next, grant sudo rights to <code>admin</code>, logout as <code>root</code> and login as admin.</p>
+<pre><code>root@mitro-server:~ # apt-get install sudo
+root@mitro-server:~ # visudo -f /etc/sudoers.d/mitro
+ + # admin user to manage mitro server
+ + admin    ALL=(ALL:ALL) ALL
+ 
+root@mitro-server:~ # exit
+</code></pre>
+<p>Test if sudo works properly and move on to the next part if it does.</p>
+<pre><code>admin@mitro-server:~ $ sudo whoami
+[sudo] password for admin:
+root
+</code></pre>
+<h1 id="mitroserversetup">Mitro Server Setup</h1>
+<p><strong>Server prerequisites</strong><br><br>
+Before we begin with the actual server, there are a few things we have to take care of such as setting up the directory and installing the base packages.</p>
+<pre><code>admin@mitro-server:~$ sudo mkdir /srv/mitro/
+admin@mitro-server:~$ cd /srv/mitro/
+admin@mitro-server:~$ sudo chown -R mitro:mitro /srv/mitro
+admin@mitro-server:~$ sudo chmod g+s /srv/mitro
+admin@mitro-server:~$ sudo chmod u+s /srv/mitro
+admin@mitro-server:~$ sudo chmod 755 /srv/mitro
+</code></pre>
+<p>This is how the folder permissions should look like. The sticky bit will make sure, that the user and group ownership will be <code>mitro</code> throughout the setup.</p>
+<pre><code>admin@mitro-server:~$ ls -lh /srv/
+drwsr-sr-x  2 mitro mitro 4.0K Sep 19 19:17 mitro
+
+admin@mitro-server:~$ cd /srv/mitro
+</code></pre>
+<p>Install all Debian packages necessary to build and run the server and create the necessary binary links, since there are a few files called incorrectly. -- We should probably fix the build scripts...</p>
+<pre><code>admin@mitro-server:~$ sudo apt-get install git screen postgresql postgresql-contrib postgresql-pltcl-9.1 ant make g++ curl unzip
+admin@mitro-server:/srv/mitro$ sudo curl -sL https://deb.nodesource.com/setup | sudo bash -
+admin@mitro-server:/srv/mitro$ sudo apt-get install nodejs
+</code></pre>
+<p>Check if <code>initdb</code> is present. If not, you need to create a link to the executable.</p>
+<pre><code>admin@mitro-server:/srv/mitro$ which initdb
+admin@mitro-server:/srv/mitro$ sudo ln -s /usr/lib/postgresql/9.1/bin/initdb  /usr/bin/initdb
+admin@mitro-server:/srv/mitro$ which initdb
+/usr/bin/initdb
+</code></pre>
+<p>According to the Mitro README, the server should be run with the official Oracle Java JDK 7. However, I haven't had any problems with the openjdk version and since it's easier to maintain updates through apt-get, I am going to stick with it.</p>
+<pre><code>admin@mitro-server:/srv/mitro$ sudo apt-get install openjdk-7-jdk libpostgresql-jdbc-java
+</code></pre>
+<p>Just to be sure, trace back the current java executable and check if it really is jdk-7. In my case jdk-6 was still being used so I had to change it.</p>
+<pre><code>admin@mitro-server:/srv/mitro$ which java
+/usr/bin/java
+admin@mitro-server:/srv/mitro$ file /usr/bin/java
+/usr/bin/java: symbolic link to `/etc/alternatives/java'
+admin@mitro-server:/srv/mitro$ file /etc/alternatives/java
+/etc/alternatives/java: symbolic link to `/usr/lib/jvm/java-6-openjdk-amd64/jre/bin/java'
+admin@mitro-server:/srv/mitro$ sudo rm /etc/alternatives/java
+admin@mitro-server:/srv/mitro$ sudo ln -s /usr/lib/jvm/java-7-openjdk-amd64/jre/bin/java /etc/alternatives/java
+</code></pre>
+<p>The following code-block shows some optional settings which I haven't tried myself. But I'll put them there in case anyone wants to try them.</p>
+<pre><code># The sysctl.conf part is optional - depending wether or not you need/want multiple postgresql instances running.
+# Edit /etc/sysctl.conf to add the following lines:
+# run multiple instances of postgres
+kern.sysv.shmmax=1610612736
+kern.sysv.shmall=393216
+kern.sysv.shmmin=1
+kern.sysv.shmmni=32
+kern.sysv.shmseg=8
+
+# Then run the following for each line above
+sudo sysctl -w &lt;line&gt;	
+</code></pre>
+<p><strong>Preparing the postgresql database</strong><br><br>
+According to the docs, the postgresql database service must be running as the same user as the mitro service is running - which in this case means the unix user &quot;mitro&quot;.<br>
+To get this done, you need to follow these steps:</p>
+<pre><code># Stop Database
+admin@mitro-server:/srv/mitro$ sudo /etc/init.d/postgres stop
+admin@mitro-server:/srv/mitro$ sudo netstat -antp 
+
+# if postgres is still running for whatever reason
+admin@mitro-server:/srv/mitro$ sudo killall -9 postgres
+
+# prepare to start postgres as &quot;mitro&quot;
+admin@mitro-server:/srv/mitro$ sudo chown -R mitro:mitro /var/run/postgresql/
+</code></pre>
+<p>Mitro uses <code>pg_ctl</code>, but Debian has switched to <code>pg_ctlcluster</code> so the build process fails! To fix that, you need to create a link for <code>pg_ctl</code>.</p>
+<pre><code>admin@mitro-server:/srv/mitro$ sudo ln -s /usr/lib/postgresql/9.1/bin/pg_ctl /usr/bin/pg_ctl
+</code></pre>
+<p>Before we can continue, we need to checkout the repository. I advise you to take the official repo and not my fork, as the latter might not be working at times since I tend to break things and push them - you have been warned!</p>
+<pre><code>admin@mitro-server:/srv$ sudo git clone https://github.com/mitro-co/mitro.git
+  Cloning into 'mitro'...
+  remote: Counting objects: 5516, done.
+  remote: Total 5516 (delta 0), reused 0 (delta 0)
+  Receiving objects: 100% (5516/5516), 65.85 MiB | 640 KiB/s, done.
+  Resolving deltas: 100% (1049/1049), done.
+</code></pre>
+<p>Prepare postgresql database</p>
+<pre><code>mitro@mitro-server:/srv/mitro/mitro-core$ mkdir -p /srv/mitro/mitro-core/build/postgres
+mitro@mitro-server:/srv/mitro/mitro-core$ initdb --pgdata=/srv/mitro/mitro-core/build/postgres -E 'UTF-8' --lc-collate='en_US.UTF-8' --lc-ctype='en_US.UTF-8'
+</code></pre>
+<p>Start postgresql daemon and create the database</p>
+<pre><code>mitro@mitro-server:/srv/mitro/mitro-core$ pg_ctl -D /srv/mitro/mitro-core/build/postgres -l logfile start
+mitro@mitro-server:/srv/mitro/mitro-core$ createdb -O mitro mitro
+</code></pre>
+<p>Check if postgresql is running properly</p>
+<pre><code>netstat -antp |grep &quot;postgres&quot;
+tcp        0      0 127.0.0.1:5432          0.0.0.0:*               LISTEN      7061/postgres
+tcp6       0      0 ::1:5432                :::*                    LISTEN      7061/postgres
+</code></pre>
+<p><strong>Installing and configuring the server</strong><br><br>
+We only need the server files, which reside in mitro-core. Make sure that the right permissions are set and switch back to mitro before creating the database and running <code>ant test</code>.</p>
+<pre><code>#To avoid this, change at beginning of blogpost...
+admin@mitro-server:/srv/mitro$ sudo mv ./mitro/mitro-core .
+admin@mitro-server:/srv/mitro$ cd ../
+admin@mitro-server:/srv$ sudo chown -R mitro:mitro mitro/
+admin@mitro-server:/srv$ sudo su - mitro
+
+
+mitro@mitro-server:~$ cd /srv/mitro/mitro-core/
+mitro@mitro-server:/srv/mitro/mitro-core$ ant test
+  [...]
+  BUILD SUCCESSFUL
+  Total time: 50 seconds
+</code></pre>
+<p>If you find this during the test run, don't worry. We'll take care of this later.</p>
+<pre><code>[junit] WARN  [2014-09-20 07:50:22,425Z] co.mitro.core.server.Manager: Not creating constraint groups_name_scope: DB is not Postgres
+[junit] WARN  [2014-09-20 07:50:22,425Z] co.mitro.core.server.Manager: Not creating constraint group_secret_svs_group: DB is not Postgres
+[junit] ERROR [2014-09-20 07:50:22,463Z] co.mitro.access.servlets.ManageAccessEmailer: missing or invalid email: null
+</code></pre>
+<p>I'm actually not quite sure if the build script is really neede after going through all these steps manually.</p>
+<pre><code># you don't need it - the script is trash...
+mitro@mitro-server:/srv/mitro/mitro-core$ ./build.sh
+</code></pre>
+<p>To run the server, just type the following:</p>
+<pre><code>mitro@mitro-server:/srv/mitro/mitro-core$ ant server
+</code></pre>
+<p>I suggest you only run the server this way for testing purposes. If you want the server to run in the background, login as admin and type</p>
+<pre><code>admin@mitro-server:/srv/mitro/mitro-core$ screen -S mitro-server
+admin@mitro-server:/srv/mitro/mitro-core$ su - mitro
+mitro@mitro-server:~$ cd /srv/mitro/mitro-core/
+mitro@mitro-server:/srv/mitro/mitro-core$ ant server &gt; server_run.log 2&gt;&amp;1
+[CTRL]+[A] [D]
+admin@mitro-server:/srv/mitro/mitro-core$ tail -f server_run.log
+[...]
+[CTRL]+[C]
+</code></pre>
+<p>If you've made it this far, then mitro server is running. You can verify this by visiting this url: <a href="https://yourmitroserver:8443/mitro-core/api/BuildMetadata">https://yourmitroserver:8443/mitro-core/api/BuildMetadata</a></p>
+<p><img src="../content/images/2014/Sep/yammer_is_dead1.png" alt=""></p>
+<h1 id="debugging">Debugging:</h1>
+<p>I have added everything I found in the blogpost above so you shouldn't run into these problems, however if you do this might help you! Unfortunately I have forgotten to document most of the error messages, so I'll add the here in case I run into them again.</p>
+<p><strong>Error message:</strong></p>
+<pre><code>mitro@mitro-server:/srv/mitro/mitro-core$ ant server
+Buildfile: /srv/mitro/mitro-core/build.xml
+compile:
+jar:
+     [exec] Result: 128
+[propertyfile] Updating property file: /srv/mitro/mitro-core/build/java/src/build.properties
+     [exec] shutil.rmtree(tempdir)
+     [exec] Traceback (most recent call last):
+     [exec]   File &quot;tools/jarpackager.py&quot;, line 109, in &lt;module&gt;
+     [exec]     main()
+     [exec]   File &quot;tools/jarpackager.py&quot;, line 92, in main
+     [exec]     unpack_jar(path, tempdir)
+     [exec]   File &quot;tools/jarpackager.py&quot;, line 29, in unpack_jar
+     [exec]     process = subprocess.Popen(args)
+     [exec]   File &quot;/usr/lib/python2.7/subprocess.py&quot;, line 679, in __init__
+     [exec]     errread, errwrite)
+     [exec]   File &quot;/usr/lib/python2.7/subprocess.py&quot;, line 1259, in _execute_child
+     [exec]     raise child_exception
+     [exec] OSError: [Errno 2] No such file or directory
+     [exec] Result: 1
+     [echo] Built build/mitrocore.jar
+</code></pre>
+<p><strong>Solution:</strong></p>
+<pre><code>sudo apt-get install unzip
+</code></pre>
+<hr>
+**Error message:**
+<pre><code>mitro@debian:~$ pg_ctl -D /srv/mitro/mitro-core/build/postgres start
+pg_ctl: another server might be running; trying to start server anyway
+server starting
+mitro@debian:~$ FATAL:  lock file &quot;postmaster.pid&quot; already exists
+HINT:  Is another postmaster (PID 3468) running in data directory &quot;/srv/mitro/mitro-core/build/postgres&quot;?
+</code></pre>
+<p><strong>Solution:</strong></p>
+<pre><code>[*] If you can't see postgres running, you need to kill the old process first
+ [-] root: killall -9 postgres
+ [-] root: rm /srv/mitro/mitro-core/build/postgres/postmaster.pid
+</code></pre>
+<!--kg-card-end: markdown--><!--kg-card-end: markdown-->
+	</p>
+        </section>
+
+<br>
+<hr>
+<br>
+	<!-- START DISQUS IMPLEMENTATION -->
+        <script src="/assets/js/disqus.js?v=8ff1f2e80d></script>
+        <div id="disqus_thread"></div>
+        <!--<div class="post_disqus show-comments" title="Privacy: Click to enable Disqus (uses cookies!)"><b>Enable Disqus</b></div>
+	END DISQUS IMPLEMENTATION -->
+</article>
+
+
+		</div>
+
+		<!-- SIDEBAR -->
+		<div class="side_container">
+
+			<div class="side_sub_one well">
+				<b>Note</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>All information provided on this site is for educational purposes only. The site and it's author is in no way responsible for any misuse of the information.</p>
+			</div>
+			<div class="side_sub_one well">
+				<b>Links</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="../random-notes/index.html">Random Notes and CheatSheets</a><br>
+				<hr>
+				<a href="http://learnpythonthehardway.org/book/">Python the hard way</a><br>
+				<a href="http://cspplayground.com">CSP Playground</a><br>
+				<a href="http://www.offensive-security.com/metasploit-unleashed/Main_Page">Metasploit Unleashed</a><br>
+				<hr>
+				<a href="https://www.linkedin.com/profile/view?id=203397467">Me - LinkedIn</a><br>
+				<a href="https://ctftime.org/team/9072">Me - CTFTime.org</a><br>
+				</p>
+			</div>		
+			<div class="side_sub_one well">
+				<b>Blogs</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="http://wearetheartillery.blogspot.com.es/">WeAreTheArtillery</a><br>
+				<a href="https://www.imperialviolet.org">Imperial Violet</a><br>
+				<a href="http://www.nerd-supreme.de">NerdSupreme (DE)</a><br>
+				<a href="http://krebsonsecurity.com/">KrebsOnSecurity</a><br>
+				<a href="https://www.corelan.be/">Corelan Team</a><br>
+				<a href="http://blog.g0tmi1k.com/">G0tmi1k</a><br>
+				</p>
+			</div>		
+			<div class="side_sub_one well">
+				<b>Reddits</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="http://www.reddit.com/r/netsec/">/r/netsec</a><br>
+				<a href="http://www.reddit.com/r/Python/">/r/Python</a><br>
+				<a href="http://www.reddit.com/r/Defcon/">/r/Defcon</a><br>
+				<a href="http://www.reddit.com/r/securityCTF/">/r/securityCTF</a><br>
+				<a href="index.html"></a><br>
+				</p>
+			</div>		
+		</div>
+	</div> <!-- End of Sidebar -->
+</div>
+	<div class="footer">
+	<div class=navline></div>
+		HashtagSecurity<br><small>... keeping security in mind.<br><a href="../impressum">Impressum</a> | <a href="../datenschutzerklarung">Datenschutzerklärung</a> | <a href="../privacy-policy">Privacy Policy</a></small>
+	</div>
+</body>
+</html>

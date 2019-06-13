@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HashtagSecurity</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="wot-verification" content="06cd687a47e37736daed"/> 
+    <link rel="stylesheet" type="text/css" href="../assets/css/mofirst-min.css?v=8ff1f2e80d"/>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script> <!-- disqus loader needs latest jquery -->
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="HashtagSecurity" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Getting Started with Kali Linux" />
+    <meta property="og:description" content="After reviewing the book Instant Kali Linux, I thought why not give it a try and actually do the things better I nagged about. Well, for one thing it&#x27;s a lot of work and I try not to start projects that are way too demanding and end up never finishing" />
+    <meta property="og:url" content="fredericmohr.github.io/ghostblog/getting-started-with-kali-linux/" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Getting Started with Kali Linux" />
+    <meta name="twitter:description" content="After reviewing the book Instant Kali Linux, I thought why not give it a try and actually do the things better I nagged about. Well, for one thing it&#x27;s a lot of work and I try not to start projects that are way too demanding and end up never finishing" />
+    <meta name="twitter:url" content="fredericmohr.github.io/ghostblog/getting-started-with-kali-linux/" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Frederic Mohr" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "HashtagSecurity",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "fredericmohr.github.io/ghostblog/content/images/2014/Oct/tw-logo_400x400-1.png",
+            "width": 60,
+            "height": 60
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Frederic Mohr",
+        "sameAs": []
+    },
+    "headline": "Getting Started with Kali Linux",
+    "url": "fredericmohr.github.io/ghostblog/getting-started-with-kali-linux/",
+    "description": "After reviewing the book Instant Kali Linux, I thought why not give it a try and actually do the things better I nagged about. Well, for one thing it&#x27;s a lot of work and I try not to start projects that are way too demanding and end up never finishing",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "fredericmohr.github.io/ghostblog/"
+    }
+}
+    </script>
+
+    <script src="../public/ghost-sdk.min.js?v=8ff1f2e80d"></script>
+<script>
+ghost.init({
+	clientId: "ghost-frontend",
+	clientSecret: "5a567477c5aa"
+});
+</script>
+    <meta name="generator" content="Ghost 2.23" />
+    <link rel="alternate" type="application/rss+xml" title="HashtagSecurity" href="../rss/index.html" />
+</head>
+<body>
+<!--NAVIGATION-->
+<div class="nav_bar">
+	<div class="nav_container">	
+		<ul class="nav">
+			<li id="nav-index"><a href="../index.html" class="icon-home"></a></li>
+			<li id="nav-kalibook"><a href="index.html" class="icon-book"></a></li>
+			<li id="nav-about"><a href="../about/index.html" class="icon-info"></a></li>
+		</ul>
+
+		<!-- Follow Me -->
+		<div class="follow_me">
+			<a href="https://twitter.com/HashtagSecurity" title="Twitter"><img alt="twitter" src="../assets/images/twi.png?v=8ff1f2e80d"></a>
+			<a href="https://www.hashtagsecurity.com/rss" title="RSS"><img alt="rss" src="../assets/images/rss.png?v=8ff1f2e80d"></a>
+		</div>
+	</div>
+</div>
+<div class="navline"></div>
+<!-- End Header -->
+<div class="outer_container">
+	<!-- PAGE -->
+	<div class="page_container">
+		<!-- CONTENT -->
+		<div class="post_container">
+			    <article class="post page">
+
+
+        <h1 class="post-title">Getting Started with Kali Linux</h1>
+		<span class="post-meta"><a href="http://de.linkedin.com/in/fredericmohr"><b>Frederic Mohr</b></a> - <time datetime="2013-11-17">17 Nov 2013</time> </span>
+
+        <section class="post-content">
+            <!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p>After <a href="http://www.hashtagsecurity.com/book-review-instant-kali-linux/">reviewing the book Instant Kali Linux</a>, I thought why not give it a try and actually do the things better I nagged about. Well, for one thing it's a lot of work and I try not to start projects that are way too demanding and end up never finishing them.</p>
+<p>But maybe it's time for just such a project and who knows, maybe I'll even finish it. In any case, you can read along while the book developes and hopefully give some feedback.</p>
+<p><strong>Disclaimer:</strong> All the information provided on this document is for educational purposes only. The site and it's author is in no way responsible for any misuse of the information.</p>
+<p>I will continue writing this book whenever I find time to. This book comes free of charge but without any warranty or promises :).</p>
+<p><a NAME=topics><b>Topics:</b></a></p>
+<ol>
+<li><b><a href="index.html#intro">Introduction to Kali Linux</a></li>
+</ol>
+<ul>
+<li><a href="index.html#install">Installation Guide</a></b>
+<ul>
+<li><a href="index.html#vboxinst">Installing Kali in Virtualbox</a></li>
+<li><a href="index.html#notesvmware">Notes on VMware Workstation</a></li>
+<li><a href="index.html#tool4task">Install Virtualbox GuestAdditions</a></li>
+<li><a href="index.html#tool4task">Configuring and updating the system</a></li>
+</ul>
+</li>
+<li><b><a href="index.html#kaligui">Getting started with the GUI</a></b>
+<ul>
+<li><a href="index.html#tool4task">Menu overview and standard tools</a></li>
+</ul>
+</li>
+<li><b><a href="index.html#bash">The Bourne Again Shell</a></b>
+<ul>
+<li><a href="index.html#filesystem">Filesystems work different in Linux </a></li>
+<li><a href="index.html#fhscompliant">What is FHS and how does it help me?</a></li>
+<li><a href="index.html#bashrc">Tweaking the bash with .bashrc </a></li>
+<li><a href="index.html#manpage">Introducing: manpages and --help</a></li>
+<li><a href="index.html#apt-get">Using apt-get to manage software packages</a></li>
+</ul>
+</li>
+<li><b><a href="index.html#infogath">Information Gathering</a></b></li>
+<li><b><a href="index.html#tbc">To be continued...</a></b></li>
+</ul>
+<p>It is hard for me to decide how far I should go into detail on a single tool. I try to explain everything, that I think starters should now and add links to further ressources as the book evolves. If you miss any information or want to share a link you think might be of value to the readers, please contact me at <a href="mailto:admin@mohrphium.com">admin@mohrphium.com</a>.<br>
+<br></p>
+<h3><a NAME=intro>Introduction to Kali Linux</a></b>
+<span style="font-size:medium;"><a href="index.html#topics" style="float: right;">Back to Index</a></span></h3>
+<p>For those of you that don't know what Linux is, this book might be the wrong source to get started. I'm not saying that you shouldn't read this book, but there are better guides on getting started with Linux. Since I hate it when a book suggests, that I should read another book before I can get started reading about what interests me, I will give a quick introduction to Linux as well.</p>
+<p>If you already know how Linux works and spent your fair share of time on a console, you can skip to chapter 5. If you just saw a picture of your favourite gaming console flash before your inner eye, you might want to keep reading.</p>
+<p>A Linux distribution such as Debian, is based on the Linux kernel. A distribution is basically a collection of tools that form an OS. Many distros are built for a specific purpose, there are the ones trying to give users the best out-of-the-box experience, the ones that let you do everything manually, the ones that are focused on providing stable packages, or the ones providing the most on the edge, up to date packages, and of course the ones that provide very specific purpose such as distros that are used as firewalls, intrusion detection systems and so on.</p>
+<p>Kali is a Linux distribution, but instead of being made from scratch, it is based on the Debian distribution. This allows its maintainers (the guys over at offsec.com) to focus on the huge collection of already installed tools that are useful for penetration testers, exploit developers and almost anyone who's into IT security. Even if you're working as an system administrator, many of these tools can come in handy.</p>
+<p>If you need information on Kali Linux and you don't find it here, you should try the <a href="http://docs.kali.org/">official documentation</a>.</p>
+<br>
+<h3><a NAME=install>Installation Guide</a>
+<span style="font-size:medium;"><a href="index.html#topics" style="float: right;">Back to Index</a></span></h3>
+<p>So how do you get Kali Linux? First of, you need to download the .iso image from <a href="http://www.kali.org/downloads/">kali.org</a>. Do yourself a favor and download the image via torrent, it's much faster that the regular download.</p>
+<p>In this book, I will be working in a Kali Linux VM running in <a href="https://www.virtualbox.org/wiki/Downloads">Virtualbox</a>, because it's free, cross platform and has everything we need. If you prefer VMware Workstation or any other virtualisation or even want to install it directly on your hardware go ahead. The later has of course the benefit of having direct access to GPU and CPU, which comes in handy if you want to crack passwords.</p>
+<p><b><a NAME=vboxinst>Installing Kali in Virtualbox</a><a href="index.html#topics"></a></b></p>
+<p>I will not go through the process of installing Virtualbox itself, and I won't show a picture for every step.</p>
+<p>If you have a second HDD available, (not partition, an internal physical harddrive or esata/USB3) you can put your vms virtual disk on this disk, which improves the overall performance. To do that, go to</p>
+<p>Start Virtualbox and click on &quot;New&quot; to create a new virtual machine. Enter a name for your vm and choose Linux as type and &quot;Debian (64 bit)&quot; as version. I personally like to set my vms RAM to 2048MB, but you can work with 1024MB if you don't have enough memory.</p>
+<p>Create a new virtual disk and choose the VDI format. I normally use Dynamically allocated, which takes only the space on your disk the vm really needs. If you have enough space you might want to choose Fixed size, which takes longer to create to since it allocates the whole disk size but it's also boosts the vms performance.<br>
+The disk should at least have 12GB of space, but I like to create 50GB disks. That way I usually don't run out of space - there is nothing more annoying than running out of disk space while working on something.</p>
+<p>When you're done, start the vm. Virtualbox will asked you for a DVD drive or .iso file to boot from since the hdd is still empty. Click on the small folder sign to browse through your file system and select the kali linux image you have downloaded earlier. You should be presented with a boot menu. Select the Graphical Install entry. If you want to leave the window, press the right [CTRL] key on your keyboard.</p>
+<p>The graphical installation should be self-explanatory. If you speak english (which you probably do since you're reading this) choose english and en_US.UTF-8 for language and locales. It makes your life a lot easier in my experience.</p>
+<p>Wait for the setup to load everything, then choose a hostname for your vm, enter your domain name (if you have one) and set a root password.<br>
+Choose the entry &quot;Guided - use entire disk&quot;, select the previously created virtual hdd and install &quot;All files in one partition&quot;. After that, you'll be shown a summary of your disk partitioning which you can accept by clicking continue. At &quot;Write changes to disk?&quot; select Yes and move on.</p>
+<p>Answer the following questions like I did.<br>
+&quot;Use a network mirror?&quot; Yes.<br>
+&quot;HTTP proxy information&quot; leave blank.<br>
+&quot;Install the GRUB bootloader to the master boot record?&quot; Yes.</p>
+<p>Wait for Kali to reboot after installation and boot your new OS. Virtualbox will automatically boot from your hdd instead of the .iso.</p>
+<p><br><b><a NAME=notesvmware>Notes on VMware Workstation</a><br></b><br>
+If you want use the preinstalled image (which isn't available from kali.org anymore) of Kali in VMware Workstation 8 or lower, you need to edit the .vmx and change the following line</p>
+<pre><code>virtualHW.version = &quot;9&quot;
+</code></pre>
+<p>to your version of Workstation.</p>
+<p>Also, if you use the preinstalled image, make sure you change the default login credentials (root/toor). For those new to linux, if you enter your new password you won't get any visual feedback - the advice is not to put in a blank password!</p>
+<pre><code>root@kali:~# passwd root
+Enter new UNIX password:
+Retype new UNIX password:
+passwd: password updated successfully
+</code></pre>
+<p><br><b><a NAME=guestadd>Install Virtualbox GuestAdditions</a></b><br><br>
+The VBox GuestAdditions make your life much easier and therefore should be installed. To do so, login to Kali and open up a terminal by clicking on the black box with the &gt; sign in it on the top bar.</p>
+<p>A terminal windows should open, which shows you the following promt.</p>
+<pre><code>root@kali:~# 
+</code></pre>
+<p>This prompt tells you everything you need to know about your user in the terminal. Root is the user you are executing programs as, @kali indicates the host which you are currently on. This can change if you connect to other hosts, for example using ssh. After : comes the path of your current location, where ~ stand for your home folder. The root user has it's home in /root/, other users normally have their home folders in /home/username/. Lastly, # indicates that you are an administrative user, otherwise there would be a $ instead.</p>
+<p>No that you know what the prompt means, enter the following commands to install the Virtualbox GuestAdditions.</p>
+<pre><code>root@kali:~# apt-get install virtualbox-guest-additions virtualbox-guest-dkms -y
+root@kali:~# reboot
+</code></pre>
+<p>From now on, whenever you see a prompt like this you are expected to run a command on the terminal in the context of the specified user.</p>
+<p><br><b><a NAME=sysconf>Configuring and updating the system</a></b><br><br>
+A lot of tools in Kali need root permissions, which is the ultimate system administrator. Root is allowed to do everything on your Linux machine, which is why you shouldn't run everything as root. I always create a normal user in Kali, in this case called hashtagsecurity. This allowes me to run programs like firefox or chrome as normal user.</p>
+<pre><code>root@kali:~# adduser hashtagsecurity
+</code></pre>
+<p>You don't have to fill out the information, but make sure to set a password.<br>
+Now logout (click root in the upper right corner) and login as your newly created user.<br>
+To run commands as root, you can either open a terminal and enter</p>
+<pre><code>su
+</code></pre>
+<p>Which will ask you for your root password, or open the root terminal at &quot;Applications -&gt; Accessories -&gt; Root Terminal (Red Logo)&quot;.</p>
+<p>Last but not least, you need to update Kali. This is something you should regularly do, so you don't miss new features.</p>
+<pre><code>root@kali:~# apt-get update
+root@kali:~# apt-get upgrade
+</code></pre>
+<p>Apt-get is the package manager used to install, search, remove and upgrade packages. With <code>apt-get update</code> you can check for new updates and with <code>apt-get upgrade</code> you can install them.</p>
+<br>
+<h3><a NAME=kaligui>Getting started with the GUI</a>
+<span style="font-size:medium;"><a href="index.html#topics" style="float: right;">Back to Index</a></span></h3>
+<p>By default, the graphical user interface should look like this.</p>
+<p><img src="../content/images/2013/Nov/kali01-1.png" alt=""></p>
+<p>If you have installed the GuestAdditions you can jump into fullscreen mode by pressing the right [CTRL]+[F] keys.</p>
+<p>Unlike Windows, Kali Linux has two systembars. The one on the bottom contains open programs and the switcher applet in the right corner to change between multiple virtual desktops. At the topbar you can see from left to right the Applications and Places menus, as well as a few shortcuts to iceweasel (firefox), the commandline, a calendar widget, sound options, remote connections (RDP) and user settings.</p>
+<p>If you want to change system settings take a look at places, otherwise we will focus on the Applications menu, specifically the Kali Linux submenu, which provides us with most of the on board security tools sorted in categories.</p>
+<p><img src="../content/images/2013/Nov/kali02.png" alt=""></p>
+<p>Among a few others, the categories listed in this menu entry will also be the topics of the coming chapters.</p>
+<p><b><a NAME=tool4task>Menu overview and standard tools</a></b><br>
+Here is a quick introduction to the most tools you can find in the menu outside the &quot;Kali Linux&quot; submenu.</p>
+<p>One important thing about Kali is, that you can open any program  with [ALT]+[F2], if you know its name. So if you already know what program to run, don't bother clicking through the menu.</p>
+<p><strong>Chat:</strong><br><br>
+<code>Applications -&gt; Internet -&gt; Empathy</code><br><br>
+Empathy is a chat program that supports the following protocols<br>
+Jabber, Facebook, Google, AIM, gadugadu, GroupWise, ICQ, IRC, MSN, mxit, myspace, sametime, Yahoo, zephyr</p>
+<p><strong>Browser:</strong> <br><br>
+<code>Applications -&gt; Internet -&gt; Iceweasel</code><br><br>
+Iceweasel, the Debian version of Firefox is installed by default. If you need Chromium (the Linux version of Google Chrome), you can install it with</p>
+<pre><code>root@kali:~# apt-get install chromium-browser
+</code></pre>
+<p>and start it from <code>Applications -&gt; Internet -&gt; Chromium</code>.</p>
+<p>Note that Chromium will not run under root unless you change some bytes in the executable binary. It's easier to use a normal user for everyday tasks and a root shell for those who need administrative privileges.</p>
+<p><strong>Documentation:</strong> <br><br>
+<code>Applications -&gt; Accessories -&gt; Zim Desktop Wiki</code><br><br>
+There are different ways to keep notes and document your process while working in Kali. My personal favourite is Zim Desktop Wiki, which with I do all my documentation. It is, as the name suggests, a typical wiki with markup functionality only that it runs as a desktop application.<br>
+I won't go into detail about Zim, because it's pretty self-explanatory.</p>
+<p>Other tools on board are the notebook KeepNote, as well as the typical text editors like LeafPad and GVIM. A sidenote on the later - if you don't know VIM, which is the same as GVIM but for commandline (cli), you should absolutely try it!</p>
+<p><code>Applications -&gt; Office -&gt; KeepNote</code><br><br>
+<code>Applications -&gt; Accessories -&gt; LeafPad</code><br><br>
+<code>Applications -&gt; Accessories -&gt; GVim</code><br></p>
+<p>VIM works very differently than your normal editor but it's a very powerful cli editor. What you should know is that VIM operates in modes. You can leave any mode with the [ESC] key and enter them with their shortcuts. In [v]isual mode you can select text, which can than be used in VIM commands. The most important mode is [i]nsert, which lets you insert and edit text.</p>
+<p>Here is a list of the most important VIM commands (leave any modes first with [ESC])</p>
+<pre><code>To save the file enter
+:w
+To quit enter
+:q
+To quit without saving
+:q!
+To quit with saving
+:wq
+To save and force overwrite
+:w!
+Search in file
+/searchterm
+Search and replace all
+:%s/search/replace/g
+</code></pre>
+<p>VIM has a lot of features (just search for VIM cheatsheets), but this should help you get started. It is important to know how to work with a commandline editor if you don't wanna be stuck at some point. Many servers don't have a graphical interfaces installed, which leaves you only with commandline tools.</p>
+<p>If you need a plain PDF reader, Evince is already installed.<br>
+<code>Applications -&gt; Office -&gt; Document Viewer</code><br></p>
+<p><strong>Programing:</strong><br><br>
+There are a few tools for programmers already installed. If you want to quickly write a script or small program in python, this will probably help you.</p>
+<p>Under <code>Applications -&gt; Programming</code>, you can see the tools PyCrust, XRCED, GRC and the ArduinoIDE.</p>
+<p>PyCrust is an interactive python shell, and not an IDE. It is good to try out python snippets, but if you want to program in python you should try PyAlaMode which you can start from the commandline or [ALT]+[F2] by running pyalamode. If you want to create a GUI for your python program, you can use XRCed, which is a GUI editor for wxPython GUI design. XRCed uses XRC, which is a XML-based interface markup language used by wxWidgets.</p>
+<p>The ArduinoIDE is the integrated development environment (IDE) for the <a href="http://www.arduino.cc/">Arduino</a> hardware board.</p>
+<p>GRC is the GNU Radio Companion, and a graphical user interface to develop GNU Radio applications. GNU Radio is a software library that you can use to develop complete applications for radio engineering and signal processing.</p>
+<p><strong>Next up</strong><br><br>
+That ends our quick tour through the main menu and the standard tools you might use. Let's get familiar with the commandline, which in this case is the Bourne Again Shell (bash). Once you know your way around the bash, we will get started on the differen tools Kali has to offer.</p>
+<p>But first, since you will be needing terminals a lot it's best to keep a shortcut in the upper system bar of both, the normal and the root terminal. A shortcut of the default terminal should already be in the bar. To get the root terminal there as well, browse to Applications -&gt; Accessories and drag/drop the entry &quot;Root Terminal&quot; with the red terminal icon to the bar.</p>
+<p>To delete or edit a shortcut icon, you have to press [Super]+[ALT]+[RMB]. This brings up the context menu from which you can choose “edit” or “delete. This combination also works on the top and bottom panels. (If you have problems, try [Alt]+[RMB] instead.)</p>
+<p>To make things clear, in Linux the &quot;Super&quot; Key is the one with the Windows logo. And just in case you don't know, RMB = Right Mouse Button.</p>
+<br>
+<h3><a NAME=bash>Working with a terminal</a>
+<span style="font-size:medium;"><a href="index.html#topics" style="float: right;">Back to Index</a></span></h3>
+<p>There are many shells you can choose from and as for so many things in Linux, the choice is completely yours. The Bourne Again Shell, or bash for short is the default shell in Debian and Kali Linux. I won't go into the history but will go directly into how to work with it. If you want to read up on it, take a look at the <a href="https://en.wikipedia.org/wiki/Bash_%28Unix_shell%29">wikipedia article</a>.</p>
+<p>During the Installation Guide, we already used the terminal and thus the bash. The bash is located at /usr/bin/bash, which is a path in the filesystem. If you come from Windows, some of this stuff may be new to you, so here's a short introduction.</p>
+<p><b><a NAME=filesystem>Filesystems work different in Linux</a></b><br>
+Windows uses file paths like <code>C:\Programs\Company\AwesomeTool\awesometool.exe</code>, while Linux uses<br>
+<code>/usr/bin/bash</code>.</p>
+<p>In Windows, executable files are usually marked as .exe files. In Linux you can execute any file if it has the executive bit set. Therefore, you don't necessarely need a file ending. You could rename the bash executable to bash.linux or even bash.windows and you would still be able to start it  - though it would mess up your system if bash can't be found.</p>
+<p>The biggest differences for newcomers are that Linux uses <code>/</code> instead of <code>\</code> in file paths and that there are no drive letters like <code>C:\</code> or <code>D:\</code>.<br>
+Drives are mounted to file paths, which means that you open drives just like you open any folder. The <code>C:\</code> drive is equal to <code>/</code> which is also known as the root directoy. The root directory is, as the name suggests the root of all paths and the highest object in file path hierarchy. Don't get confused by <code>/root/</code>, which is the home folder for the user &quot;root.</p>
+<p>The root user is the most powerfull administrative user Linux has to offer, so executing commands as root should always go hand in hand with the &quot;think before fire&quot; rule.</p>
+<p>A nice example for this is the ever so famous <code>rm -rf /*</code> command, which deletes every file on your harddrive and leaves you with an system that defines the word &quot;destroyed&quot;.<br>
+The <code>rm</code>, or remove command is used to delete files, the <code>-rf</code> switches stand for recursive and force, which tells rm to delete files as well as folders that hold further files or folders. The last part <code>/*</code> states, that rm should delete every (*) file/folder in the root directory. As you can see, using root to execute commands can be the last command you execute on this system. That is why you have to make sure you understand every command you enter (especially when it comes to copy/paste commands someone posted in the web).</p>
+<p>Further partitions are usually mounted in the /media/ folder. The drives are listed under /dev/sdXY, where /dev/ is the path containing all devices, sd equals sata drive, X stands for the drive identifier (a-z) and Y is the partition number. So your system partition is usually /dev/sda1, sda being the disk and sda1 the first partition on it. These are just mappings though, the real identifier (if you ever have problems) can be found by entering the following command:<br>
+<code>ls -lah /dev/disk/by-uuid/</code><br><br>
+This command lists (ls -lah) the mapping of /dev/sdXY to the disk UUID (Universal unique identifier).</p>
+<p>If you need more information about your harddrive, try<br>
+<code>fdisk -l</code> or <code>fdisk -l /dev/sdXY</code><br><br>
+This gives you more information about all or a specified drive. <code>-l</code> stands for list, so you can't break anything with this command (it still needs root though), but be careful with fdisk. It is used to format and partition disks (among other functions).</p>
+<p>If you use <code>fdisk -l</code>, you might notice that your system partition is not NTFS but most likely Ext3. Ext is a Linux filesystem, (yes a, not the - there are many). Once again, you have the choice which Filesystem you want to use, but this is way out of the scope of this book. The only thing you need to know right now is that FAT16/FAT32 (used by USB thumbdrives) and NTFS (used by Windows) is supported by Linux, Ext filesystems however are not supported by Windows. So when using Linux you can move files between your Windows and Linux partitions, but not when your running Windows.</p>
+<p><b><a NAME=fhscompliant>What is FHS and how does it help me?</a></b></p>
+<p>Now that you know a bit more about the Linux filesystem and how drives are handled, there is one more thing you might wanna know. Before Kali was released, the distribution was known under the name BackTrack. It included all the great tools hackers and security experts needed to do their thing, but there was the problem of keeping these tools sorted.<br>
+If a new tool was added, there was the question in which folder this tool shoud go and the different categories where located in the /pentest/ folder.</p>
+<p>With Kali Linux, the guys at Offsec decided to switch to FHS, which stands for File Hierarchy Standard and represents a definition, where tools should be located. For people that where used to the /pentest/ folder, this was a bit uncomfortable, since you can't just browse through the folder anymore to find cool new tools.</p>
+<p>The benefit of working with FHS however, is that you can call any tools from any location in the terminal. Before you had to be in the folder of e.g. the web scanner Nikto, to be able to start Nikto. Now you can fire it up no matter where you currently are.</p>
+<p>If you need a source to browse through all the tools offered by Kali (the menu has only a small percentage of the tools that are available), try this.</p>
+<pre><code>dpkg -l |grep -v &quot;firmware\|ii  lib\|ii  gir1\|ii  gnome-\|ii  python\|ii  xserver-xorg-\|ii  x11\|ii  xserver\|ii  ruby&quot;|grep &quot;^ii&quot;
+</code></pre>
+<p><b><a NAME=bashrc>Tweaking the bash with .bashrc</a></b><br>
+If you don't want to type all that every time you need a list, either add <code>&gt; myprogramlist</code> to the end, to save it in the file myprogramlist or add the following string to the <code>alias</code> section in the file <code>~/.bashrc</code>. (It's one line!)</p>
+<pre><code>alias listapps='dpkg -l |grep -v &quot;firmware\|ii  lib\|ii  gir1\|ii  gnome-\|ii  python\|ii  xserver-xorg-\|ii  x11\|ii  xserver\|ii  ruby&quot;|grep &quot;^ii&quot;'
+</code></pre>
+<p>Speaking of <code>~/.bashrc</code>, there are two things in this file path we haven't discussed yet. The <code>~</code> which stands for your home directory, so <code>/home/hashtagsecurity/</code> in my case, or <code>/root/</code> if you work as root user (it's best to edit both files by the way) and the dot in front of <code>.bashrc</code>. The dot is the universal sign that the file is normaly a hidden file, so you won't see it if you type <code>ls</code> (list) in your terminal. Fortunately ls has a few options, like<br>
+<code>ls -1</code> which lists every item in a new line (good for scripts), <br><br>
+<code>ls -lh</code> where the additional l gives you more information and the h makes sure it is in a human readable output (so filesizes in KB or MB instead ob bytes) and of course (among many more)<br>
+<code>ls -a</code> which show you all files as long as you have sufficient permissions to see them. These options can be combined to your liking, for example<br><br>
+<code>ls -lhatr</code> gives you all files (a) with additional information (l) in a human readable form (h), sorted by timestamp (t) but reverse (r), so that the newest file is listed on the bottom. <br><br>
+As with the <code>listapps</code> alias, you can define your own aliases to make your life easier, e.g. <br><code>alias la='ls -lhatr'</code>.<br> Then you only have to type la instead of ls -lhatr to get all the above mentioned function. There is always a shortcut in Linux.</p>
+<p>To load changes made to <code>~/.bashrc</code> either close and reopen your terminal, or simply enter <code>source ~/.bashrc</code> to reload it.</p>
+<p><b><a NAME=manpage>Introducing: manpages and --help</a></b></p>
+<p>Now that you have seen, how commands work in general - <code>command -switch</code>, we should take the help switch and manpages. The help switch is mostly <code>--help</code>, <code>-h</code> or sometimes <code>-?</code>. If that doesn't work, try them without the dashes. It usually gives you a quick overview on what the program does and what it's main switches are. If you need more information, you should use the <code>man</code> command, which stands for manual. A good example is the <code>mount</code> command.<br>
+Take a look at the different output between<br>
+<code>mount -h</code><br>
+and <code>man mount</code>.<br>
+The later opens the manual in a commandline text viewe. Normally it uses <code>less</code>, which you can try yourself by typing <code>less and-a-text-file-of-your-choice</code><br>
+To exit less, or the manpages just enter <code>q</code>, to search in them enter <code>/searchterm</code>.</p>
+<p><b><a NAME=apt-get>Using apt-get to manage software packages</a></b></p>
+<p>Last but not least, we'll quickly go over the package manager <code>apt-get</code>. There are two package managers already on board (besides dpkg), one is apt-get and the other is aptitude. In this book we will use apt-get since it is the one used in most tutorials.<br>
+Linux doesn't work with .exe files, since those are built for Windows. If you have a linux binary you want to run, you have to make it executable first.</p>
+<p>You can to this by adding the executable bit (as root) with <code>chmod +x file.bin</code><br>
+After that you can start it with <code>./file.bin</code>. Note that the . is in front of the / this time, which stands for the folder you are currently in. Alternatively you could specify the whole path, e.g. <code>/full/path/to/your/file.bin</code></p>
+<p>This however, only works if all the ressources the binary depends on are either already installed or included in the file. If you want to install a new program, it's always better to check the repositories first.</p>
+<p>First, you have to check the repository for updates. This will all available information about packages.<br>
+<code>apt-get update</code><br><br>
+The you can upgrade the whole system (all packages) or a single program with either<br>
+<code>apt-get upgrade</code> or <code>apt-get upgrade programname</code></p>
+<p>If you don't know the exact name of the programs package, you can search for it with<br>
+<code>apt-cache search programname</code><br><br>
+or display information about an package, for example the VLC media player, with<br>
+<code>apt-cache showpkg vlc</code></p>
+<p>This wraps up the introduction to Linux and Kali basics. In the next chapters, we will take a look at the tools Kali has to offer and their different features.</p>
+<p>The following chapters are divided into the same categories, as the tools in Kalis menu. However, I will not use the same order as the menu does, nor will I go into detail on every single tool of the categories. I will try to explain tools along the flow of a possible workflow, meaning I won't start with someting like maintaining access, but rather information gathering and documentation. This way, readers without experience should be able to work through the book without having to jump between chapters.</p>
+<br>
+<h3><a NAME=infogath>Information Gathering</a>
+<span style="font-size:medium;"><a href="index.html#topics" style="float: right;">Back to Index</a></span></h3>
+<p>Before you can start attacking, you need to gather information and before that you need a target. You target can be a host, a website, a person or company and much more.</p>
+<p>The most important thing is that you have a written permission of the targets owner. Never attack or scan a host or website or any other ressource without having a permission to do so. If you do otherwise, you are breaking the law.</p>
+<p>Also note, that some countries have special rules about attacking and scanning host with or without permission in some it's even illegal to download or posess tools that are inteded for these purposes (e.g. most of Kalis tools). This book is no legal guide, so make sure to read up on the laws of your country or the country you are in when performing these actions.</p>
+<p>You also need to make sure, that you are allowed to scan or attack your own servers. Some hosters don't allow scanning from, or servers in their network and it is possible that you violate your agreement.</p>
+<p>Once you have your target, you can apply different techniques of information gathering. If it's a person, you can try to find out the following information.</p>
+<ul>
+<li>Email addresses - most people have more than one. Try private and business mails.</li>
+<li>Profiles in social networks like Facebook, Google Plus, Xing, LinkedIn, MySpace, YouTube, Discussion boards, Q&amp;A sites, etc.</li>
+<li>Real Name, Job, Company, Aliases or Chatprofiles</li>
+<li>Try to find out who are his colleagues, friends, family member, etc. Maybe you can use them to your advantage.</li>
+<li>Anything that might be interesting</li>
+</ul>
+<p>If you found an email address, search for it. It's not uncommon for people to mix their personas on the web. You might find some accounts mapped to that mail address and if you search for these accounts you might find new mail addresses.</p>
+<p>To do all that, you don't need Kali. You just need a browser and an internet connection. But Kali can still help you and make things easier.</p>
+<p>To keep track of all that information, you can use Maltego. Maltego is a tool to create maps of related information. If you search for a person, you create an entry for that person and link every information you find to it. This way you create a network map of all the information you find, which helps you to keep track of your progress and find new connections.</p>
+<h5><a name=maltego>Maltego</a></h5>To start Maltego, hit [ALT]+[F2], type maltego and click on Run. This is the Maltego Community Edition, which is intended for non-commercial use only. Head over to [www.paterva.com](http://www.paterva.com) for a full license and a lot of documentation.
+<p>Once you have started Maltego you will be greeted by a wizard and a login page. There is a register link where you can setup an account. Just click through the wizard and select the example page when you come to the end. This gives you an example of how a map could look like and also a nice set of entities you can use to create your own map. Hit [CTRL]+[T], or click on the sign in the upper left corner and then on New, to create a blank page.</p>
+<p>Start dragging entities into your map and open them with a double click to fill in the information you've gathered. You can select them with a single click and than drag them around, or when deselected, you can create links between entities.</p>
+<p><img src="../content/images/2013/Nov/maltego01.png" alt=""></p>
+<p>To be continued...</p>
+<p><br><br><br><br><br><br><br><br><center></p>
+<div style="text-align: center; width:420px; max-width: 100%;">
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0; width: 88px;" src="http://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">"Getting Started with Kali Linux"</span> is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+<p>Time to give something back :)</p>
+</div></center><br><hr style="opacity: 0.1;">
+<!-- START DISQUS IMPLEMENTATION -->
+<div class="post_disqus" title="Privacy: Click to enable social sharing.">
+<b>Enable Comments!</b>
+</div>
+<!--Load Social Buttons on click-->
+<script>
+$( "div.post_disqus" ).click(function() {
+$("div.post_disqus").load( "/disqus.html" );
+$("div.post_disqus").removeClass("post_disqus");
+});
+</script>
+<!-- END OF DISQUS IMPLEMENTATION --><!--kg-card-end: markdown--><!--kg-card-end: markdown-->
+        </section>
+
+
+</article>
+
+		</div>
+
+		<!-- SIDEBAR -->
+		<div class="side_container">
+
+			<div class="side_sub_one well">
+				<b>Note</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>All information provided on this site is for educational purposes only. The site and it's author is in no way responsible for any misuse of the information.</p>
+			</div>
+			<div class="side_sub_one well">
+				<b>Links</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="../random-notes/index.html">Random Notes and CheatSheets</a><br>
+				<hr>
+				<a href="http://learnpythonthehardway.org/book/">Python the hard way</a><br>
+				<a href="http://cspplayground.com">CSP Playground</a><br>
+				<a href="http://www.offensive-security.com/metasploit-unleashed/Main_Page">Metasploit Unleashed</a><br>
+				<hr>
+				<a href="https://www.linkedin.com/profile/view?id=203397467">Me - LinkedIn</a><br>
+				<a href="https://ctftime.org/team/9072">Me - CTFTime.org</a><br>
+				</p>
+			</div>		
+			<div class="side_sub_one well">
+				<b>Blogs</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="http://wearetheartillery.blogspot.com.es/">WeAreTheArtillery</a><br>
+				<a href="https://www.imperialviolet.org">Imperial Violet</a><br>
+				<a href="http://www.nerd-supreme.de">NerdSupreme (DE)</a><br>
+				<a href="http://krebsonsecurity.com/">KrebsOnSecurity</a><br>
+				<a href="https://www.corelan.be/">Corelan Team</a><br>
+				<a href="http://blog.g0tmi1k.com/">G0tmi1k</a><br>
+				</p>
+			</div>		
+			<div class="side_sub_one well">
+				<b>Reddits</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="http://www.reddit.com/r/netsec/">/r/netsec</a><br>
+				<a href="http://www.reddit.com/r/Python/">/r/Python</a><br>
+				<a href="http://www.reddit.com/r/Defcon/">/r/Defcon</a><br>
+				<a href="http://www.reddit.com/r/securityCTF/">/r/securityCTF</a><br>
+				<a href="index.html"></a><br>
+				</p>
+			</div>		
+		</div>
+	</div> <!-- End of Sidebar -->
+</div>
+	<div class="footer">
+	<div class=navline></div>
+		HashtagSecurity<br><small>... keeping security in mind.<br><a href="../impressum">Impressum</a> | <a href="../datenschutzerklarung">Datenschutzerklärung</a> | <a href="../privacy-policy">Privacy Policy</a></small>
+	</div>
+</body>
+</html>

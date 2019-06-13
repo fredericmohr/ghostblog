@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HashtagSecurity</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="wot-verification" content="06cd687a47e37736daed"/> 
+    <link rel="stylesheet" type="text/css" href="../assets/css/mofirst-min.css?v=8ff1f2e80d"/>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script> <!-- disqus loader needs latest jquery -->
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="HashtagSecurity" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="WBP#2 - SHA256, Flask, Safari, Keybase.io and more..." />
+    <meta property="og:description" content="The Weekly Bucket Post goes into the second round. This week we have wrong sha256 hashes, problems with Safari and amongst other things an invitation to keybase.io! sha256sum creates &amp;quot;wrong&amp;quot; hash - Recently I was wondering, why a SHA256 hash of the string password was listed in" />
+    <meta property="og:url" content="fredericmohr.github.io/ghostblog/wbp2/" />
+    <meta property="article:published_time" content="2015-01-24T16:54:15.000Z" />
+    <meta property="article:modified_time" content="2015-01-29T12:29:56.000Z" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="WBP#2 - SHA256, Flask, Safari, Keybase.io and more..." />
+    <meta name="twitter:description" content="The Weekly Bucket Post goes into the second round. This week we have wrong sha256 hashes, problems with Safari and amongst other things an invitation to keybase.io! sha256sum creates &amp;quot;wrong&amp;quot; hash - Recently I was wondering, why a SHA256 hash of the string password was listed in" />
+    <meta name="twitter:url" content="fredericmohr.github.io/ghostblog/wbp2/" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Frederic Mohr" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "HashtagSecurity",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "fredericmohr.github.io/ghostblog/content/images/2014/Oct/tw-logo_400x400-1.png",
+            "width": 60,
+            "height": 60
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Frederic Mohr",
+        "url": "fredericmohr.github.io/ghostblog/author/frederic/",
+        "sameAs": []
+    },
+    "headline": "WBP#2 - SHA256, Flask, Safari, Keybase.io and more...",
+    "url": "fredericmohr.github.io/ghostblog/wbp2/",
+    "datePublished": "2015-01-24T16:54:15.000Z",
+    "dateModified": "2015-01-29T12:29:56.000Z",
+    "description": "The Weekly Bucket Post goes into the second round. This week we have wrong sha256 hashes, problems with Safari and amongst other things an invitation to keybase.io! sha256sum creates &amp;quot;wrong&amp;quot; hash - Recently I was wondering, why a SHA256 hash of the string password was listed in",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "fredericmohr.github.io/ghostblog/"
+    }
+}
+    </script>
+
+    <script src="../public/ghost-sdk.min.js?v=8ff1f2e80d"></script>
+<script>
+ghost.init({
+	clientId: "ghost-frontend",
+	clientSecret: "5a567477c5aa"
+});
+</script>
+    <meta name="generator" content="Ghost 2.23" />
+    <link rel="alternate" type="application/rss+xml" title="HashtagSecurity" href="../rss/index.html" />
+</head>
+<body>
+<!--NAVIGATION-->
+<div class="nav_bar">
+	<div class="nav_container">	
+		<ul class="nav">
+			<li id="nav-index"><a href="../index.html" class="icon-home"></a></li>
+			<li id="nav-kalibook"><a href="../getting-started-with-kali-linux/index.html" class="icon-book"></a></li>
+			<li id="nav-about"><a href="../about/index.html" class="icon-info"></a></li>
+		</ul>
+
+		<!-- Follow Me -->
+		<div class="follow_me">
+			<a href="https://twitter.com/HashtagSecurity" title="Twitter"><img alt="twitter" src="../assets/images/twi.png?v=8ff1f2e80d"></a>
+			<a href="https://www.hashtagsecurity.com/rss" title="RSS"><img alt="rss" src="../assets/images/rss.png?v=8ff1f2e80d"></a>
+		</div>
+	</div>
+</div>
+<div class="navline"></div>
+<!-- End Header -->
+<div class="outer_container">
+	<!-- PAGE -->
+	<div class="page_container">
+		<!-- CONTENT -->
+		<div class="post_container">
+			    <article class="post">
+
+
+        <h1 class="post-title">WBP#2 - SHA256, Flask, Safari, Keybase.io and more...</h1>
+		<span class="post-meta"><a href="http://de.linkedin.com/in/fredericmohr"><b>Frederic Mohr</b></a> - <time datetime="2015-01-24">24 Jan 2015</time> </span>
+
+        <section class="post-content">
+            <!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="../content/images/2015/01/WBP2.jpg" alt=""><br>
+The Weekly Bucket Post goes into the second round. This week we have wrong sha256 hashes, problems with Safari and amongst other things an invitation to keybase.io!</p>
+<p><strong>sha256sum creates &quot;wrong&quot; hash</strong> - Recently I was wondering, why a SHA256 hash of the string <code>password</code> was listed in neither the <a href="http://hashtoolkit.com/">Hash Toolkit</a> nor the <a href="http://leakdb.abusix.com">LeakDB</a> databases. Surely someone must have used <code>password</code> as password somewhere!?</p>
+<p>Turns out, <code>password</code> is of course in both those databases, what isn't listed though is <code>password\n</code>. The reason I fell into this trap, was because I forgot that the bash command <code>echo</code> always appends a newline unless you call it with the <code>-n</code> switch.</p>
+<pre><code># Same strings
+echo -ne &quot;string\n&quot; | sha256sum
+echo &quot;string&quot; |sha256sum
+
+# what you really want...
+echo -n &quot;string&quot; | sha256sum
+</code></pre>
+<p><strong>Browser Testing</strong> - Oh Safari, now I know why I don't use you... because I can't!<br><br>
+Last week, <a href="https://twitter.com/MikeyJck">@MikeyJck</a> was kind enough to let me know that Apple's Safari browser was asking for a client certificate when browsing on my site. While this is actually something I use on a few pages or subdomains, it should certainly not appear on the frontpage of this blog.</p>
+<p>Since I don't own a Mac, I went looking for ways to (efficiently) test websites with Safari - so far without great results!</p>
+<p>Safari was available for Windows once, but after version 5.1.7 Apple killed it and now it's only available for systems running OSX.</p>
+<p>The alternatives I found are not really alternatives in my opinion, as they either build on said Windows version or on making screenshots of your page which doesn't help much either when you're trying to debug strange behaviour.</p>
+<p><strong>Running late on Windows 8</strong> - For some reason my Windows 8.1 desktop was running an hour late. No matter what I did, it kept changing back to UTC, when it should be on UTC+1.</p>
+<p>This seems to be a very well known problem in Windows, the reason for which is the default NTP servers Microsoft has set for their operating system.</p>
+<p>By setting the NTP servers to pool.ntp.org, the clock jumped by one hour and displayed the correct time. What's interesting is that public posts about this problem where talking about a few minutes time difference. For me it was exactly one hour.</p>
+<p><small>Windows 8 time settings (in german - had no choice!)</small><img src="../content/images/2015/01/Win8NTPSettings.PNG" alt=""><br>
+<img src="../content/images/2015/01/Win8NTPSettings01.png" alt=""></p>
+<p><strong>Youtube, MP3 and distribution of malicious code</strong> - Last week I found myself in need to use one of those &quot;Youtube to MP3 downloaders&quot;, which I'm always kinda sceptical about. Not only is the sound quality crap, but obviously you have no control over what you're really downloading - and in most cases you don't really have a trustworthy brand behind it either.</p>
+<p>Said situation spawned some food for thought. I know that malicious code can be <a href="http://www.gnucitizen.org/blog/backdooring-mp3-files/">stored in MP3</a>, which really isn't something new. But I can't help but wonder if adding malicious sound tracks to youtube videos could make for a &quot;good&quot; distribution mechanism. Especially if you're trying target unsuspecting smartphone kiddies who're downloading their music from YT.</p>
+<p><strong>Keybase.io</strong> - There isn't much to say about keybase.io that isn't on the site itself already. It's pretty self explanatory and for everything else there is the FAQ. So I'm just gonna say this</p>
+<ul>
+<li>It's the new shit</li>
+<li>It's a great idea</li>
+<li>And it was about time somebody did it!</li>
+</ul>
+<p>Also, <a href="https://keybase.io/hashtagsecurity">I'm on there</a>! #TrackMeINeedSnapshots!<br>
+If you need an invitation, drop me a line on Twitter!<br>
+<img src="../content/images/2015/01/del1-3.png" alt=""></p>
+<p><strong>Local IP and DNS don't match</strong> - If you ever have connection problems to a host, but can still reach it via local console, give this a try.</p>
+<p>Normally I would run <code>ifconfig</code> and <code>nslookup</code> to compare the IP with the DNS entry. The <code>hostname</code> command has a nice feature to return both IPs, if there different.</p>
+<pre><code>$ ifconfig |grep &quot;inet addr&quot;
+eth0      Link encap:Ethernet  HWaddr 00:16:3e:47:65:1d  
+          inet addr:10.0.3.159  Bcast:10.0.3.255  Mask:255.255.255.0
+          inet6 addr: fe80::216:3eff:fe47:651d/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:124 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:87 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:14563 (14.5 KB)  TX bytes:13151 (13.1 KB)
+
+lo        Link encap:Local Loopback  
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0 
+          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+
+$ nslookup myhost.lan
+Server:         10.0.3.2
+Address:        10.0.3.2#53
+
+Name:   myhost.lan
+Address: 10.0.3.162
+
+$ hostname -I
+10.0.3.159 10.0.3.162 
+</code></pre>
+<p><strong>Interesting things I found on the interwebs</strong></p>
+<ul>
+<li><a href="http://tmate.io/">http://tmate.io/</a></li>
+<li><a href="https://keybase.io">https://keybase.io</a></li>
+<li><a href="http://internet-inspired.com/wrote/load-disqus-on-demand/">http://internet-inspired.com/wrote/load-disqus-on-demand/</a></li>
+<li><a href="http://pixabay.com">http://pixabay.com</a></li>
+<li><a href="https://github.com/jlund/streisand">https://github.com/jlund/streisand</a></li>
+</ul>
+<!--kg-card-end: markdown--><!--kg-card-end: markdown-->
+	</p>
+        </section>
+
+<br>
+<hr>
+<br>
+	<!-- START DISQUS IMPLEMENTATION -->
+        <script src="/assets/js/disqus.js?v=8ff1f2e80d></script>
+        <div id="disqus_thread"></div>
+        <!--<div class="post_disqus show-comments" title="Privacy: Click to enable Disqus (uses cookies!)"><b>Enable Disqus</b></div>
+	END DISQUS IMPLEMENTATION -->
+</article>
+
+
+		</div>
+
+		<!-- SIDEBAR -->
+		<div class="side_container">
+
+			<div class="side_sub_one well">
+				<b>Note</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>All information provided on this site is for educational purposes only. The site and it's author is in no way responsible for any misuse of the information.</p>
+			</div>
+			<div class="side_sub_one well">
+				<b>Links</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="../random-notes/index.html">Random Notes and CheatSheets</a><br>
+				<hr>
+				<a href="http://learnpythonthehardway.org/book/">Python the hard way</a><br>
+				<a href="http://cspplayground.com">CSP Playground</a><br>
+				<a href="http://www.offensive-security.com/metasploit-unleashed/Main_Page">Metasploit Unleashed</a><br>
+				<hr>
+				<a href="https://www.linkedin.com/profile/view?id=203397467">Me - LinkedIn</a><br>
+				<a href="https://ctftime.org/team/9072">Me - CTFTime.org</a><br>
+				</p>
+			</div>		
+			<div class="side_sub_one well">
+				<b>Blogs</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="http://wearetheartillery.blogspot.com.es/">WeAreTheArtillery</a><br>
+				<a href="https://www.imperialviolet.org">Imperial Violet</a><br>
+				<a href="http://www.nerd-supreme.de">NerdSupreme (DE)</a><br>
+				<a href="http://krebsonsecurity.com/">KrebsOnSecurity</a><br>
+				<a href="https://www.corelan.be/">Corelan Team</a><br>
+				<a href="http://blog.g0tmi1k.com/">G0tmi1k</a><br>
+				</p>
+			</div>		
+			<div class="side_sub_one well">
+				<b>Reddits</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="http://www.reddit.com/r/netsec/">/r/netsec</a><br>
+				<a href="http://www.reddit.com/r/Python/">/r/Python</a><br>
+				<a href="http://www.reddit.com/r/Defcon/">/r/Defcon</a><br>
+				<a href="http://www.reddit.com/r/securityCTF/">/r/securityCTF</a><br>
+				<a href="index.html"></a><br>
+				</p>
+			</div>		
+		</div>
+	</div> <!-- End of Sidebar -->
+</div>
+	<div class="footer">
+	<div class=navline></div>
+		HashtagSecurity<br><small>... keeping security in mind.<br><a href="../impressum">Impressum</a> | <a href="../datenschutzerklarung">Datenschutzerklärung</a> | <a href="../privacy-policy">Privacy Policy</a></small>
+	</div>
+</body>
+</html>

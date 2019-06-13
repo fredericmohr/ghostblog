@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HashtagSecurity</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="wot-verification" content="06cd687a47e37736daed"/> 
+    <link rel="stylesheet" type="text/css" href="../assets/css/mofirst-min.css?v=8ff1f2e80d"/>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script> <!-- disqus loader needs latest jquery -->
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="HashtagSecurity" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="WBP#1 - All New Weekly Bucket Post" />
+    <meta property="og:description" content="Since I can&#x27;t bring myself to write full blown blog posts on a regular basis, let&#x27;s try to do something else. I will attempt to publish a short blogpost every friday about all the small things that I encountered during the last week. PFX Certificates - After finally receiving confirmation" />
+    <meta property="og:url" content="fredericmohr.github.io/ghostblog/wsp-weekly-short-post-01/" />
+    <meta property="article:published_time" content="2015-01-16T16:18:50.000Z" />
+    <meta property="article:modified_time" content="2015-01-16T16:18:50.000Z" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="WBP#1 - All New Weekly Bucket Post" />
+    <meta name="twitter:description" content="Since I can&#x27;t bring myself to write full blown blog posts on a regular basis, let&#x27;s try to do something else. I will attempt to publish a short blogpost every friday about all the small things that I encountered during the last week. PFX Certificates - After finally receiving confirmation" />
+    <meta name="twitter:url" content="fredericmohr.github.io/ghostblog/wsp-weekly-short-post-01/" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Frederic Mohr" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "HashtagSecurity",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "fredericmohr.github.io/ghostblog/content/images/2014/Oct/tw-logo_400x400-1.png",
+            "width": 60,
+            "height": 60
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Frederic Mohr",
+        "url": "fredericmohr.github.io/ghostblog/author/frederic/",
+        "sameAs": []
+    },
+    "headline": "WBP#1 - All New Weekly Bucket Post",
+    "url": "fredericmohr.github.io/ghostblog/wsp-weekly-short-post-01/",
+    "datePublished": "2015-01-16T16:18:50.000Z",
+    "dateModified": "2015-01-16T16:18:50.000Z",
+    "description": "Since I can&#x27;t bring myself to write full blown blog posts on a regular basis, let&#x27;s try to do something else. I will attempt to publish a short blogpost every friday about all the small things that I encountered during the last week. PFX Certificates - After finally receiving confirmation",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "fredericmohr.github.io/ghostblog/"
+    }
+}
+    </script>
+
+    <script src="../public/ghost-sdk.min.js?v=8ff1f2e80d"></script>
+<script>
+ghost.init({
+	clientId: "ghost-frontend",
+	clientSecret: "5a567477c5aa"
+});
+</script>
+    <meta name="generator" content="Ghost 2.23" />
+    <link rel="alternate" type="application/rss+xml" title="HashtagSecurity" href="../rss/index.html" />
+</head>
+<body>
+<!--NAVIGATION-->
+<div class="nav_bar">
+	<div class="nav_container">	
+		<ul class="nav">
+			<li id="nav-index"><a href="../index.html" class="icon-home"></a></li>
+			<li id="nav-kalibook"><a href="../getting-started-with-kali-linux/index.html" class="icon-book"></a></li>
+			<li id="nav-about"><a href="../about/index.html" class="icon-info"></a></li>
+		</ul>
+
+		<!-- Follow Me -->
+		<div class="follow_me">
+			<a href="https://twitter.com/HashtagSecurity" title="Twitter"><img alt="twitter" src="../assets/images/twi.png?v=8ff1f2e80d"></a>
+			<a href="https://www.hashtagsecurity.com/rss" title="RSS"><img alt="rss" src="../assets/images/rss.png?v=8ff1f2e80d"></a>
+		</div>
+	</div>
+</div>
+<div class="navline"></div>
+<!-- End Header -->
+<div class="outer_container">
+	<!-- PAGE -->
+	<div class="page_container">
+		<!-- CONTENT -->
+		<div class="post_container">
+			    <article class="post">
+
+
+        <h1 class="post-title">WBP#1 - All New Weekly Bucket Post</h1>
+		<span class="post-meta"><a href="http://de.linkedin.com/in/fredericmohr"><b>Frederic Mohr</b></a> - <time datetime="2015-01-16">16 Jan 2015</time> </span>
+
+        <section class="post-content">
+            <!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="../content/images/2015/01/bucketpost.jpg" alt=""><br>
+Since I can't bring myself to write full blown blog posts on a regular basis, let's try to do something else. I will attempt to publish a short blogpost every friday about all the small things that I encountered during the last week.</p>
+<p><strong>PFX Certificates</strong> -<br>
+After finally receiving confirmation that our code signing certificate has been validated, I got a link to &quot;download&quot; it. And by download they actually mean, import it in your browsers certificate store. From there you can export it and set a password to encrypt the file if you want (you want!).</p>
+<p>So far so good, but our devs said they need a .pfx file, not the .p12 I had given them.<br>
+Thanks to <a href="http://akbarahmed.com/2011/11/04/convert-p12-to-pfx/">AkbarAhmed.com</a> this proved not to be a problem at all.</p>
+<pre><code>1.) A .p12 and .pfx are the exact same binary format, although the extension differs.
+2.) Based on #1, all you have to do is change the file extension.
+</code></pre>
+<p><strong>DNS updates</strong> -<br>
+Not really something new I learned, as something I already new but forgot in the meantime, was how to request a new dhcp lease on an ubuntu server.</p>
+<pre><code>$ sudo dhclient -v eth0 -r
+this kills your connection... do not attempt over SSH ;)
+$ sudo dhclient -v eth0
+$ id a
+</code></pre>
+<p>Since we're at linux 101 already, let's quickly do the other one as well.</p>
+<p><strong>Change hostname</strong> - Sure, this one is easy. Nevertheless, I got stuck for longer then I would like to admit. After editing the files <code>/etc/hosts</code> and <code>/etc/hostname</code>, I wanted to apply the settings without rebooting the server. However, that's where I encountered this little problem.</p>
+<pre><code>$ sudo /etc/init.d/hostname restart
+[sudo] password for user: 
+sudo: /etc/init.d/hostname: command not found
+</code></pre>
+<p>I could've sworn that this was the correct way to do this. Turns out, it's this now.</p>
+<pre><code>$ sudo hostname -F /etc/hostname
+</code></pre>
+<p>One more thing I noticed while setting the new hostname was this little gem, which returns the IP registered to the hostname.</p>
+<pre><code>$ hostname -I
+10.0.3.162
+</code></pre>
+<p>If I think back how many times I could've used that one in scripts in the past...</p>
+<p><strong>LXC Autostart</strong> - LXC or LinuX Containers are a great alternative to full virtualization, especiall when you're running things on a vserver like I do. However, when you have to reboot your vserver due to kernel updates, your containers either don't start at all or simultaneous, which makes it hard if you have services like dns/dhcp running in one of them.</p>
+<p>The solution is a little tool called <code>lxc-autostart</code>, which let's you decide in which order to start your LXCs. Here are a few config lines, which you can add to your containers config file in <code>/var/lib/lxc/containername/config</code>.</p>
+<pre><code>lxc.start.auto = 1		# 0=no, 1=yes
+lxc.start.delay = 0		# seconds to wait before starting (group specific)
+lxc.start.order = 500	# order, higher is first
+lxc.group = dns			# group,groups
+</code></pre>
+<p>After you've configured every host you want to autostart, you can start,stop or reboot them like this</p>
+<pre><code>sudo lxc-autostart [-r/-s] -g &quot;dns,web,db&quot;
+# -r=reboot, -s=shutdown, without is boot
+</code></pre>
+<p>Pay attention to the groups, all containers in group dns are started first. Within that group, you can define the order (e.g 500, 450, 400). If you set a start.delay value for one hosts, all groups and hosts that follow will also wait for that amount of time before starting.</p>
+<pre><code>#host 1
+lxc.start.delay = 0		# start immediately
+lxc.start.order = 500	# first host
+lxc.group = dns			# first group
+#host 2
+lxc.start.delay = 20	# on turn, wait 20 seconds, then start
+lxc.start.order = 450	# second server
+lxc.group = dns			# first group
+#host 3
+lxc.start.delay = 0		# start after host 2 (after 20 seconds + boot)
+lxc.start.order = 400	# third server
+lxc.group = dns			# first group
+#host 4
+lxc.start.delay = 0		# start immediately after group dns is done
+lxc.start.order = 500	# first in group web
+lxc.group = web			# second group
+</code></pre>
+<p><strong>CSP</strong> - I have spent quite a bit of my time with the Content-Security-Policy header. So far I have always found a way to manage without &quot;unsafe-inline&quot; (allowing inline css or js - BAD!) but when I tried to get Disqus working with my CSP I ran into an interesting problem. First of, I only used the unsafe-inline option for testing purposes. This will never get onto my production systems, NEVER!</p>
+<p>Here is what I did, in case you want to try it yourself.</p>
+<p><em>index.html</em></p>
+<pre><code>&lt;html&gt;
+  &lt;head&gt;
+      &lt;!-- CSP Without &quot;style-src unsafe-inline&quot; reports CSP violations (of course!)
+      &lt;meta http-equiv=&quot;Content-Security-Policy&quot; content=&quot;default-src 'self'; script-src 'self' a.disquscdn.com/embed.js hashtagsecurity.disqus.com; img-src 'self' referrer.disqus.com/juggler/stat.gif a.disquscdn.com/next/assets/img/; frame-src 'self' disqus.com/embed/comments/;&quot; /&gt;--&gt;
+      &lt;meta http-equiv=&quot;Content-Security-Policy&quot; content=&quot;default-src 'self'; script-src 'self' a.disquscdn.com/embed.js hashtagsecurity.disqus.com; img-src 'self' referrer.disqus.com/juggler/stat.gif a.disquscdn.com/next/assets/img/; frame-src 'self' disqus.com/embed/comments/; style-src 'self' unsafe-inline;&quot; /&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+      &lt;h1&gt;CSP with DISQUS&lt;/h1&gt;
+      &lt;div id=&quot;disqus_thread&quot;&gt;&lt;/div&gt;
+      &lt;script type=&quot;text/javascript&quot; src=&quot;disqus.js&quot;&gt;&lt;/script&gt;
+      &lt;noscript&gt;Please enable JavaScript to view the &lt;a href=&quot;http://disqus.com/?ref_noscript&quot;&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;
+      &lt;a href=&quot;http://disqus.com&quot; class=&quot;dsq-brlink&quot;&gt;blog comments powered by &lt;span class=&quot;logo-disqus&quot;&gt;Disqus&lt;/span&gt;&lt;/a&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p><em>disqus.js</em></p>
+<pre><code>/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'hashtagsecurity'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</code></pre>
+<p>And finally, running a webserver in the directory that holds both those files</p>
+<pre><code>python -m SimpleHTTPServer 8080
+</code></pre>
+<p>What I found was, that it doesn't really matter whether I enable &quot;style-src unsafe-inline&quot; or not, since the inline style is in the embed.js file which is pulled from discuscdn.com. It appears that in that case, CSP still sees it as a violation.</p>
+<p><img src="../content/images/2015/01/snapshot02.jpg" alt=""></p>
+<p>If anyone can explain to me exactly why this is, I'd be very happy to hear about it.</p>
+<p>Speaking of CSP, I digged out the <a href="https://github.com/fredericmohr/hashtagsecurity/blob/master/csp_analysis_sourcecode/reportv.php">PHP Based CSP violation logger</a> I used for debugging in the past. Just make sure to move the reports file to a private directory. Don't want everyone reading your CSP reports.</p>
+<p><strong>Local Web Servers</strong> - Since I was playing around with CSP rules and violations, I found myself in need of a webserver. Installing apache2 or NGINX just to deliver a handful of pages to myself seemed a bit overkill, so I looked towards minimal webservers.</p>
+<p>My favourite, being installed by default on most linux systems, is definitely pythons simple server</p>
+<pre><code>python -m SimpleHTTPServer 8080
+Serving HTTP on 0.0.0.0 port 8080 ...
+</code></pre>
+<p>I used a PHP based CSP reporting tool to collect more info about found violations, however the integrated http server in python doesn't support PHP. Luckily, php does :)</p>
+<pre><code>sudo apt-get install php5-cli
+php5 -S 127.0.0.1:8000 -t /path/to/docs/
+</code></pre>
+<p><strong>Keepass Password Generation Profiles</strong> - Password rules for password generators can be very helpful. Keepass offers an option to customize the way passwords are generated, which is great as the default policies are really bad!</p>
+<p><img src="../content/images/2015/01/snapshot02-1.jpg" alt=""><br>
+<img src="../content/images/2015/01/snapshot02-2.jpg" alt=""><br>
+<img src="../content/images/2015/01/snapshot02-5.jpg" alt=""><br>
+<img src="../content/images/2015/01/snapshot02-3.jpg" alt=""><br>
+<img src="../content/images/2015/01/snapshot02-6.jpg" alt=""><br>
+<img src="../content/images/2015/01/snapshot02-4.jpg" alt=""></p>
+<p>Luckily, <a href="http://stackoverflow.com/questions/55556/characters-to-avoid-in-automatically-generated-passwords">dF.</a> over at stackoverflow.com has a nice list of chars for that.</p>
+<p><img src="../content/images/2015/01/snapshot02-7.jpg" alt=""></p>
+<p>A 12-char password policy in Keepass, this would look like this.</p>
+<pre><code>Whitelist chars (not all of them, just an example!)
+[\!\#\%\+\2\3\4\5\6\7\8\9\:\=\?\@\A\B\C\D\E\F\G\H\J\K\L\M\N\P\R\S]{12}
+</code></pre>
+<p><img src="../content/images/2015/01/snapshot02-11.jpg" alt=""><br>
+<img src="../content/images/2015/01/snapshot02-8.jpg" alt=""></p>
+<p>If you prefer a &quot;blacklist chars&quot; approach, you can do it like this:</p>
+<pre><code>Bad Chars: il10o8B3Evu![]{}
+PW Policy: [dAs^\i^\l^\1^\0^\o^\8^\B^\3^\E^\v^\u^!^\[^\]^\{^\}]{12}
+Char Rule: == [d]igits, mixed [A]lpha, [s]pecial, [^] except, [\] escape char
+</code></pre>
+<p><img src="../content/images/2015/01/snapshot02-10.jpg" alt=""><br>
+<img src="../content/images/2015/01/snapshot02-9.jpg" alt=""></p>
+<p>More info on Keepass generation rules can be found <a href="http://keepass.info/help/base/pwgenerator.html">here</a>.</p>
+<p><strong>Keepass and KeeFox</strong> - Not much to say here except that it has gotten real easy lately, to integrate keepass into Firefox. Just follow the steps on <a href="http://askubuntu.com/questions/291002/how-to-integrate-keypass2-and-firefox-using-keefox-passifox-in-ubuntu-13-04-13">stackoverflow</a>.</p>
+<p><strong>Web Password Manager</strong> - I'm always on the lookout for web based password managers, that can be hosted on-site. Especially if they're open source, or better yet free (as in speech).</p>
+<p>I haven't had the time yet to take a closer look, but at first glance <a href="http://rattic.org/">RatticDB</a> seems promising, although early stage. I will write more about it once I have spend more time with it - assuming it proves useful.</p>
+<p><img src="../content/images/2015/01/snapshot02-12.jpg" alt=""></p>
+<p><strong>Flask Blueprint Templates</strong> - suck! I'm sorry but I can't say it any other way.<br>
+I like the idea of how blueprints (sort of plugins in pythons web framework Flask) access templates. If I have an app, with it's index.html lying in <code>app/templates/index.html</code> and a sub app or plugin within said app that has it's own templates folder, like this <code>app/subapp/templates/</code> everything is great as long as I don't have any name conficts in templates.</p>
+<pre><code>Accessing /app/templates/index.html within the subapp
+render_template(&quot;index.html&quot;)
+
+Accessing /app/subapp/templates/subapp.html within the subapp
+render_template(&quot;subapp.html&quot;)
+
+Accessing /app/subapp/templates/index.html within the subapp
+- not possible - 
+</code></pre>
+<p>To be able to access the subapp index.html file, you would have to either rename the it, or build a structure like this:</p>
+<pre><code>/app/subapp/templates/subapp/index
+Blueprint(&quot;subapp&quot;, __name__, template_folder=&quot;templates&quot;)
+render_template(&quot;subapp/index.html&quot;)
+</code></pre>
+<p>It works, but it's annyoing as hell. I can understand the usecase if you want to frequently access the main apps templates in subapps, but I think there should be an option to limit the subapp to it's own template folder.</p>
+<!--kg-card-end: markdown--><!--kg-card-end: markdown-->
+	</p>
+        </section>
+
+<br>
+<hr>
+<br>
+	<!-- START DISQUS IMPLEMENTATION -->
+        <script src="/assets/js/disqus.js?v=8ff1f2e80d></script>
+        <div id="disqus_thread"></div>
+        <!--<div class="post_disqus show-comments" title="Privacy: Click to enable Disqus (uses cookies!)"><b>Enable Disqus</b></div>
+	END DISQUS IMPLEMENTATION -->
+</article>
+
+
+		</div>
+
+		<!-- SIDEBAR -->
+		<div class="side_container">
+
+			<div class="side_sub_one well">
+				<b>Note</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>All information provided on this site is for educational purposes only. The site and it's author is in no way responsible for any misuse of the information.</p>
+			</div>
+			<div class="side_sub_one well">
+				<b>Links</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="../random-notes/index.html">Random Notes and CheatSheets</a><br>
+				<hr>
+				<a href="http://learnpythonthehardway.org/book/">Python the hard way</a><br>
+				<a href="http://cspplayground.com">CSP Playground</a><br>
+				<a href="http://www.offensive-security.com/metasploit-unleashed/Main_Page">Metasploit Unleashed</a><br>
+				<hr>
+				<a href="https://www.linkedin.com/profile/view?id=203397467">Me - LinkedIn</a><br>
+				<a href="https://ctftime.org/team/9072">Me - CTFTime.org</a><br>
+				</p>
+			</div>		
+			<div class="side_sub_one well">
+				<b>Blogs</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="http://wearetheartillery.blogspot.com.es/">WeAreTheArtillery</a><br>
+				<a href="https://www.imperialviolet.org">Imperial Violet</a><br>
+				<a href="http://www.nerd-supreme.de">NerdSupreme (DE)</a><br>
+				<a href="http://krebsonsecurity.com/">KrebsOnSecurity</a><br>
+				<a href="https://www.corelan.be/">Corelan Team</a><br>
+				<a href="http://blog.g0tmi1k.com/">G0tmi1k</a><br>
+				</p>
+			</div>		
+			<div class="side_sub_one well">
+				<b>Reddits</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="http://www.reddit.com/r/netsec/">/r/netsec</a><br>
+				<a href="http://www.reddit.com/r/Python/">/r/Python</a><br>
+				<a href="http://www.reddit.com/r/Defcon/">/r/Defcon</a><br>
+				<a href="http://www.reddit.com/r/securityCTF/">/r/securityCTF</a><br>
+				<a href="index.html"></a><br>
+				</p>
+			</div>		
+		</div>
+	</div> <!-- End of Sidebar -->
+</div>
+	<div class="footer">
+	<div class=navline></div>
+		HashtagSecurity<br><small>... keeping security in mind.<br><a href="../impressum">Impressum</a> | <a href="../datenschutzerklarung">Datenschutzerklärung</a> | <a href="../privacy-policy">Privacy Policy</a></small>
+	</div>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HashtagSecurity</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="wot-verification" content="06cd687a47e37736daed"/> 
+    <link rel="stylesheet" type="text/css" href="../assets/css/mofirst-min.css?v=8ff1f2e80d"/>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script> <!-- disqus loader needs latest jquery -->
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="fredericmohr.github.io/ghostblog/book-review-ctf-blueprints/amp/" />
+    
+    <meta property="og:site_name" content="HashtagSecurity" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Book Review: CTF Blueprints" />
+    <meta property="og:description" content="This is a short review of the book Kali Linux CTF Blueprints by Cameron Buchanan which was published under Packt Publishing in July 2014. The books goal is to provide blueprints to building a CTF environment. In my opinion, this is not quite true as the blueprints are mere pointers" />
+    <meta property="og:url" content="fredericmohr.github.io/ghostblog/book-review-ctf-blueprints/" />
+    <meta property="article:published_time" content="2014-09-14T19:45:12.000Z" />
+    <meta property="article:modified_time" content="2014-09-14T19:57:58.000Z" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Book Review: CTF Blueprints" />
+    <meta name="twitter:description" content="This is a short review of the book Kali Linux CTF Blueprints by Cameron Buchanan which was published under Packt Publishing in July 2014. The books goal is to provide blueprints to building a CTF environment. In my opinion, this is not quite true as the blueprints are mere pointers" />
+    <meta name="twitter:url" content="fredericmohr.github.io/ghostblog/book-review-ctf-blueprints/" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Frederic Mohr" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "HashtagSecurity",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "fredericmohr.github.io/ghostblog/content/images/2014/Oct/tw-logo_400x400-1.png",
+            "width": 60,
+            "height": 60
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Frederic Mohr",
+        "url": "fredericmohr.github.io/ghostblog/author/frederic/",
+        "sameAs": []
+    },
+    "headline": "Book Review: CTF Blueprints",
+    "url": "fredericmohr.github.io/ghostblog/book-review-ctf-blueprints/",
+    "datePublished": "2014-09-14T19:45:12.000Z",
+    "dateModified": "2014-09-14T19:57:58.000Z",
+    "description": "This is a short review of the book Kali Linux CTF Blueprints by Cameron Buchanan which was published under Packt Publishing in July 2014. The books goal is to provide blueprints to building a CTF environment. In my opinion, this is not quite true as the blueprints are mere pointers",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "fredericmohr.github.io/ghostblog/"
+    }
+}
+    </script>
+
+    <script src="../public/ghost-sdk.min.js?v=8ff1f2e80d"></script>
+<script>
+ghost.init({
+	clientId: "ghost-frontend",
+	clientSecret: "5a567477c5aa"
+});
+</script>
+    <meta name="generator" content="Ghost 2.23" />
+    <link rel="alternate" type="application/rss+xml" title="HashtagSecurity" href="../rss/index.html" />
+</head>
+<body>
+<!--NAVIGATION-->
+<div class="nav_bar">
+	<div class="nav_container">	
+		<ul class="nav">
+			<li id="nav-index"><a href="../index.html" class="icon-home"></a></li>
+			<li id="nav-kalibook"><a href="../getting-started-with-kali-linux/index.html" class="icon-book"></a></li>
+			<li id="nav-about"><a href="../about/index.html" class="icon-info"></a></li>
+		</ul>
+
+		<!-- Follow Me -->
+		<div class="follow_me">
+			<a href="https://twitter.com/HashtagSecurity" title="Twitter"><img alt="twitter" src="../assets/images/twi.png?v=8ff1f2e80d"></a>
+			<a href="https://www.hashtagsecurity.com/rss" title="RSS"><img alt="rss" src="../assets/images/rss.png?v=8ff1f2e80d"></a>
+		</div>
+	</div>
+</div>
+<div class="navline"></div>
+<!-- End Header -->
+<div class="outer_container">
+	<!-- PAGE -->
+	<div class="page_container">
+		<!-- CONTENT -->
+		<div class="post_container">
+			    <article class="post">
+
+
+        <h1 class="post-title">Book Review: CTF Blueprints</h1>
+		<span class="post-meta"><a href="http://de.linkedin.com/in/fredericmohr"><b>Frederic Mohr</b></a> - <time datetime="2014-09-14">14 Sep 2014</time> </span>
+
+        <section class="post-content">
+            <!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="../content/images/2014/Sep/kali_linux_ctf_blueprints_cover2.jpg" alt=""><br>
+This is a short review of the book <a href="https://www.packtpub.com/networking-and-servers/kali-linux-ctf-blueprints">Kali Linux CTF Blueprints</a> by Cameron Buchanan which was published under Packt Publishing in July 2014.</p>
+<p>The books goal is to provide blueprints to building a CTF environment. In my opinion, this is not quite true as the blueprints are mere pointers in the right direction. While this might be misleading, it's actually a good thing as real blueprints would result in spawning a series of similar or even identical CTFs. Before you buy the book, please note that the author expects that a certain level of pentesting knowledge and skill is already given. Basic concepts such as XSS, privilege escalation or information gathering are not explained.</p>
+<p>The target group is definitively the experienced pentester who wants to setup a challenge or training ground for colleagues and not the inexperienced one who wants to do it to test its own skills. That being said, someone new to the game could still learn a few things by reading this, although there are books out there who are better suited for this task.</p>
+<p>In the first and second chapter, the author explains how to setup a vulnerability on Windows or Linux hosts respectively. The chapters are split into three main parts, namely securing the base os that is used to run the challenge, installing the vulnerable software and finally explaining how the vulnerability could be exploited.</p>
+<p>The first part is important, as a challenge should not have any other security holes except the intended ones, therefore forcing the challengers into solving the right problems instead of finding a way around them. The second part is pretty obvious, as this book is all about creating vulnerable machines and the third part is just to give some insight on how the challenge could be solved.</p>
+<p>There are also some tips on how to plant flags without them being to easy or too hard to find. For example, a C:\flag.txt file would be too easy to find and would also make any post exploitation unecessary. Hiding the flag inside a config file in a temporary, random generated subfolder of the Firefox addons folder would be to hard, unless the objective is clearly stated and includes some hints that would point a player to this location.</p>
+<p>I can't say much about the other four chapters &quot;Wireless and Mobile&quot;, &quot;Social Engeneering&quot;, &quot;Cryptography&quot; and &quot;Red Teaming&quot;as I didn't find the time to read them. However, they do look interesting and I'll post an update as soon as I get to them.</p>
+<p>Overall, this is the first book PacktPub book that wasn't completely dissapointing. The one thing I missed, was some suggestions for vulnerabilities that make good targets in a CTF, preferably in form of CVEs or a short list of sites where to find things like that. Someone who is new to creating CTFs might have a hard time finding vulnerabilities that are suitable for challenges.</p>
+<p>I'm not quite sure if it is worth the price of €16.32 ($22.44) for the ebook edition as it's only a quick intro to the topics and lacks in depth but at least you get something in return for your money, unlike many of the other books I reviewed.</p>
+<p>However, if I had looked for a short CTF guide that points me in the right direction on how to make my own challenges, I wouldn't have regretted the purchase.</p>
+<p>If you have any specific questions about the book, drop me a line and I see if I can answer it for you.</p>
+<!--kg-card-end: markdown--><!--kg-card-end: markdown-->
+	</p>
+        </section>
+
+<br>
+<hr>
+<br>
+	<!-- START DISQUS IMPLEMENTATION -->
+        <script src="/assets/js/disqus.js?v=8ff1f2e80d></script>
+        <div id="disqus_thread"></div>
+        <!--<div class="post_disqus show-comments" title="Privacy: Click to enable Disqus (uses cookies!)"><b>Enable Disqus</b></div>
+	END DISQUS IMPLEMENTATION -->
+</article>
+
+
+		</div>
+
+		<!-- SIDEBAR -->
+		<div class="side_container">
+
+			<div class="side_sub_one well">
+				<b>Note</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>All information provided on this site is for educational purposes only. The site and it's author is in no way responsible for any misuse of the information.</p>
+			</div>
+			<div class="side_sub_one well">
+				<b>Links</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="../random-notes/index.html">Random Notes and CheatSheets</a><br>
+				<hr>
+				<a href="http://learnpythonthehardway.org/book/">Python the hard way</a><br>
+				<a href="http://cspplayground.com">CSP Playground</a><br>
+				<a href="http://www.offensive-security.com/metasploit-unleashed/Main_Page">Metasploit Unleashed</a><br>
+				<hr>
+				<a href="https://www.linkedin.com/profile/view?id=203397467">Me - LinkedIn</a><br>
+				<a href="https://ctftime.org/team/9072">Me - CTFTime.org</a><br>
+				</p>
+			</div>		
+			<div class="side_sub_one well">
+				<b>Blogs</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="http://wearetheartillery.blogspot.com.es/">WeAreTheArtillery</a><br>
+				<a href="https://www.imperialviolet.org">Imperial Violet</a><br>
+				<a href="http://www.nerd-supreme.de">NerdSupreme (DE)</a><br>
+				<a href="http://krebsonsecurity.com/">KrebsOnSecurity</a><br>
+				<a href="https://www.corelan.be/">Corelan Team</a><br>
+				<a href="http://blog.g0tmi1k.com/">G0tmi1k</a><br>
+				</p>
+			</div>		
+			<div class="side_sub_one well">
+				<b>Reddits</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="http://www.reddit.com/r/netsec/">/r/netsec</a><br>
+				<a href="http://www.reddit.com/r/Python/">/r/Python</a><br>
+				<a href="http://www.reddit.com/r/Defcon/">/r/Defcon</a><br>
+				<a href="http://www.reddit.com/r/securityCTF/">/r/securityCTF</a><br>
+				<a href="index.html"></a><br>
+				</p>
+			</div>		
+		</div>
+	</div> <!-- End of Sidebar -->
+</div>
+	<div class="footer">
+	<div class=navline></div>
+		HashtagSecurity<br><small>... keeping security in mind.<br><a href="../impressum">Impressum</a> | <a href="../datenschutzerklarung">Datenschutzerklärung</a> | <a href="../privacy-policy">Privacy Policy</a></small>
+	</div>
+</body>
+</html>

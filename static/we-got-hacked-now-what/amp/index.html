@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+
+    <title>We got hacked! Now what?</title>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon" />
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="HashtagSecurity" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="We got hacked! Now what?" />
+    <meta property="og:description" content="Almost a year ago, I experienced my first real security incident. The company&#x27;s bulletin board was compromised and it was my job to oversee and coordinate the incident response. The teams and I where pretty much thrown into the cold water, as we&#x27;ve never experienced an incident of that size" />
+    <meta property="og:url" content="fredericmohr.github.io/ghostblog/we-got-hacked-now-what/" />
+    <meta property="article:published_time" content="2015-01-29T13:26:51.000Z" />
+    <meta property="article:modified_time" content="2015-02-01T08:57:00.000Z" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="We got hacked! Now what?" />
+    <meta name="twitter:description" content="Almost a year ago, I experienced my first real security incident. The company&#x27;s bulletin board was compromised and it was my job to oversee and coordinate the incident response. The teams and I where pretty much thrown into the cold water, as we&#x27;ve never experienced an incident of that size" />
+    <meta name="twitter:url" content="fredericmohr.github.io/ghostblog/we-got-hacked-now-what/" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Frederic Mohr" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "HashtagSecurity",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "fredericmohr.github.io/ghostblog/content/images/2014/Oct/tw-logo_400x400-1.png",
+            "width": 60,
+            "height": 60
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Frederic Mohr",
+        "url": "fredericmohr.github.io/ghostblog/author/frederic/",
+        "sameAs": []
+    },
+    "headline": "We got hacked! Now what?",
+    "url": "fredericmohr.github.io/ghostblog/we-got-hacked-now-what/",
+    "datePublished": "2015-01-29T13:26:51.000Z",
+    "dateModified": "2015-02-01T08:57:00.000Z",
+    "description": "Almost a year ago, I experienced my first real security incident. The company&#x27;s bulletin board was compromised and it was my job to oversee and coordinate the incident response. The teams and I where pretty much thrown into the cold water, as we&#x27;ve never experienced an incident of that size",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "fredericmohr.github.io/ghostblog/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 2.23" />
+    <link rel="alternate" type="application/rss+xml" title="HashtagSecurity" href="../../rss/index.html" />
+
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,600,400" />
+    <style amp-custom>html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,main,menu,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block;vertical-align:baseline}audio:not([controls]){display:none;height:0}[hidden],template{display:none}a{background-color:transparent}a:active,a:hover{outline:0}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:bold}dfn{font-style:italic}h1{margin:0.67em 0;font-size:2em}mark{background:#ff0;color:#000}small{font-size:80%}sub,sup{position:relative;vertical-align:baseline;font-size:75%;line-height:0}sup{top:-0.5em}sub{bottom:-0.25em}img{border:0}amp-img{border:0}svg:not(:root){overflow:hidden}figure{margin:1em 40px}hr{box-sizing:content-box;height:0}pre{overflow:auto}code,kbd,pre,samp{font-family:monospace, monospace;font-size:1em}button,input,optgroup,select,textarea{margin:0;color:inherit;font:inherit}button{overflow:visible}button,select{text-transform:none}button,html input[type="button"],input[type="reset"],input[type="submit"]{cursor:pointer;-webkit-appearance:button}button[disabled],html input[disabled]{cursor:default}button::-moz-focus-inner,input::-moz-focus-inner{padding:0;border:0}input{line-height:normal}input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}input[type="number"]::-webkit-inner-spin-button,input[type="number"]::-webkit-outer-spin-button{height:auto}input[type="search"]{-webkit-appearance:textfield}input[type="search"]::-webkit-search-cancel-button,input[type="search"]::-webkit-search-decoration{-webkit-appearance:none}fieldset{margin:0 2px;padding:0.35em 0.625em 0.75em;border:1px solid #c0c0c0}legend{padding:0;border:0}textarea{overflow:auto}optgroup{font-weight:bold}table{border-spacing:0;border-collapse:collapse}td,th{padding:0}html{max-height:100%;height:100%;font-size:62.5%;-webkit-tap-highlight-color:rgba(0, 0, 0, 0)}body{max-height:100%;height:100%;color:#3a4145;background:#f4f8fb;letter-spacing:0.01rem;font-family:"Merriweather", serif;font-size:1.8rem;line-height:1.75em;text-rendering:geometricPrecision;-webkit-font-feature-settings:"kern" 1;-moz-font-feature-settings:"kern" 1;-o-font-feature-settings:"kern" 1}::-moz-selection{background:#d6edff}::selection{background:#d6edff}h1,h2,h3,h4,h5,h6{margin:0 0 0.3em 0;color:#2e2e2e;font-family:"Open Sans", sans-serif;line-height:1.15em;text-rendering:geometricPrecision;-webkit-font-feature-settings:"dlig" 1, "liga" 1, "lnum" 1, "kern" 1;-moz-font-feature-settings:"dlig" 1, "liga" 1, "lnum" 1, "kern" 1;-o-font-feature-settings:"dlig" 1, "liga" 1, "lnum" 1, "kern" 1}h1{text-indent:-2px;letter-spacing:-1px;font-size:2.6rem}h2{letter-spacing:0;font-size:2.4rem}h3{letter-spacing:-0.6px;font-size:2.1rem}h4{font-size:1.9rem}h5{font-size:1.8rem}h6{font-size:1.8rem}a{color:#4a4a4a}a:hover{color:#111}p,ul,ol,dl{margin:0 0 2.5rem 0;font-size:1.5rem;text-rendering:geometricPrecision;-webkit-font-feature-settings:"liga" 1, "onum" 1, "kern" 1;-moz-font-feature-settings:"liga" 1, "onum" 1, "kern" 1;-o-font-feature-settings:"liga" 1, "onum" 1, "kern" 1}ol,ul{padding-left:2em}ol ol,ul ul,ul ol,ol ul{margin:0 0 0.4em 0;padding-left:2em}dl dt{float:left;clear:left;overflow:hidden;margin-bottom:1em;width:180px;text-align:right;text-overflow:ellipsis;white-space:nowrap;font-weight:700}dl dd{margin-bottom:1em;margin-left:200px}li{margin:0.4em 0}li li{margin:0}hr{display:block;margin:1.75em 0;padding:0;height:1px;border:0;border-top:#efefef 1px solid}blockquote{box-sizing:border-box;margin:1.75em 0 1.75em 0;padding:0 0 0 1.75em;border-left:#4a4a4a 0.4em solid;-moz-box-sizing:border-box}blockquote p{margin:0.8em 0;font-style:italic}blockquote small{display:inline-block;margin:0.8em 0 0.8em 1.5em;color:#ccc;font-size:0.9em}blockquote small:before{content:"\2014 \00A0"}blockquote cite{font-weight:700}blockquote cite a{font-weight:normal}mark{background-color:#fdffb6}code,tt{padding:1px 3px;border:#e3edf3 1px solid;background:#f7fafb;border-radius:2px;white-space:pre-wrap;font-family:Inconsolata, monospace, sans-serif;font-size:0.85em;font-feature-settings:"liga" 0;-webkit-font-feature-settings:"liga" 0;-moz-font-feature-settings:"liga" 0}pre{overflow:auto;box-sizing:border-box;margin:0 0 1.75em 0;padding:10px;width:100%;border:#e3edf3 1px solid;background:#f7fafb;border-radius:3px;white-space:pre;font-family:Inconsolata, monospace, sans-serif;font-size:0.9em;-moz-box-sizing:border-box}pre code,pre tt{padding:0;border:none;background:transparent;white-space:pre-wrap;font-size:inherit}kbd{display:inline-block;margin-bottom:0.4em;padding:1px 8px;border:#ccc 1px solid;background:#f4f4f4;border-radius:4px;box-shadow:0 1px 0 rgba(0, 0, 0, 0.2), 0 1px 0 0 #fff inset;color:#666;text-shadow:#fff 0 1px 0;font-size:0.9em;font-weight:700}table{box-sizing:border-box;margin:1.75em 0;max-width:100%;width:100%;background-color:transparent;-moz-box-sizing:border-box}table th,table td{padding:8px;border-top:#efefef 1px solid;vertical-align:top;text-align:left;line-height:20px}table th{color:#000}table caption + thead tr:first-child th,table caption + thead tr:first-child td,table colgroup + thead tr:first-child th,table colgroup + thead tr:first-child td,table thead:first-child tr:first-child th,table thead:first-child tr:first-child td{border-top:0}table tbody + tbody{border-top:#efefef 2px solid}table table table{background-color:#fff}table tbody > tr:nth-child(odd) > td,table tbody > tr:nth-child(odd) > th{background-color:#f6f6f6}table.plain tbody > tr:nth-child(odd) > td,table.plain tbody > tr:nth-child(odd) > th{background:transparent}iframe,amp-iframe,.fluid-width-video-wrapper{display:block;margin:1.75em 0}.fluid-width-video-wrapper iframe,.fluid-width-video-wrapper amp-iframe{margin:0}textarea,select,input{margin:0 0 5px 0;padding:6px 9px;width:260px;outline:0;border:#e7eef2 1px solid;background:#fff;border-radius:4px;box-shadow:none;font-family:"Open Sans", sans-serif;font-size:1.6rem;line-height:1.4em;font-weight:100;-webkit-appearance:none}textarea{min-width:250px;min-height:80px;max-width:340px;width:100%;height:auto}input[type="text"]:focus,input[type="email"]:focus,input[type="search"]:focus,input[type="tel"]:focus,input[type="url"]:focus,input[type="password"]:focus,input[type="number"]:focus,input[type="date"]:focus,input[type="month"]:focus,input[type="week"]:focus,input[type="time"]:focus,input[type="datetime"]:focus,input[type="datetime-local"]:focus,textarea:focus{outline:none;outline-width:0;border:#bbc7cc 1px solid;background:#fff}select{width:270px;height:30px;line-height:30px}.clearfix:before,.clearfix:after{content:" ";display:table}.clearfix:after{clear:both}.clearfix{zoom:1}.main-header{position:relative;display:table;overflow:hidden;box-sizing:border-box;width:100%;height:50px;background:#5ba4e5 no-repeat center center;background-size:cover;text-align:left;-webkit-box-sizing:border-box;-moz-box-sizing:border-box}.content{background:#fff;padding-top:15px}.blog-title,.content{margin:auto;max-width:600px}.blog-title a{display:block;padding-right:16px;padding-left:16px;height:50px;color:#fff;text-decoration:none;font-family:"Open Sans", sans-serif;font-size:16px;line-height:50px;font-weight:600}.post{position:relative;margin-top:0;margin-right:16px;margin-left:16px;padding-bottom:0;max-width:100%;border-bottom:#ebf2f6 1px solid;word-wrap:break-word;font-size:0.95em;line-height:1.65em}.post-header{margin-bottom:1rem}.post-title{margin-bottom:0}.post-title a{text-decoration:none}.post-meta{display:block;margin:3px 0 0 0;color:#9eabb3;font-family:"Open Sans", sans-serif;font-size:1.3rem;line-height:2.2rem}.post-meta a{color:#9eabb3;text-decoration:none}.post-meta a:hover{text-decoration:underline}.post-meta .author{margin:0;font-size:1.3rem;line-height:1.3em}.post-date{display:inline-block;text-transform:uppercase;white-space:nowrap;font-size:1.2rem;line-height:1.2em}.post-image{margin:0;padding-top:3rem;padding-bottom:30px;border-top:1px #E8E8E8 solid}.post-content amp-img,.post-content amp-anim{position:relative;left:50%;display:block;padding:0;min-width:0;max-width:112%;width:calc(100% + 32px);height:auto;transform:translateX(-50%);-webkit-transform:translateX(-50%);-ms-transform:translateX(-50%)}.footnotes{font-size:1.3rem;line-height:1.6em;font-style:italic}.footnotes li{margin:0.6rem 0}.footnotes p{margin:0}.footnotes p a:last-child{text-decoration:none}.site-footer{position:relative;margin:0 auto 20px auto;padding:1rem 15px;max-width:600px;color:rgba(0,0,0,0.5);font-family:"Open Sans", sans-serif;font-size:1.1rem;line-height:1.75em}.site-footer a{color:rgba(0,0,0,0.5);text-decoration:none;font-weight:bold}.site-footer a:hover{border-bottom:#bbc7cc 1px solid}.poweredby{display:block;float:right;width:45%;text-align:right}.copyright{display:block;float:left;width:45%}</style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="main-header">
+        <nav class="blog-title">
+            <a href="../../index.html">HashtagSecurity</a>
+        </nav>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">We got hacked! Now what?</h1>
+                <section class="post-meta">
+                    <p class="author">by <a href="../../author/frederic/index.html">Frederic Mohr</a></p>
+                    <time class="post-date" datetime="2015-01-29">2015-01-29</time>
+                </section>
+            </header>
+            <section class="post-content">
+
+                <p><br />
+Almost a year ago, I experienced my first real security incident. The company's bulletin board was compromised and it was my job to oversee and coordinate the incident response. The teams and I where pretty much thrown into the cold water, as we've never experienced an incident of that size before.</p>
+<p>Right after the incident I wrote the following blog post, which I'm now able to publish. Please note that I didn't change anything deliberately, as I wrote it back when my memories on everything where still fresh in all detail.</p>
+<h3 id="anoteupfront">A note up front!</h3>
+<p>Please note that this is a private blog and although I <s>am</s> was an employee of CHIP Digital GmbH, all opinions depicted here are solely my own!</p>
+<p>This is a write-up of last weeks events from my perspective and how I experienced it.</p>
+<p>If you're not from Germany, you might have missed the news that the bulletin board at forum.chip.de was hacked. CHIP is a technical magazine targeted to end users and the board has around 2.4 million registered users. Not all of them are active, some have never even activated their account but it's still a decent amount of users. Unfortunately, this only makes it so much worse if there is a breach.</p>
+<h3 id="sowhathappened">So what happened?</h3>
+<p>Well, if you speak German you can read the official statement <a href="http://www.chip.de/artikel/CHIP-Forum_68832986.html">here</a> or try your luck with the Google translator.</p>
+<p>In summary, on Monday, 24.03.2014, someone gained unauthorized access to our bulletin board. As of right now, still don't know how they got access but the compromised account in question had at least some higher permissions, allowing the attacker to compromise further employee accounts. As soon as we noticed that there was something fishy going on, we took the system offline and notified users that the board is under maintenance. We hired external forensic experts to secure any evidence of the breach and analyze the system, so we could figure out what happened, and how it happened. Once we were told that there is a chance that user data has been accessed, we notified all email addresses in the database (2.4M).</p>
+<p>At the time of this writing, we're still unsure if user data has been stolen.</p>
+<h3 id="butthereismore">But there is more!</h3>
+<p>All of the above seems quite simple. We got hacked, we hired forensic experts, we notified our users.</p>
+<p>First of all, there are some points I want to make clear:</p>
+<ol>
+<li>First contact: I've never worked with forensic analysts before</li>
+<li>As you might have guessed, this is one of those situations that are hard to prepare for</li>
+<li>Yes, we made mistakes! (We're not perfect! Again - my opinion!)</li>
+<li>Time ran really fast this week...</li>
+</ol>
+<p>That being said, let's take a closer look at my last week.</p>
+<h3 id="monday">Monday</h3>
+<p>I have to admit my first mistake right here - I didn't check my mail. I went home after work and didn't check my phone. That's why I missed out on a lot of information. If I had checked my mail, I might have been able to make a decision much earlier. This wouldn't have prevented the incident, but we might have been able to get forensics at Tuesday morning.</p>
+<h3 id="tuesday">Tuesday</h3>
+<p>I checked my mails during breakfast and that's where all the information hit me in one big wave. It was from that point on, that I didn't had a real brake for a good amount of time (and I wasn't the only one!). So I rushed to work and tried to figure out what exactly happened, who got what information and if anyone had come up with some sort of plan.</p>
+<p>Before I continue, I have to thank all my co-workers for doing a really great job! (Don't even think about me doing all the work - I was quite busy, but there where a lot of people who gave everything!)</p>
+<p>Just before the first meeting was called in, I managed to contact a forensics company and asked if they had someone who could come in ASAP. They had to check - which meant I had to wait. It didn't matter, because I had just enough time to rush to the meeting which was about to begin. Why even bother with meeting in a situation like this? Well, as it turns out the meetings where (although exhausting) really important as they kept us focused on what's important and in-sync information wise. The first one was a bit chaotic, since almost all colleagues from the technical department where attending and we had to find out what we knew and how we would go about fixing it. But it was a good way to figure out who would join which team, and who had the necessary know-how to help which party.</p>
+<p>Overall there where four main teams. (I'm deeply sorry if I missed anyone. These are not all of the people that helped, just a rough overview of the main groups)</p>
+<p><strong>The forensics team</strong><br />Charged with the analysis of the systems, this "team" consisted of one of my co-workers, me and of course the forensic experts. We had one analyst with us on-site, and it was our job to support him (from here on called Mr. M.) by handing him logfiles, database dumps, giving him physical access to the servers and answering all of his questions.</p>
+<p><strong>The "Revive" team</strong> <br /><br />
+I call it that, since "Revive" is the word from their whiteboard that got stuck in my mind. These guys where busy the whole time, getting the board back online in a secure way so that users could login and interact again. Their first goal on Tuesday was to get the board back online in read-only mode. The system was set to read only so that the content was available again (on new servers of course!) but couldn't be tampered with in case the attacker returned. The second goal was to setup the whole board with tightened security on new hardware, since the old one couldn't be used. You might think that setting up a bulletin board is an easy task, but this system is very complex and they had to jump through quite a few hoops in order to get there. This was by far more than just recovering a backup. We didn't even know if the backups could be trusted! - This is all you will be hearing from this team, since I wasn't part of it. But for me it was an amazing example of their skills put to the test and I'm glad to be working with such great people!</p>
+<p><strong>The communication team</strong><br /><br />
+The communication team was a bit vaguely defined since a lot of people had part of it at some point, but the core of it included of course our public relations manager, top level management, part of the community team and myself (mostly for technical questions). This team was formed after the meeting and put in charge of informing our users and handling communication through out the company and with our data privacy officer, lawyers and such. They had to gather and distribute all information, sort it and make decisions based on it - and they made the right ones in my opinion!</p>
+<p><strong>The community team</strong><br /><br />
+This is the only real team. The community team normally moderates the bulletin board, as well as social media like Twitter, Youtube and the like. Aside from their role in the communication team, they had to answer all questions that came in, some of which had to be checked with forensics in order to avoid spreading rumors or making statements that where not true (or not yet declared as facts by Mr. M).</p>
+<p>As you can see, a lot of people had to make sure everyone was up to date on the information, which was a lot of work that had to be done on the side. After the meeting, I called back our forensics contact and he told me that one of his analysts (Mr. M.) could be on-site in about two hours. Once Mr. M. arrived, we had to brief him on the incident and he quickly explained the next steps. First of all we had to take a complete dump of the compromised servers hard disk, since that takes a long time to finish. In case you wonder - no, you can't use your standard backup software. He didn't need a backup of the files on the disk, but a complete image the disk. We handed Mr. M. our webserver log files and dumped the complete database so he could analyze it. We spent the rest of the day going through log entries line by line and trying to figure out which IPs belonged to the attacker and which actions where taken. Mr. M. took the files back to his lab, where he continued to work on till late at night.</p>
+<h3 id="wednesday">Wednesday</h3>
+<p>Wednesday morning, we drove back to the data center to get the disk image. Unfortunately I had made a mistake when calculating the approximate time the dump process would take so the image wasn't done yet. First of all, I used the size of the data stored on the disks and compared it to the data transfer speed, which was wrong because the size of a complete image is obviously not the size of data stored, but of the complete disk array. The second mistake I made is that I trusted my own calculation. I could have checked if the copy job was finished from my workstation and we lost valuable time because of that.</p>
+<p>Since we couldn't analyze the disk image we continued to analyze logfiles and the database dumps. It was helpful that we had the (tamper-proof) webserver logs from Akamai to cross-reference if any of our logfiles had been tampered with. Later that day we found first signs of a possible access to the database. At this point, it was still just guessing but we decided that we needed to go public if there is a possibility that user data has been accessed.  That was also the point where I started to jump between the forensics and the communications team. I became in charge of making sure that any publicized information was correct (from a technical or forensic point of view). The thing we wanted to avoid the most, was that rumors or even wrong information got out.</p>
+<p>Much later, we went back to the data center to get the disk images, which Mr. M. took back to his lab in order to analyze them properly. I did get to go home, but I spent the rest of my evening documenting everything I knew so we where all on the same page.</p>
+<h3 id="thursday">Thursday</h3>
+<p>On Wednesday evening we had made the decision to go public and that the message should go out to our users the next day at 15:00. It bugged me, that we would wait so long until we would send the message, but as it turned out we needed the time and I'm glad that our management new better than I did. Preparing a message in two both German and English was one thing, because we had to discuss the phrasing and what we could write (again, we didn't want to spread rumors, but tell people what we knew so far). The other thing was to prepare a short FAQ on what people should and could do to be safe in the meantime. The biggest problem however was handling the amount of outgoing mails and the expected responses. We decided to go with our newsletter service, to which we imported all of the email addresses. But we couldn't deliver all mails at once, so we had to send them in packages. The whole process took longer than I liked but we couldn't change it. Meanwhile the FAQ was published. Unfortunately, because we where all in a hurry, someone set the FAQs publishing timestamp to 1972.</p>
+<p>That was the end of the day and most of what I remember of it. It doesn't sound like a whole day of work, but there where so many ends to tie together and so many decisions to be made on the spot, that I was totally powered out when I got home. The rest of the day, we tried to monitor the web for any reaction to our outgoing mail. It was much more quiet than I expected.</p>
+<p>Here are some examples of the problems we had to deal with that day. It's good that everyone has it's own opinion because it can help find the best solution but time was short and we had to make sure that we used it as efficient as we could.</p>
+<p><strong>Our passwords are hashed, do we write encrypted?</strong><br /><br />
+This is a problem in the German language. Most (not technical affine) people say "verschlüsselt" (en: "encrypted"), for both hashing and encryption. The problem is, that hashing doesn't have a German translation that is as widely used as the counterpart for encryption. So by writing "verschlüsselt" we would make sure that most user understood what we where saying but at the same time risked, that users who knew the difference might think that we couldn't tell hashing from encryption. As it turned out, that's exactly what some of the users where thinking (and posting). Oh well.</p>
+<p><strong>Do we write forensics or just experts?</strong><br /><br />
+For me it was pretty clear that we would tell people that we hired external forensic experts, not just external experts. Why? Because we have experts for various fields,  but forensics just isn't one of them. Forensic isn't part of our daily work, in fact this was the first forensic job we had since I started working at CHIP, so it makes sense that we don't have a full-time forensic analyst.</p>
+<p><strong>Where do we put the FAQ?</strong><br /><br />
+This is a tough nut to crack for every company that finds itself in this kind of situation. You obviously don't want to spread bad news but you want to make sure that all users are being notified. So we decided not to post it on the front page of our main website, but on the front of our bulletin board. Since the board was still read only, and our "Revive" team was still tinkering with it, we had problems putting a message online. So we took the fastest solution we got, by replacing the top ad with a custom banner. The way we did that, was to create a banner with a message to all our users and deliver it via our ad service.<br />
+There was just one little problem we didn't think of. (Again, lot of stress and time pressure - you might overlook something)</p>
+<p><strong>Adblockers!</strong><br /><br />
+Everyone with an active adblocker didn't see our banner and therefore just saw a clean, read-only board without the message. The users still got the link to our FAQ hosted on our domain, but since the FAQ was published with a timestamp of 1972, some of our users thought this might all just be a fake and maybe someone was trying a phishing attack. - Not how we thought it would go!</p>
+<p><strong>Newsletters</strong><br /><br />
+Also, since we sent our message via our newsletter service, some of our users filtered it or received it as spam. We even got some comments from users saying they deleted it without reading it because they thought it was just another newsletter. Damn!</p>
+<h3 id="friday">Friday</h3>
+<p>This was the day! The community team was prepared to answer the responses from 2.4 million outgoing mails while the rest of us tried to keep an eye on what was going on in the web.</p>
+<p>Which sites wrote or blogged about us yet, what questions haven't we answered so far and the biggest question - should we publish an article with further information? It's a tightrope walk between flooding people with unnecessary information, and handing over only the important facts without hiding something. We where prepared to answer all the questions that could possibly come in, but in order to avoid wrong statements we agreed that answers to technical questions had to be checked with me before sending them out. It worked quite well, mostly because the amount of incoming questions and responses where lower than expected. Also, most of them where from users who had already forgotten they still had an account with our site and simply asked us to delete it.</p>
+<p>Still, it was a tough ride that was going on our nerves because we didn't know when the big flame-wave was going to hit us.</p>
+<h3 id="summary">Summary</h3>
+<p>As of right now, forensic analysis is still going on so we don't have all of the information yet. I think we did quite well considering the situation. But there is always something to learn from your mistakes and that's what I'm trying to do.<br />
+Below is a list of things I came up with that can help anybody who wants to prepare for a situation like this.</p>
+<ol>
+<li>It can happen to anyone - Yes we are a computer magazine and many people think that we "should have known better". But the fact is that there is no such thing as being secure, only best-effort. And you want to make sure that your best-effort is something you can present without feeling the need to hide something!</li>
+<li>Always check how your data is secured and document it. You don't want to be in the position where you have to check first if someone asks you that question</li>
+<li>Create a workflow to check regularly if the way you are storing your data is still state-of-the-art or if you have to improve on it.</li>
+<li>Prepare for emergency - This is really hard, because how do you prepare for something you don't know yet? Define a group of people with the skills required to
+<ul>
+<li>check your systems - The technical goto person who can answer all technical questions or at least find out the answer. This should also be the person to speak with forensics.<br /></li>
+<li>handle communication with your data privacy officer, law enforcement, your lawyers, management, etc.<br /></li>
+<li>make decisions - you need someone who can make the required decisions, and make them fast. If you have multiple managers, let them decide who gets to make the call. The more people involved in decisions, the longer it's going to take!</li>
+<li>backup if some of the people above are not available.</li>
+</ul>
+</li>
+<li>Time is of the essence - create a detailed workflow on how to communicate and make sure everyone knows and uses it. If you need to collaborate on documents or statements, make sure all you use the same software.</li>
+<li>Create an emergency response team, a group of people who know how to handle a system that has been compromised. They don't need to be forensic experts, but they should now what to do in order to prepare the scene for the analysts.</li>
+<li>Make breaks - force yourself to make a break every once in a while. Situations like these are stressful and at some point you will make a mistake if you don't rest. Lock your workstation and go for a 10 minute walk if it's nice outside. Otherwise, get a coffee and don't drink it at your desk! (or at a meeting!)</li>
+<li>Talk to your CEO and PR about disclosure and what their official statement is. When the situation comes, they might want to reconsider so write down what the decision was and exactly why they made it. This can safe time, and that's all that counts!</li>
+<li>Find a forensics company if you don't have your own analyst. If something like this goes down, you don't want to spend time on searching for a suitable company. Keep the phone number in your drawer!</li>
+<li>Get your employees on board
+<ul>
+<li>tell them what happened and that they are not allowed to communicate anything on their own!</li>
+<li>choose a dedicated person that your employees can contact for questions or forward questions to they received (in case something has been leaked already)</li>
+<li>don't hide information from them - if it's a fact or even a strong possibility, you should tell them!</li>
+</ul>
+</li>
+</ol>
+<p>I'm glad that we made the right decisions, even if we didn't think of everything. And as amazing as it was to see all those people giving all they got to resolve this problem, I still hope that we don't have to deal with this kind of situation again.</p>
+<div class="license_container">
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><amp-img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" width="88" height="31" layout="fixed"></amp-img></a><br /><span>We got hacked! now what?</span> by <a href="https://twitter.com/HashtagSecurity" rel="cc:attributionURL">HashtagSecurity</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.<br />Based on a work at <a href="https:/www.hashtagsecurity.com" rel="dct:source">https:/www.hashtagsecurity.com</a>.
+</div>
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="../../index.html">HashtagSecurity</a> &copy; 2019</section>
+        <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+    </footer>
+</body>
+</html>

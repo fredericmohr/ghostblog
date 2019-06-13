@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HashtagSecurity</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="wot-verification" content="06cd687a47e37736daed"/> 
+    <link rel="stylesheet" type="text/css" href="../assets/css/mofirst-min.css?v=8ff1f2e80d"/>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script> <!-- disqus loader needs latest jquery -->
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="HashtagSecurity" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="(W)BP#3 - HAProxy SNI, IPython, PostgreSQL and VIM" />
+    <meta property="og:description" content="A new bucket post - I will change them from weekly to &amp;quot;whenever I feel like it&amp;quot;. Mainly because I can&#x27;t find the time to write actual posts between the bucket posts and I don&#x27;t want this blog to consist solely of bucket posts. SSL Client Certificate Support" />
+    <meta property="og:url" content="fredericmohr.github.io/ghostblog/wbp3/" />
+    <meta property="article:published_time" content="2015-02-14T13:14:53.000Z" />
+    <meta property="article:modified_time" content="2015-02-14T13:38:32.000Z" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="(W)BP#3 - HAProxy SNI, IPython, PostgreSQL and VIM" />
+    <meta name="twitter:description" content="A new bucket post - I will change them from weekly to &amp;quot;whenever I feel like it&amp;quot;. Mainly because I can&#x27;t find the time to write actual posts between the bucket posts and I don&#x27;t want this blog to consist solely of bucket posts. SSL Client Certificate Support" />
+    <meta name="twitter:url" content="fredericmohr.github.io/ghostblog/wbp3/" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Frederic Mohr" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "HashtagSecurity",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "fredericmohr.github.io/ghostblog/content/images/2014/Oct/tw-logo_400x400-1.png",
+            "width": 60,
+            "height": 60
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Frederic Mohr",
+        "url": "fredericmohr.github.io/ghostblog/author/frederic/",
+        "sameAs": []
+    },
+    "headline": "(W)BP#3 - HAProxy SNI, IPython, PostgreSQL and VIM",
+    "url": "fredericmohr.github.io/ghostblog/wbp3/",
+    "datePublished": "2015-02-14T13:14:53.000Z",
+    "dateModified": "2015-02-14T13:38:32.000Z",
+    "description": "A new bucket post - I will change them from weekly to &amp;quot;whenever I feel like it&amp;quot;. Mainly because I can&#x27;t find the time to write actual posts between the bucket posts and I don&#x27;t want this blog to consist solely of bucket posts. SSL Client Certificate Support",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "fredericmohr.github.io/ghostblog/"
+    }
+}
+    </script>
+
+    <script src="../public/ghost-sdk.min.js?v=8ff1f2e80d"></script>
+<script>
+ghost.init({
+	clientId: "ghost-frontend",
+	clientSecret: "5a567477c5aa"
+});
+</script>
+    <meta name="generator" content="Ghost 2.23" />
+    <link rel="alternate" type="application/rss+xml" title="HashtagSecurity" href="../rss/index.html" />
+</head>
+<body>
+<!--NAVIGATION-->
+<div class="nav_bar">
+	<div class="nav_container">	
+		<ul class="nav">
+			<li id="nav-index"><a href="../index.html" class="icon-home"></a></li>
+			<li id="nav-kalibook"><a href="../getting-started-with-kali-linux/index.html" class="icon-book"></a></li>
+			<li id="nav-about"><a href="../about/index.html" class="icon-info"></a></li>
+		</ul>
+
+		<!-- Follow Me -->
+		<div class="follow_me">
+			<a href="https://twitter.com/HashtagSecurity" title="Twitter"><img alt="twitter" src="../assets/images/twi.png?v=8ff1f2e80d"></a>
+			<a href="https://www.hashtagsecurity.com/rss" title="RSS"><img alt="rss" src="../assets/images/rss.png?v=8ff1f2e80d"></a>
+		</div>
+	</div>
+</div>
+<div class="navline"></div>
+<!-- End Header -->
+<div class="outer_container">
+	<!-- PAGE -->
+	<div class="page_container">
+		<!-- CONTENT -->
+		<div class="post_container">
+			    <article class="post">
+
+
+        <h1 class="post-title">(W)BP#3 - HAProxy SNI, IPython, PostgreSQL and VIM</h1>
+		<span class="post-meta"><a href="http://de.linkedin.com/in/fredericmohr"><b>Frederic Mohr</b></a> - <time datetime="2015-02-14">14 Feb 2015</time> </span>
+
+        <section class="post-content">
+            <!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="../content/images/2015/02/del1-2.png" alt=""><br>
+A new bucket post - I will change them from weekly to &quot;whenever I feel like it&quot;. Mainly because I can't find the time to write actual posts between the bucket posts and I don't want this blog to consist solely of bucket posts.</p>
+<p><strong>SSL Client Certificate Support for Owncloud</strong> - Meanwhile on the interwebs, the support for client certificate authentication in Owncloud's desktop client &quot;Mirall&quot; <a href="https://github.com/owncloud/client/issues/69">is progressing</a>. So I didn't do anything and I didn't learn anything... why is this even here?</p>
+<p>Because I'm really looking forward to it! In fact, I'm planning on writing a blog post about the lack of support for additional authentication layers in desktop applications next week!</p>
+<p>Also, I'm curious who will claim <s>my</s> <a href="https://www.bountysource.com/issues/905047-ssl-client-certificate">the bounty</a>! I assume <a href="https://github.com/qknight">@qknight</a>.</p>
+<p><strong>Windows NTP Problems Round 2</strong> - Apparently my &quot;fix&quot; from <a href="https://www.hashtagsecurity.com/wbp2/">last weeks post</a> didn't really fix my time issue with Windows 8. After a reboot, the clock is automatically set be off by one hour. Fortunately a friend of mine read the post and send me this link.</p>
+<p><a href="http://www.webupd8.org/2014/09/dual-boot-fix-time-differences-between.html">Dual Boot: Fix Time Differences Between Ubuntu And Windows</a></p>
+<p>The problem lies in my dual boot setup of Kubuntu 14.04 and Windows 8.1. For me the solution was this command.</p>
+<pre><code>sudo sed -i 's/UTC=yes/UTC=no/' /etc/default/rcS
+</code></pre>
+<p>If you want to fix the problem using Windows, checkout the link above. There is more then one way to do this.</p>
+<p><strong>SNI with HAProxy</strong> - Last week I encountered a few problems with HAProxy and Server Name Indication, or SNI.</p>
+<p>SNI is used by webservers, to distinguish between multiple SSL/TLS vhosts. In a normal HTTP setup, webservers can easily tell which site is requested. When TLS is in place, this becomes impossible without decrypting the traffic. In order to be able to have multiple websites hosted on the same IP and port (443), the client is required to send the hostname before transport encryption is established. That's exactly what SNI does.</p>
+<p>Usually SNI allows you to create different vhosts like this (pseudo code)</p>
+<pre><code>www.example.com:443
+  www.example.com settings
+private.example.com:443
+  private.example.com settings
+</code></pre>
+<p>In HAProxy however, it looks more like this (pseudo code)</p>
+<pre><code>*:443
+  use_backend www if sni is www.example.com
+  use_backend private if sni is private.example.com
+</code></pre>
+<p>The problem here is, that a lot of settings are done in the frontend, not the backend and therefore some settings cannot be set vhost specific. I found a solution to this problem, which I documented on <a href="http://serverfault.com/questions/662662/haproxy-with-sni-and-different-ssl-settings">serverfault.com</a>. If I find the time, I'll write a blog post that will explain everything in more detail.</p>
+<p><strong>Seriously, why is this never documented???</strong> - following a howto about something that includes PostgreSQL on Ubuntu 14.04 is always a pain. Mainly because these two lines seem to be missing every single time!</p>
+<pre><code>$ sudo useradd -U -s /bin/bash postgres
+$ sudo pg_createcluster 9.3 main --start
+</code></pre>
+<p><small>source: <a href="http://askubuntu.com/questions/463594/starting-postgresql-server-postgres-user-unknown">askubuntu.com</a></small></p>
+<p><strong>IPython Notebook</strong> - Looking for a new web based notebook? I did! And I found &quot;IPython Notebook&quot; which is, to keep it short, awesome.<br>
+To showcase a few of the many features I like...</p>
+<p><small>Run Python code</small><br>
+<img src="../content/images/2015/01/del1-7.png" alt=""><br>
+<small>Use Markdown</small><br>
+<img src="../content/images/2015/01/del1-8.png" alt=""><br>
+<small>Preview</small><br>
+<img src="../content/images/2015/02/del1-3.png" alt=""></p>
+<p><strong>VIM modelines</strong><br>
+VIM modelines look something like this<br>
+<img src="../content/images/2015/01/del1-10.png" alt=""><br>
+and can be used to set VIM settings for specific files. By appending the modeline, VIM will adjust the global settings accordingly, unless modelines is disabled.</p>
+<p>Modelines can be temporarily enabled by running <code>:verbose set modeline</code> or permanently by adding <code>set modeling</code> to your <code>~/.vimrc</code>.</p>
+<p>Note that modelines <a href="http://vim.wikia.com/wiki/Modeline_magic">is off by default when editing as root.</a>.</p>
+<p><strong>VIM jar</strong> - VIM never ceases to amaze me, and the limit to things one can learn about it seems to be non-existent.</p>
+<p>I looked for a tool to explore the contents of a jar file. As it turns out, it's just a zipped archive so unpack it and that's it - however, you could just open it with vim and have a look around without extracting the files first.</p>
+<p>If you have unzip installed that is.<br>
+<img src="../content/images/2015/02/del1.png" alt=""></p>
+<p>I usually use tar, so unzip is something I don't have installed by default but know I might just have enough reason to install it as well.<br>
+<img src="../content/images/2015/02/del1-1.png" alt=""></p>
+<p><strong>Kubuntu on L420</strong> - Just a quick addition, I recently bought a Thinkpad L420 for 220€ on ebay. Unfortunately Kubuntu only booted with the <code>acpi=off</code> and <code>nolapic</code> flags. After a BIOS upgrade with this <a href="http://support.lenovo.com/us/en/downloads/ds013626">boot CD</a> everything worked fine. Just in case anyone faces this issue as well.</p>
+<p><strong>Links</strong> - Interesting things I found on the webs</p>
+<ul>
+<li><a href="https://github.com/KeyboardFire/mkcast">https://github.com/KeyboardFire/mkcast</a></li>
+</ul>
+<!--kg-card-end: markdown--><!--kg-card-end: markdown-->
+	</p>
+        </section>
+
+<br>
+<hr>
+<br>
+	<!-- START DISQUS IMPLEMENTATION -->
+        <script src="/assets/js/disqus.js?v=8ff1f2e80d></script>
+        <div id="disqus_thread"></div>
+        <!--<div class="post_disqus show-comments" title="Privacy: Click to enable Disqus (uses cookies!)"><b>Enable Disqus</b></div>
+	END DISQUS IMPLEMENTATION -->
+</article>
+
+
+		</div>
+
+		<!-- SIDEBAR -->
+		<div class="side_container">
+
+			<div class="side_sub_one well">
+				<b>Note</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>All information provided on this site is for educational purposes only. The site and it's author is in no way responsible for any misuse of the information.</p>
+			</div>
+			<div class="side_sub_one well">
+				<b>Links</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="../random-notes/index.html">Random Notes and CheatSheets</a><br>
+				<hr>
+				<a href="http://learnpythonthehardway.org/book/">Python the hard way</a><br>
+				<a href="http://cspplayground.com">CSP Playground</a><br>
+				<a href="http://www.offensive-security.com/metasploit-unleashed/Main_Page">Metasploit Unleashed</a><br>
+				<hr>
+				<a href="https://www.linkedin.com/profile/view?id=203397467">Me - LinkedIn</a><br>
+				<a href="https://ctftime.org/team/9072">Me - CTFTime.org</a><br>
+				</p>
+			</div>		
+			<div class="side_sub_one well">
+				<b>Blogs</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="http://wearetheartillery.blogspot.com.es/">WeAreTheArtillery</a><br>
+				<a href="https://www.imperialviolet.org">Imperial Violet</a><br>
+				<a href="http://www.nerd-supreme.de">NerdSupreme (DE)</a><br>
+				<a href="http://krebsonsecurity.com/">KrebsOnSecurity</a><br>
+				<a href="https://www.corelan.be/">Corelan Team</a><br>
+				<a href="http://blog.g0tmi1k.com/">G0tmi1k</a><br>
+				</p>
+			</div>		
+			<div class="side_sub_one well">
+				<b>Reddits</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="http://www.reddit.com/r/netsec/">/r/netsec</a><br>
+				<a href="http://www.reddit.com/r/Python/">/r/Python</a><br>
+				<a href="http://www.reddit.com/r/Defcon/">/r/Defcon</a><br>
+				<a href="http://www.reddit.com/r/securityCTF/">/r/securityCTF</a><br>
+				<a href="index.html"></a><br>
+				</p>
+			</div>		
+		</div>
+	</div> <!-- End of Sidebar -->
+</div>
+	<div class="footer">
+	<div class=navline></div>
+		HashtagSecurity<br><small>... keeping security in mind.<br><a href="../impressum">Impressum</a> | <a href="../datenschutzerklarung">Datenschutzerklärung</a> | <a href="../privacy-policy">Privacy Policy</a></small>
+	</div>
+</body>
+</html>

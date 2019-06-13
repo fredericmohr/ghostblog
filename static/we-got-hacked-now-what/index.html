@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HashtagSecurity</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="wot-verification" content="06cd687a47e37736daed"/> 
+    <link rel="stylesheet" type="text/css" href="../assets/css/mofirst-min.css?v=8ff1f2e80d"/>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script> <!-- disqus loader needs latest jquery -->
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="HashtagSecurity" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="We got hacked! Now what?" />
+    <meta property="og:description" content="Almost a year ago, I experienced my first real security incident. The company&#x27;s bulletin board was compromised and it was my job to oversee and coordinate the incident response. The teams and I where pretty much thrown into the cold water, as we&#x27;ve never experienced an incident of that size" />
+    <meta property="og:url" content="fredericmohr.github.io/ghostblog/we-got-hacked-now-what/" />
+    <meta property="article:published_time" content="2015-01-29T13:26:51.000Z" />
+    <meta property="article:modified_time" content="2015-02-01T08:57:00.000Z" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="We got hacked! Now what?" />
+    <meta name="twitter:description" content="Almost a year ago, I experienced my first real security incident. The company&#x27;s bulletin board was compromised and it was my job to oversee and coordinate the incident response. The teams and I where pretty much thrown into the cold water, as we&#x27;ve never experienced an incident of that size" />
+    <meta name="twitter:url" content="fredericmohr.github.io/ghostblog/we-got-hacked-now-what/" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Frederic Mohr" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "HashtagSecurity",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "fredericmohr.github.io/ghostblog/content/images/2014/Oct/tw-logo_400x400-1.png",
+            "width": 60,
+            "height": 60
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Frederic Mohr",
+        "url": "fredericmohr.github.io/ghostblog/author/frederic/",
+        "sameAs": []
+    },
+    "headline": "We got hacked! Now what?",
+    "url": "fredericmohr.github.io/ghostblog/we-got-hacked-now-what/",
+    "datePublished": "2015-01-29T13:26:51.000Z",
+    "dateModified": "2015-02-01T08:57:00.000Z",
+    "description": "Almost a year ago, I experienced my first real security incident. The company&#x27;s bulletin board was compromised and it was my job to oversee and coordinate the incident response. The teams and I where pretty much thrown into the cold water, as we&#x27;ve never experienced an incident of that size",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "fredericmohr.github.io/ghostblog/"
+    }
+}
+    </script>
+
+    <script src="../public/ghost-sdk.min.js?v=8ff1f2e80d"></script>
+<script>
+ghost.init({
+	clientId: "ghost-frontend",
+	clientSecret: "5a567477c5aa"
+});
+</script>
+    <meta name="generator" content="Ghost 2.23" />
+    <link rel="alternate" type="application/rss+xml" title="HashtagSecurity" href="../rss/index.html" />
+</head>
+<body>
+<!--NAVIGATION-->
+<div class="nav_bar">
+	<div class="nav_container">	
+		<ul class="nav">
+			<li id="nav-index"><a href="../index.html" class="icon-home"></a></li>
+			<li id="nav-kalibook"><a href="../getting-started-with-kali-linux/index.html" class="icon-book"></a></li>
+			<li id="nav-about"><a href="../about/index.html" class="icon-info"></a></li>
+		</ul>
+
+		<!-- Follow Me -->
+		<div class="follow_me">
+			<a href="https://twitter.com/HashtagSecurity" title="Twitter"><img alt="twitter" src="../assets/images/twi.png?v=8ff1f2e80d"></a>
+			<a href="https://www.hashtagsecurity.com/rss" title="RSS"><img alt="rss" src="../assets/images/rss.png?v=8ff1f2e80d"></a>
+		</div>
+	</div>
+</div>
+<div class="navline"></div>
+<!-- End Header -->
+<div class="outer_container">
+	<!-- PAGE -->
+	<div class="page_container">
+		<!-- CONTENT -->
+		<div class="post_container">
+			    <article class="post">
+
+
+        <h1 class="post-title">We got hacked! Now what?</h1>
+		<span class="post-meta"><a href="http://de.linkedin.com/in/fredericmohr"><b>Frederic Mohr</b></a> - <time datetime="2015-01-29">29 Jan 2015</time> </span>
+
+        <section class="post-content">
+            <!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="../content/images/2015/01/hacked_now_what-1.jpg" alt=""><br>
+Almost a year ago, I experienced my first real security incident. The company's bulletin board was compromised and it was my job to oversee and coordinate the incident response. The teams and I where pretty much thrown into the cold water, as we've never experienced an incident of that size before.</p>
+<p>Right after the incident I wrote the following blog post, which I'm now able to publish. Please note that I didn't change anything deliberately, as I wrote it back when my memories on everything where still fresh in all detail.</p>
+<h3 id="anoteupfront">A note up front!</h3>
+<p>Please note that this is a private blog and although I <s>am</s> was an employee of CHIP Digital GmbH, all opinions depicted here are solely my own!</p>
+<p>This is a write-up of last weeks events from my perspective and how I experienced it.</p>
+<p>If you're not from Germany, you might have missed the news that the bulletin board at forum.chip.de was hacked. CHIP is a technical magazine targeted to end users and the board has around 2.4 million registered users. Not all of them are active, some have never even activated their account but it's still a decent amount of users. Unfortunately, this only makes it so much worse if there is a breach.</p>
+<h3 id="sowhathappened">So what happened?</h3>
+<p>Well, if you speak German you can read the official statement <a href="http://www.chip.de/artikel/CHIP-Forum_68832986.html">here</a> or try your luck with the Google translator.</p>
+<p>In summary, on Monday, 24.03.2014, someone gained unauthorized access to our bulletin board. As of right now, still don't know how they got access but the compromised account in question had at least some higher permissions, allowing the attacker to compromise further employee accounts. As soon as we noticed that there was something fishy going on, we took the system offline and notified users that the board is under maintenance. We hired external forensic experts to secure any evidence of the breach and analyze the system, so we could figure out what happened, and how it happened. Once we were told that there is a chance that user data has been accessed, we notified all email addresses in the database (2.4M).</p>
+<p>At the time of this writing, we're still unsure if user data has been stolen.</p>
+<h3 id="butthereismore">But there is more!</h3>
+<p>All of the above seems quite simple. We got hacked, we hired forensic experts, we notified our users.</p>
+<p>First of all, there are some points I want to make clear:</p>
+<ol>
+<li>First contact: I've never worked with forensic analysts before</li>
+<li>As you might have guessed, this is one of those situations that are hard to prepare for</li>
+<li>Yes, we made mistakes! (We're not perfect! Again - my opinion!)</li>
+<li>Time ran really fast this week...</li>
+</ol>
+<p>That being said, let's take a closer look at my last week.</p>
+<h3 id="monday">Monday</h3>
+<p>I have to admit my first mistake right here - I didn't check my mail. I went home after work and didn't check my phone. That's why I missed out on a lot of information. If I had checked my mail, I might have been able to make a decision much earlier. This wouldn't have prevented the incident, but we might have been able to get forensics at Tuesday morning.</p>
+<h3 id="tuesday">Tuesday</h3>
+<p>I checked my mails during breakfast and that's where all the information hit me in one big wave. It was from that point on, that I didn't had a real brake for a good amount of time (and I wasn't the only one!). So I rushed to work and tried to figure out what exactly happened, who got what information and if anyone had come up with some sort of plan.</p>
+<p>Before I continue, I have to thank all my co-workers for doing a really great job! (Don't even think about me doing all the work - I was quite busy, but there where a lot of people who gave everything!)</p>
+<p>Just before the first meeting was called in, I managed to contact a forensics company and asked if they had someone who could come in ASAP. They had to check - which meant I had to wait. It didn't matter, because I had just enough time to rush to the meeting which was about to begin. Why even bother with meeting in a situation like this? Well, as it turns out the meetings where (although exhausting) really important as they kept us focused on what's important and in-sync information wise. The first one was a bit chaotic, since almost all colleagues from the technical department where attending and we had to find out what we knew and how we would go about fixing it. But it was a good way to figure out who would join which team, and who had the necessary know-how to help which party.</p>
+<p>Overall there where four main teams. (I'm deeply sorry if I missed anyone. These are not all of the people that helped, just a rough overview of the main groups)</p>
+<p><strong>The forensics team</strong><br>Charged with the analysis of the systems, this &quot;team&quot; consisted of one of my co-workers, me and of course the forensic experts. We had one analyst with us on-site, and it was our job to support him (from here on called Mr. M.) by handing him logfiles, database dumps, giving him physical access to the servers and answering all of his questions.</p>
+<p><strong>The &quot;Revive&quot; team</strong> <br><br>
+I call it that, since &quot;Revive&quot; is the word from their whiteboard that got stuck in my mind. These guys where busy the whole time, getting the board back online in a secure way so that users could login and interact again. Their first goal on Tuesday was to get the board back online in read-only mode. The system was set to read only so that the content was available again (on new servers of course!) but couldn't be tampered with in case the attacker returned. The second goal was to setup the whole board with tightened security on new hardware, since the old one couldn't be used. You might think that setting up a bulletin board is an easy task, but this system is very complex and they had to jump through quite a few hoops in order to get there. This was by far more than just recovering a backup. We didn't even know if the backups could be trusted! - This is all you will be hearing from this team, since I wasn't part of it. But for me it was an amazing example of their skills put to the test and I'm glad to be working with such great people!</p>
+<p><strong>The communication team</strong><br><br>
+The communication team was a bit vaguely defined since a lot of people had part of it at some point, but the core of it included of course our public relations manager, top level management, part of the community team and myself (mostly for technical questions). This team was formed after the meeting and put in charge of informing our users and handling communication through out the company and with our data privacy officer, lawyers and such. They had to gather and distribute all information, sort it and make decisions based on it - and they made the right ones in my opinion!</p>
+<p><strong>The community team</strong><br><br>
+This is the only real team. The community team normally moderates the bulletin board, as well as social media like Twitter, Youtube and the like. Aside from their role in the communication team, they had to answer all questions that came in, some of which had to be checked with forensics in order to avoid spreading rumors or making statements that where not true (or not yet declared as facts by Mr. M).</p>
+<p>As you can see, a lot of people had to make sure everyone was up to date on the information, which was a lot of work that had to be done on the side. After the meeting, I called back our forensics contact and he told me that one of his analysts (Mr. M.) could be on-site in about two hours. Once Mr. M. arrived, we had to brief him on the incident and he quickly explained the next steps. First of all we had to take a complete dump of the compromised servers hard disk, since that takes a long time to finish. In case you wonder - no, you can't use your standard backup software. He didn't need a backup of the files on the disk, but a complete image the disk. We handed Mr. M. our webserver log files and dumped the complete database so he could analyze it. We spent the rest of the day going through log entries line by line and trying to figure out which IPs belonged to the attacker and which actions where taken. Mr. M. took the files back to his lab, where he continued to work on till late at night.</p>
+<h3 id="wednesday">Wednesday</h3>
+<p>Wednesday morning, we drove back to the data center to get the disk image. Unfortunately I had made a mistake when calculating the approximate time the dump process would take so the image wasn't done yet. First of all, I used the size of the data stored on the disks and compared it to the data transfer speed, which was wrong because the size of a complete image is obviously not the size of data stored, but of the complete disk array. The second mistake I made is that I trusted my own calculation. I could have checked if the copy job was finished from my workstation and we lost valuable time because of that.</p>
+<p>Since we couldn't analyze the disk image we continued to analyze logfiles and the database dumps. It was helpful that we had the (tamper-proof) webserver logs from Akamai to cross-reference if any of our logfiles had been tampered with. Later that day we found first signs of a possible access to the database. At this point, it was still just guessing but we decided that we needed to go public if there is a possibility that user data has been accessed.  That was also the point where I started to jump between the forensics and the communications team. I became in charge of making sure that any publicized information was correct (from a technical or forensic point of view). The thing we wanted to avoid the most, was that rumors or even wrong information got out.</p>
+<p>Much later, we went back to the data center to get the disk images, which Mr. M. took back to his lab in order to analyze them properly. I did get to go home, but I spent the rest of my evening documenting everything I knew so we where all on the same page.</p>
+<h3 id="thursday">Thursday</h3>
+<p>On Wednesday evening we had made the decision to go public and that the message should go out to our users the next day at 15:00. It bugged me, that we would wait so long until we would send the message, but as it turned out we needed the time and I'm glad that our management new better than I did. Preparing a message in two both German and English was one thing, because we had to discuss the phrasing and what we could write (again, we didn't want to spread rumors, but tell people what we knew so far). The other thing was to prepare a short FAQ on what people should and could do to be safe in the meantime. The biggest problem however was handling the amount of outgoing mails and the expected responses. We decided to go with our newsletter service, to which we imported all of the email addresses. But we couldn't deliver all mails at once, so we had to send them in packages. The whole process took longer than I liked but we couldn't change it. Meanwhile the FAQ was published. Unfortunately, because we where all in a hurry, someone set the FAQs publishing timestamp to 1972.</p>
+<p>That was the end of the day and most of what I remember of it. It doesn't sound like a whole day of work, but there where so many ends to tie together and so many decisions to be made on the spot, that I was totally powered out when I got home. The rest of the day, we tried to monitor the web for any reaction to our outgoing mail. It was much more quiet than I expected.</p>
+<p>Here are some examples of the problems we had to deal with that day. It's good that everyone has it's own opinion because it can help find the best solution but time was short and we had to make sure that we used it as efficient as we could.</p>
+<p><strong>Our passwords are hashed, do we write encrypted?</strong><br><br>
+This is a problem in the German language. Most (not technical affine) people say &quot;verschlüsselt&quot; (en: &quot;encrypted&quot;), for both hashing and encryption. The problem is, that hashing doesn't have a German translation that is as widely used as the counterpart for encryption. So by writing &quot;verschlüsselt&quot; we would make sure that most user understood what we where saying but at the same time risked, that users who knew the difference might think that we couldn't tell hashing from encryption. As it turned out, that's exactly what some of the users where thinking (and posting). Oh well.</p>
+<p><strong>Do we write forensics or just experts?</strong><br><br>
+For me it was pretty clear that we would tell people that we hired external forensic experts, not just external experts. Why? Because we have experts for various fields,  but forensics just isn't one of them. Forensic isn't part of our daily work, in fact this was the first forensic job we had since I started working at CHIP, so it makes sense that we don't have a full-time forensic analyst.</p>
+<p><strong>Where do we put the FAQ?</strong><br><br>
+This is a tough nut to crack for every company that finds itself in this kind of situation. You obviously don't want to spread bad news but you want to make sure that all users are being notified. So we decided not to post it on the front page of our main website, but on the front of our bulletin board. Since the board was still read only, and our &quot;Revive&quot; team was still tinkering with it, we had problems putting a message online. So we took the fastest solution we got, by replacing the top ad with a custom banner. The way we did that, was to create a banner with a message to all our users and deliver it via our ad service.<br>
+There was just one little problem we didn't think of. (Again, lot of stress and time pressure - you might overlook something)</p>
+<p><strong>Adblockers!</strong><br><br>
+Everyone with an active adblocker didn't see our banner and therefore just saw a clean, read-only board without the message. The users still got the link to our FAQ hosted on our domain, but since the FAQ was published with a timestamp of 1972, some of our users thought this might all just be a fake and maybe someone was trying a phishing attack. - Not how we thought it would go!</p>
+<p><strong>Newsletters</strong><br><br>
+Also, since we sent our message via our newsletter service, some of our users filtered it or received it as spam. We even got some comments from users saying they deleted it without reading it because they thought it was just another newsletter. Damn!</p>
+<h3 id="friday">Friday</h3>
+<p>This was the day! The community team was prepared to answer the responses from 2.4 million outgoing mails while the rest of us tried to keep an eye on what was going on in the web.</p>
+<p>Which sites wrote or blogged about us yet, what questions haven't we answered so far and the biggest question - should we publish an article with further information? It's a tightrope walk between flooding people with unnecessary information, and handing over only the important facts without hiding something. We where prepared to answer all the questions that could possibly come in, but in order to avoid wrong statements we agreed that answers to technical questions had to be checked with me before sending them out. It worked quite well, mostly because the amount of incoming questions and responses where lower than expected. Also, most of them where from users who had already forgotten they still had an account with our site and simply asked us to delete it.</p>
+<p>Still, it was a tough ride that was going on our nerves because we didn't know when the big flame-wave was going to hit us.</p>
+<h3 id="summary">Summary</h3>
+<p>As of right now, forensic analysis is still going on so we don't have all of the information yet. I think we did quite well considering the situation. But there is always something to learn from your mistakes and that's what I'm trying to do.<br>
+Below is a list of things I came up with that can help anybody who wants to prepare for a situation like this.</p>
+<ol>
+<li>It can happen to anyone - Yes we are a computer magazine and many people think that we &quot;should have known better&quot;. But the fact is that there is no such thing as being secure, only best-effort. And you want to make sure that your best-effort is something you can present without feeling the need to hide something!</li>
+<li>Always check how your data is secured and document it. You don't want to be in the position where you have to check first if someone asks you that question</li>
+<li>Create a workflow to check regularly if the way you are storing your data is still state-of-the-art or if you have to improve on it.</li>
+<li>Prepare for emergency - This is really hard, because how do you prepare for something you don't know yet? Define a group of people with the skills required to
+<ul>
+<li>check your systems - The technical goto person who can answer all technical questions or at least find out the answer. This should also be the person to speak with forensics.<br></li>
+<li>handle communication with your data privacy officer, law enforcement, your lawyers, management, etc.<br></li>
+<li>make decisions - you need someone who can make the required decisions, and make them fast. If you have multiple managers, let them decide who gets to make the call. The more people involved in decisions, the longer it's going to take!</li>
+<li>backup if some of the people above are not available.</li>
+</ul>
+</li>
+<li>Time is of the essence - create a detailed workflow on how to communicate and make sure everyone knows and uses it. If you need to collaborate on documents or statements, make sure all you use the same software.</li>
+<li>Create an emergency response team, a group of people who know how to handle a system that has been compromised. They don't need to be forensic experts, but they should now what to do in order to prepare the scene for the analysts.</li>
+<li>Make breaks - force yourself to make a break every once in a while. Situations like these are stressful and at some point you will make a mistake if you don't rest. Lock your workstation and go for a 10 minute walk if it's nice outside. Otherwise, get a coffee and don't drink it at your desk! (or at a meeting!)</li>
+<li>Talk to your CEO and PR about disclosure and what their official statement is. When the situation comes, they might want to reconsider so write down what the decision was and exactly why they made it. This can safe time, and that's all that counts!</li>
+<li>Find a forensics company if you don't have your own analyst. If something like this goes down, you don't want to spend time on searching for a suitable company. Keep the phone number in your drawer!</li>
+<li>Get your employees on board
+<ul>
+<li>tell them what happened and that they are not allowed to communicate anything on their own!</li>
+<li>choose a dedicated person that your employees can contact for questions or forward questions to they received (in case something has been leaked already)</li>
+<li>don't hide information from them - if it's a fact or even a strong possibility, you should tell them!</li>
+</ul>
+</li>
+</ol>
+<p>I'm glad that we made the right decisions, even if we didn't think of everything. And as amazing as it was to see all those people giving all they got to resolve this problem, I still hope that we don't have to deal with this kind of situation again.</p>
+<div class="license_container">
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">We got hacked! now what?</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://twitter.com/HashtagSecurity" property="cc:attributionName" rel="cc:attributionURL">HashtagSecurity</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.<br />Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="https:/www.hashtagsecurity.com" rel="dct:source">https:/www.hashtagsecurity.com</a>.
+</div><!--kg-card-end: markdown--><!--kg-card-end: markdown-->
+	</p>
+        </section>
+
+<br>
+<hr>
+<br>
+	<!-- START DISQUS IMPLEMENTATION -->
+        <script src="/assets/js/disqus.js?v=8ff1f2e80d></script>
+        <div id="disqus_thread"></div>
+        <!--<div class="post_disqus show-comments" title="Privacy: Click to enable Disqus (uses cookies!)"><b>Enable Disqus</b></div>
+	END DISQUS IMPLEMENTATION -->
+</article>
+
+
+		</div>
+
+		<!-- SIDEBAR -->
+		<div class="side_container">
+
+			<div class="side_sub_one well">
+				<b>Note</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>All information provided on this site is for educational purposes only. The site and it's author is in no way responsible for any misuse of the information.</p>
+			</div>
+			<div class="side_sub_one well">
+				<b>Links</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="../random-notes/index.html">Random Notes and CheatSheets</a><br>
+				<hr>
+				<a href="http://learnpythonthehardway.org/book/">Python the hard way</a><br>
+				<a href="http://cspplayground.com">CSP Playground</a><br>
+				<a href="http://www.offensive-security.com/metasploit-unleashed/Main_Page">Metasploit Unleashed</a><br>
+				<hr>
+				<a href="https://www.linkedin.com/profile/view?id=203397467">Me - LinkedIn</a><br>
+				<a href="https://ctftime.org/team/9072">Me - CTFTime.org</a><br>
+				</p>
+			</div>		
+			<div class="side_sub_one well">
+				<b>Blogs</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="http://wearetheartillery.blogspot.com.es/">WeAreTheArtillery</a><br>
+				<a href="https://www.imperialviolet.org">Imperial Violet</a><br>
+				<a href="http://www.nerd-supreme.de">NerdSupreme (DE)</a><br>
+				<a href="http://krebsonsecurity.com/">KrebsOnSecurity</a><br>
+				<a href="https://www.corelan.be/">Corelan Team</a><br>
+				<a href="http://blog.g0tmi1k.com/">G0tmi1k</a><br>
+				</p>
+			</div>		
+			<div class="side_sub_one well">
+				<b>Reddits</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="http://www.reddit.com/r/netsec/">/r/netsec</a><br>
+				<a href="http://www.reddit.com/r/Python/">/r/Python</a><br>
+				<a href="http://www.reddit.com/r/Defcon/">/r/Defcon</a><br>
+				<a href="http://www.reddit.com/r/securityCTF/">/r/securityCTF</a><br>
+				<a href="index.html"></a><br>
+				</p>
+			</div>		
+		</div>
+	</div> <!-- End of Sidebar -->
+</div>
+	<div class="footer">
+	<div class=navline></div>
+		HashtagSecurity<br><small>... keeping security in mind.<br><a href="../impressum">Impressum</a> | <a href="../datenschutzerklarung">Datenschutzerklärung</a> | <a href="../privacy-policy">Privacy Policy</a></small>
+	</div>
+</body>
+</html>

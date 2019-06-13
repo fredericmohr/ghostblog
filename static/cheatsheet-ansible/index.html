@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HashtagSecurity</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="wot-verification" content="06cd687a47e37736daed"/> 
+    <link rel="stylesheet" type="text/css" href="../assets/css/mofirst-min.css?v=8ff1f2e80d"/>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script> <!-- disqus loader needs latest jquery -->
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="HashtagSecurity" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="CheatSheet - Ansible" />
+    <meta property="og:description" content="Ansible Back to Index A random collection of commands and playbook features for Ansible. Setting SSH options Problems with -o BatchMode Fetch configs and store them on Ansible Automatically commit fetched configs to git Setting SSH options In /etc/ansible/ansible.cfg, SSH settings can be defined. # uncomment this to" />
+    <meta property="og:url" content="fredericmohr.github.io/ghostblog/cheatsheet-ansible/" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="CheatSheet - Ansible" />
+    <meta name="twitter:description" content="Ansible Back to Index A random collection of commands and playbook features for Ansible. Setting SSH options Problems with -o BatchMode Fetch configs and store them on Ansible Automatically commit fetched configs to git Setting SSH options In /etc/ansible/ansible.cfg, SSH settings can be defined. # uncomment this to" />
+    <meta name="twitter:url" content="fredericmohr.github.io/ghostblog/cheatsheet-ansible/" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Frederic Mohr" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "HashtagSecurity",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "fredericmohr.github.io/ghostblog/content/images/2014/Oct/tw-logo_400x400-1.png",
+            "width": 60,
+            "height": 60
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Frederic Mohr",
+        "sameAs": []
+    },
+    "headline": "CheatSheet - Ansible",
+    "url": "fredericmohr.github.io/ghostblog/cheatsheet-ansible/",
+    "description": "Ansible Back to Index A random collection of commands and playbook features for Ansible. Setting SSH options Problems with -o BatchMode Fetch configs and store them on Ansible Automatically commit fetched configs to git Setting SSH options In /etc/ansible/ansible.cfg, SSH settings can be defined. # uncomment this to",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "fredericmohr.github.io/ghostblog/"
+    }
+}
+    </script>
+
+    <script src="../public/ghost-sdk.min.js?v=8ff1f2e80d"></script>
+<script>
+ghost.init({
+	clientId: "ghost-frontend",
+	clientSecret: "5a567477c5aa"
+});
+</script>
+    <meta name="generator" content="Ghost 2.23" />
+    <link rel="alternate" type="application/rss+xml" title="HashtagSecurity" href="../rss/index.html" />
+</head>
+<body>
+<!--NAVIGATION-->
+<div class="nav_bar">
+	<div class="nav_container">	
+		<ul class="nav">
+			<li id="nav-index"><a href="../index.html" class="icon-home"></a></li>
+			<li id="nav-kalibook"><a href="../getting-started-with-kali-linux/index.html" class="icon-book"></a></li>
+			<li id="nav-about"><a href="../about/index.html" class="icon-info"></a></li>
+		</ul>
+
+		<!-- Follow Me -->
+		<div class="follow_me">
+			<a href="https://twitter.com/HashtagSecurity" title="Twitter"><img alt="twitter" src="../assets/images/twi.png?v=8ff1f2e80d"></a>
+			<a href="https://www.hashtagsecurity.com/rss" title="RSS"><img alt="rss" src="../assets/images/rss.png?v=8ff1f2e80d"></a>
+		</div>
+	</div>
+</div>
+<div class="navline"></div>
+<!-- End Header -->
+<div class="outer_container">
+	<!-- PAGE -->
+	<div class="page_container">
+		<!-- CONTENT -->
+		<div class="post_container">
+			    <article class="post page">
+
+
+        <h1 class="post-title">CheatSheet - Ansible</h1>
+		<span class="post-meta"><a href="http://de.linkedin.com/in/fredericmohr"><b>Frederic Mohr</b></a> - <time datetime="2014-11-15">15 Nov 2014</time> </span>
+
+        <section class="post-content">
+            <!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><h1><a NAME=04_ansible>Ansible</a></b>
+<span style="font-size:small;"><a href="index.html#topics" style="float: right;">Back to Index</a></span></h1>
+<p>A random collection of commands and playbook features for Ansible.</p>
+<ul>
+<li><a href="index.html#04_01_ssh_options">Setting SSH options</a></li>
+<li><a href="index.html#04_02_ssh_batchmode">Problems with -o BatchMode</a></li>
+<li><a href="index.html#04_03_fetch-config">Fetch configs and store them on Ansible</a></li>
+<li><a href="index.html#04_04_auto-git">Automatically commit fetched configs to git</a></li>
+</ul>
+<p><b><a NAME=04_01_ssh_options>Setting SSH options</a></b></p>
+<p>In /etc/ansible/ansible.cfg, SSH settings can be defined.</p>
+<pre><code># uncomment this to disable SSH key host checking
+host_key_checking = False
+[...]
+private_key_file = /etc/ansible/ansible.ppk
+[...]
+[ssh_connection]
+# ssh arguments to use
+ssh_args = -o BatchMode=yes -o ForwardAgent=yes
+</code></pre>
+<p><b><a NAME=04_02_ssh_batchmode>Problems with -o BatchMode</a></b></p>
+<p>Ansible gives you the option to pass SSH options such as &quot;BatchMode&quot; on to your ansible runs. However, I ran into a problem regarding BatchMode and the Ansible --ask-pass (-k) option.</p>
+<p>I used the following command to check if ldap login worked on all hosts.</p>
+<pre><code>ansible 'all' -a hostname -u username -k
+</code></pre>
+<p>With <code>ssh_args = -o BatchMode=yes</code> enabled in <code>/etc/ansible/ansible.cfg</code> the command failed. After I removed <code>BatchMode=yes</code>, everything worked.</p>
+<p><b><a NAME=04_03_fetch-config>Fetch configs and store them on Ansible</a></b></p>
+<p>To backup single files with ansible, use the following <code>fetch-configs.yml</code> playbook</p>
+<pre><code>---
+# Fetch Configs before rollout
+- hosts: all:!fail
+  remote_user: root
+  gather_facts: true
+  tasks:
+  - name: Fetch config /etc/example.conf
+    fetch: src=/etc/example.conf dest=/srv/ansible/archive/fetched/
+  - name: Fetch config /etc/another.conf
+    fetch: src=/etc/another.conf dest=/srv/ansible/archive/fetched/
+    
+# Optional: Push to git repository (/srv/ansible/ must be git repo!)
+# For more info, read below about automatically pushing configs to git
+- tasks:
+  include: ansible_commit.yml
+</code></pre>
+<p>To backup multiple files, use the synchronize module in pull mode.</p>
+<pre><code>#/srv/ansible/multifetch.yml
+---
+- hosts: all:!fail
+  gather_facts: true
+  remote_user: root
+  tasks:
+    - name: Fetch all configs in /root/.ssh/ with ansible sync-module
+      synchronize: mode=pull src=/./root/.ssh/ dest=/srv/ansible/archive/fetched/{{ inventory_hostname }}/ rsync_opts=-avR perms=yes
+</code></pre>
+<p>The last part <code>rsync_opts=-arR perms=yes</code> can still be optimised. I think perms and -ar is on by default in ansibles synchronize module.</p>
+<p>FYI, the <code>hosts: all:!fail</code> selects all hosts, except the ones I have added to the group <code>[fail]</code>. These can be hosts that have been known to fail during playbook runs but haven't been fixed yet.</p>
+<p><b><a NAME=04_04_auto-git>Automatically commit fetched configs to git</a></b><br>
+Assuming that you store all your fetched configs in one place on your Ansible server, e.g. <code>/srv/ansible/archive/{{ansible_hostname}}/etc/example.conf</code>,  you can use the following <code>autocommit.yml</code> playbook to automatically push changes to your repository.</p>
+<pre><code>---
+- hosts: localhost
+  remote_user: root
+  tasks:
+
+  # Check if commit is necessary
+  - name: check if git commit is necessary
+    command: git --git-dir=/srv/ansible/.git/ --work-tree=/srv/ansible/ status
+    register: git_check
+
+  # Commit Changes in Ansible Directory
+  - name: Committing changes on Ansible server
+    local_action: shell cd /srv/ansible/ &amp;&amp; git add * &amp;&amp; git commit -m &quot;Ansible Automated Commit&quot; &amp;&amp; git push
+    when: &quot;'nothing to commit' not in git_check.stdout&quot;
+</code></pre>
+<p>In order to execute the playbook, just append it to your other playbooks. This is usefull if you have for example a <code>webserver.yml</code> playbook which fetches all configs before deploying new changes.</p>
+<pre><code>---
+# Webserver playbook
+[...] # &lt;- whatever you do in your playbook
+
+# Update &amp; Push Ansible Local Repository
+- tasks:
+  include: autocommit.yml
+</code></pre>
+<p><strong>Deploy time settings with Ansible CLI</strong></p>
+<pre><code>sudo ansible 'mygroup' -m shell -a 'echo &quot;Europe/Berlin&quot; |sudo tee /etc/timezone' -u user -K
+sudo ansible 'mygroup' -m shell -a 'sudo cp -f /usr/share/zoneinfo/Europe/Berlin /etc/localtime' -u user -K
+sudo ansible 'mygroup' -m shell -a 'sudo ntpdate-debian' -u user -K
+</code></pre>
+<hr>
+<!--kg-card-end: markdown--><!--kg-card-end: markdown-->
+        </section>
+
+
+</article>
+
+		</div>
+
+		<!-- SIDEBAR -->
+		<div class="side_container">
+
+			<div class="side_sub_one well">
+				<b>Note</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>All information provided on this site is for educational purposes only. The site and it's author is in no way responsible for any misuse of the information.</p>
+			</div>
+			<div class="side_sub_one well">
+				<b>Links</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="../random-notes/index.html">Random Notes and CheatSheets</a><br>
+				<hr>
+				<a href="http://learnpythonthehardway.org/book/">Python the hard way</a><br>
+				<a href="http://cspplayground.com">CSP Playground</a><br>
+				<a href="http://www.offensive-security.com/metasploit-unleashed/Main_Page">Metasploit Unleashed</a><br>
+				<hr>
+				<a href="https://www.linkedin.com/profile/view?id=203397467">Me - LinkedIn</a><br>
+				<a href="https://ctftime.org/team/9072">Me - CTFTime.org</a><br>
+				</p>
+			</div>		
+			<div class="side_sub_one well">
+				<b>Blogs</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="http://wearetheartillery.blogspot.com.es/">WeAreTheArtillery</a><br>
+				<a href="https://www.imperialviolet.org">Imperial Violet</a><br>
+				<a href="http://www.nerd-supreme.de">NerdSupreme (DE)</a><br>
+				<a href="http://krebsonsecurity.com/">KrebsOnSecurity</a><br>
+				<a href="https://www.corelan.be/">Corelan Team</a><br>
+				<a href="http://blog.g0tmi1k.com/">G0tmi1k</a><br>
+				</p>
+			</div>		
+			<div class="side_sub_one well">
+				<b>Reddits</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="http://www.reddit.com/r/netsec/">/r/netsec</a><br>
+				<a href="http://www.reddit.com/r/Python/">/r/Python</a><br>
+				<a href="http://www.reddit.com/r/Defcon/">/r/Defcon</a><br>
+				<a href="http://www.reddit.com/r/securityCTF/">/r/securityCTF</a><br>
+				<a href="index.html"></a><br>
+				</p>
+			</div>		
+		</div>
+	</div> <!-- End of Sidebar -->
+</div>
+	<div class="footer">
+	<div class=navline></div>
+		HashtagSecurity<br><small>... keeping security in mind.<br><a href="../impressum">Impressum</a> | <a href="../datenschutzerklarung">Datenschutzerklärung</a> | <a href="../privacy-policy">Privacy Policy</a></small>
+	</div>
+</body>
+</html>

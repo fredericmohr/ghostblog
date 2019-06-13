@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HashtagSecurity</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="wot-verification" content="06cd687a47e37736daed"/> 
+    <link rel="stylesheet" type="text/css" href="assets/css/mofirst-min.css?v=8ff1f2e80d"/>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script> <!-- disqus loader needs latest jquery -->
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="canonical" href="privacy-policy" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="HashtagSecurity" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Privacy Policy" />
+    <meta property="og:description" content="This Privacy Policy governs the manner in which HashtagSecurity collects, uses, maintains and discloses information collected from users (each, a &amp;quot;User&amp;quot;) of the www.hashtagsecurity.com website (&amp;quot;Site&amp;quot;). This privacy policy applies to the Site and all products and services offered by HashtagSecurity. Personal identification information" />
+    <meta property="og:url" content="http://localhost:2373/privacy-policy/" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Privacy Policy" />
+    <meta name="twitter:description" content="This Privacy Policy governs the manner in which HashtagSecurity collects, uses, maintains and discloses information collected from users (each, a &amp;quot;User&amp;quot;) of the www.hashtagsecurity.com website (&amp;quot;Site&amp;quot;). This privacy policy applies to the Site and all products and services offered by HashtagSecurity. Personal identification information" />
+    <meta name="twitter:url" content="http://localhost:2373/privacy-policy/" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Frederic Mohr" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "HashtagSecurity",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "http://localhost:2373/content/images/2014/Oct/tw-logo_400x400-1.png",
+            "width": 60,
+            "height": 60
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Frederic Mohr",
+        "sameAs": []
+    },
+    "headline": "Privacy Policy",
+    "url": "http://localhost:2373/privacy-policy/",
+    "description": "This Privacy Policy governs the manner in which HashtagSecurity collects, uses, maintains and discloses information collected from users (each, a &amp;quot;User&amp;quot;) of the www.hashtagsecurity.com website (&amp;quot;Site&amp;quot;). This privacy policy applies to the Site and all products and services offered by HashtagSecurity. Personal identification information",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://localhost:2373/"
+    }
+}
+    </script>
+
+    <script src="public/ghost-sdk.min.js?v=8ff1f2e80d"></script>
+<script>
+ghost.init({
+	clientId: "ghost-frontend",
+	clientSecret: "5a567477c5aa"
+});
+</script>
+    <meta name="generator" content="Ghost 2.23" />
+    <link rel="alternate" type="application/rss+xml" title="HashtagSecurity" href="rss/index.html" />
+</head>
+<body>
+<!--NAVIGATION-->
+<div class="nav_bar">
+	<div class="nav_container">	
+		<ul class="nav">
+			<li id="nav-index"><a href="index.html" class="icon-home"></a></li>
+			<li id="nav-kalibook"><a href="getting-started-with-kali-linux/index.html" class="icon-book"></a></li>
+			<li id="nav-about"><a href="about/index.html" class="icon-info"></a></li>
+		</ul>
+
+		<!-- Follow Me -->
+		<div class="follow_me">
+			<a href="https://twitter.com/HashtagSecurity" title="Twitter"><img alt="twitter" src="assets/images/twi.png?v=8ff1f2e80d"></a>
+			<a href="https://www.hashtagsecurity.com/rss" title="RSS"><img alt="rss" src="assets/images/rss.png?v=8ff1f2e80d"></a>
+		</div>
+	</div>
+</div>
+<div class="navline"></div>
+<!-- End Header -->
+<div class="outer_container">
+	<!-- PAGE -->
+	<div class="page_container">
+		<!-- CONTENT -->
+		<div class="post_container">
+			    <article class="post page">
+
+
+        <h1 class="post-title">Privacy Policy</h1>
+		<span class="post-meta"><a href="http://de.linkedin.com/in/fredericmohr"><b>Frederic Mohr</b></a> - <time datetime="2014-01-29">29 Jan 2014</time> </span>
+
+        <section class="post-content">
+            <!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p>This Privacy Policy governs the manner in which HashtagSecurity collects, uses, maintains and discloses information collected from users (each, a &quot;User&quot;) of the <a href="https://www.hashtagsecurity.com">www.hashtagsecurity.com</a> website (&quot;Site&quot;). This privacy policy applies to the Site and all products and services offered by HashtagSecurity.<br><br></p>
+<p><b>Personal identification information</b><br><br></p>
+<p>We may collect personal identification information from Users in a variety of ways in connection with activities, services, features or resources we make available on our Site. Users may visit our Site anonymously. We will collect personal identification information from Users only if they voluntarily submit such information to us. Users can always refuse to supply personally identification information, except that it may prevent them from engaging in certain Site related activities.<br><br></p>
+<p><b>Non-personal identification information</b><br><br></p>
+<p>We may collect non-personal identification information about Users whenever they interact with our Site. Non-personal identification information may include the browser name, the type of computer and technical information about Users means of connection to our Site, such as the operating system and the Internet service providers utilized and other similar information.<br><br></p>
+<p><b>Web browser cookies</b><br><br></p>
+<p>Our Site may use &quot;cookies&quot; to enhance User experience. User's web browser places cookies on their hard drive for record-keeping purposes and sometimes to track information about them. User may choose to set their web browser to refuse cookies, or to alert you when cookies are being sent. If they do so, note that some parts of the Site may not function properly.<br><br></p>
+<p><b>How we use collected information</b><br><br></p>
+<p>HashtagSecurity may collect and use Users personal information for the following purposes:<br></p>
+<ul>
+<li><i>- To improve our Site</i><br>
+	We may use feedback you provide to improve our products and services.</li>
+</ul>
+<b>How we protect your information</b><br><br>
+<p>We adopt appropriate data collection, storage and processing practices and security measures to protect against unauthorized access, alteration, disclosure or destruction of your personal information, username, password, transaction information and data stored on our Site.<br><br></p>
+<p>Sensitive and private data exchange between the Site and its Users happens over a SSL secured communication channel and is encrypted and protected with digital signatures.<br><br></p>
+<p><b>Sharing your personal information</b><br><br></p>
+<p>We do not sell, trade, or rent Users personal identification information to others. We may share generic aggregated demographic information not linked to any personal identification information regarding visitors and users with our business partners, trusted affiliates and advertisers for the purposes outlined above.<br><br></p>
+<p><b>Third party websites</b><br><br></p>
+<p>Users may find advertising or other content on our Site that link to the sites and services of our partners, suppliers, advertisers, sponsors, licensors and other third parties. We do not control the content or links that appear on these sites and are not responsible for the practices employed by websites linked to or from our Site. In addition, these sites or services, including their content and links, may be constantly changing. These sites and services may have their own privacy policies and customer service policies. Browsing and interaction on any other website, including websites which have a link to our Site, is subject to that website's own terms and policies.<br><br></p>
+<p><b>Google Adsense</b><br><br></p>
+<p>Some of the ads may be served by Google. Google's use of the DART cookie enables it to serve ads to Users based on their visit to our Site and other sites on the Internet. DART uses &quot;non personally identifiable information&quot; and does NOT track personal information about you, such as your name, email address, physical address, etc. You may opt out of the use of the DART cookie by visiting the Google ad and content network privacy policy at <a href="http://www.google.com/privacy_ads.html">http://www.google.com/privacy_ads.html</a><br><br></p>
+<p><b>Changes to this privacy policy</b><br><br></p>
+<p>HashtagSecurity has the discretion to update this privacy policy at any time. When we do, we will revise the updated date at the bottom of this page. We encourage Users to frequently check this page for any changes to stay informed about how we are helping to protect the personal information we collect. You acknowledge and agree that it is your responsibility to review this privacy policy periodically and become aware of modifications.<br><br></p>
+<p><b>Your acceptance of these terms</b><br><br></p>
+<p>By using this Site, you signify your acceptance of this policy. If you do not agree to this policy, please do not use our Site. Your continued use of the Site following the posting of changes to this policy will be deemed your acceptance of those changes.<br><br></p>
+<p><b>Contacting us</b><br><br></p>
+<p>If you have any questions about this Privacy Policy, the practices of this site, or your dealings with this site, please contact us at:<br><br>
+<a href="https://www.hashtagsecurity.com">HashtagSecurity</a><br><br>
+<a href="https://www.hashtagsecurity.com">www.hashtagsecurity.com</a><br><br>
+Frederic Demian Mohr<br>
+Rohrauerstrasse 69<br>
+81477 Munich<br>
+Germany<br><br>
+<br><br>
+<a href="mailto:admin@hashtagsecurity.com">admin@hashtagsecurity.com</a><br><br>
+<br><br>
+This document was last updated on January 29, 2014<br><br></p>
+<div style="font-size:10px;color:gray;">Privacy policy created by <a style="font-size:10px;color:gray;text-decoration:none;cursor:default;" href="http://www.generateprivacypolicy.com" target="_blank">Generate Privacy Policy</a></div><!--kg-card-end: markdown--><!--kg-card-end: markdown-->
+        </section>
+
+
+</article>
+
+		</div>
+
+		<!-- SIDEBAR -->
+		<div class="side_container">
+
+			<div class="side_sub_one well">
+				<b>Note</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>All information provided on this site is for educational purposes only. The site and it's author is in no way responsible for any misuse of the information.</p>
+			</div>
+			<div class="side_sub_one well">
+				<b>Links</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="random-notes/index.html">Random Notes and CheatSheets</a><br>
+				<hr>
+				<a href="http://learnpythonthehardway.org/book/">Python the hard way</a><br>
+				<a href="http://cspplayground.com">CSP Playground</a><br>
+				<a href="http://www.offensive-security.com/metasploit-unleashed/Main_Page">Metasploit Unleashed</a><br>
+				<hr>
+				<a href="https://www.linkedin.com/profile/view?id=203397467">Me - LinkedIn</a><br>
+				<a href="https://ctftime.org/team/9072">Me - CTFTime.org</a><br>
+				</p>
+			</div>		
+			<div class="side_sub_one well">
+				<b>Blogs</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="http://wearetheartillery.blogspot.com.es/">WeAreTheArtillery</a><br>
+				<a href="https://www.imperialviolet.org">Imperial Violet</a><br>
+				<a href="http://www.nerd-supreme.de">NerdSupreme (DE)</a><br>
+				<a href="http://krebsonsecurity.com/">KrebsOnSecurity</a><br>
+				<a href="https://www.corelan.be/">Corelan Team</a><br>
+				<a href="http://blog.g0tmi1k.com/">G0tmi1k</a><br>
+				</p>
+			</div>		
+			<div class="side_sub_one well">
+				<b>Reddits</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="http://www.reddit.com/r/netsec/">/r/netsec</a><br>
+				<a href="http://www.reddit.com/r/Python/">/r/Python</a><br>
+				<a href="http://www.reddit.com/r/Defcon/">/r/Defcon</a><br>
+				<a href="http://www.reddit.com/r/securityCTF/">/r/securityCTF</a><br>
+				<a href="privacy-policy"></a><br>
+				</p>
+			</div>		
+		</div>
+	</div> <!-- End of Sidebar -->
+</div>
+	<div class="footer">
+	<div class=navline></div>
+		HashtagSecurity<br><small>... keeping security in mind.<br><a href="impressum">Impressum</a> | <a href="datenschutzerklarung">Datenschutzerklärung</a> | <a href="privacy-policy">Privacy Policy</a></small>
+	</div>
+</body>
+</html>

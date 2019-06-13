@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HashtagSecurity</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="wot-verification" content="06cd687a47e37736daed"/> 
+    <link rel="stylesheet" type="text/css" href="../assets/css/mofirst-min.css?v=8ff1f2e80d"/>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script> <!-- disqus loader needs latest jquery -->
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="HashtagSecurity" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Check open ports with Python" />
+    <meta property="og:description" content="Everyonce in a while I run into problems testing new setups just to find out that a certain port just isn&#x27;t reachable from within our company network. This simple tool should make it easier to find open ports for quick testing. Note it&#x27;s not the fastest tool for huge numbers" />
+    <meta property="og:url" content="fredericmohr.github.io/ghostblog/check-open-ports-with-python/" />
+    <meta property="article:published_time" content="2014-11-19T12:05:52.000Z" />
+    <meta property="article:modified_time" content="2014-11-19T12:07:17.000Z" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Check open ports with Python" />
+    <meta name="twitter:description" content="Everyonce in a while I run into problems testing new setups just to find out that a certain port just isn&#x27;t reachable from within our company network. This simple tool should make it easier to find open ports for quick testing. Note it&#x27;s not the fastest tool for huge numbers" />
+    <meta name="twitter:url" content="fredericmohr.github.io/ghostblog/check-open-ports-with-python/" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Frederic Mohr" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "HashtagSecurity",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "fredericmohr.github.io/ghostblog/content/images/2014/Oct/tw-logo_400x400-1.png",
+            "width": 60,
+            "height": 60
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Frederic Mohr",
+        "url": "fredericmohr.github.io/ghostblog/author/frederic/",
+        "sameAs": []
+    },
+    "headline": "Check open ports with Python",
+    "url": "fredericmohr.github.io/ghostblog/check-open-ports-with-python/",
+    "datePublished": "2014-11-19T12:05:52.000Z",
+    "dateModified": "2014-11-19T12:07:17.000Z",
+    "description": "Everyonce in a while I run into problems testing new setups just to find out that a certain port just isn&#x27;t reachable from within our company network. This simple tool should make it easier to find open ports for quick testing. Note it&#x27;s not the fastest tool for huge numbers",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "fredericmohr.github.io/ghostblog/"
+    }
+}
+    </script>
+
+    <script src="../public/ghost-sdk.min.js?v=8ff1f2e80d"></script>
+<script>
+ghost.init({
+	clientId: "ghost-frontend",
+	clientSecret: "5a567477c5aa"
+});
+</script>
+    <meta name="generator" content="Ghost 2.23" />
+    <link rel="alternate" type="application/rss+xml" title="HashtagSecurity" href="../rss/index.html" />
+</head>
+<body>
+<!--NAVIGATION-->
+<div class="nav_bar">
+	<div class="nav_container">	
+		<ul class="nav">
+			<li id="nav-index"><a href="../index.html" class="icon-home"></a></li>
+			<li id="nav-kalibook"><a href="../getting-started-with-kali-linux/index.html" class="icon-book"></a></li>
+			<li id="nav-about"><a href="../about/index.html" class="icon-info"></a></li>
+		</ul>
+
+		<!-- Follow Me -->
+		<div class="follow_me">
+			<a href="https://twitter.com/HashtagSecurity" title="Twitter"><img alt="twitter" src="../assets/images/twi.png?v=8ff1f2e80d"></a>
+			<a href="https://www.hashtagsecurity.com/rss" title="RSS"><img alt="rss" src="../assets/images/rss.png?v=8ff1f2e80d"></a>
+		</div>
+	</div>
+</div>
+<div class="navline"></div>
+<!-- End Header -->
+<div class="outer_container">
+	<!-- PAGE -->
+	<div class="page_container">
+		<!-- CONTENT -->
+		<div class="post_container">
+			    <article class="post">
+
+
+        <h1 class="post-title">Check open ports with Python</h1>
+		<span class="post-meta"><a href="http://de.linkedin.com/in/fredericmohr"><b>Frederic Mohr</b></a> - <time datetime="2014-11-19">19 Nov 2014</time> </span>
+
+        <section class="post-content">
+            <!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="../content/images/2014/Nov/CheckOpenPortsWithPython.jpg" alt=""><br>
+Everyonce in a while I run into problems testing new setups just to find out that a certain port just isn't reachable from within our company network. This simple tool should make it easier to find open ports for quick testing.</p>
+<p>Note it's not the fastest tool for huge numbers of ports (e.g. 1-65535) but it's capable of rather quickly showing open ports in 1-1024 like ranges.</p>
+<p>Without further ado, here it is.</p>
+<pre><code>from multiprocessing import Process, Pool
+import subprocess, sys, socket
+
+if len(sys.argv) &lt; 2 or sys.argv[1] == &quot;help&quot; or sys.argv[1] == &quot;-h&quot;:
+  print '''Usage: sslcheck.py file
+  &lt;port&gt;: specify the port to check
+  &lt;port&gt;: if a second port if given, script will check port-port range
+  &lt;help&gt;: print this help text
+  '''
+
+else:
+  def checkopenport(port):
+    # Check Hosts for open ports
+    try:
+      #print &quot;DEBUG: Testing port %i&quot; % (port)
+      p = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+      p.settimeout(5)
+      returncode = p.connect_ex((&quot;portquiz.net&quot;,port))
+      if returncode == 0:
+        print &quot;Open: %d&quot; % (port)
+      else:
+        print &quot;Closed %d&quot; % (port)
+    except Exception, e:
+      print &quot;Something went bad... Exception: %d %s&quot; % (port, e)
+
+  firstport = int(sys.argv[1])
+  ports = []
+
+  if len(sys.argv) &gt; 2:
+    lastport = int(sys.argv[2])
+    portrange = (lastport - firstport) + 1
+    if portrange &lt; 1:
+      print &quot;error, no ports found&quot;
+    else:
+      print &quot;portrange is %i&quot; % (portrange)
+      pool = Pool(processes=portrange)
+      for port in xrange(firstport,lastport+1):
+        ports.append(port)
+  else:
+    # Only set the first port if no second port is given
+    ports.append(firstport)
+    pool = Pool(processes=1)
+
+  # Run the threads
+  results = pool.map(checkopenport, ports)</code></pre>
+<!--kg-card-end: markdown--><!--kg-card-end: markdown-->
+	</p>
+        </section>
+
+<br>
+<hr>
+<br>
+	<!-- START DISQUS IMPLEMENTATION -->
+        <script src="/assets/js/disqus.js?v=8ff1f2e80d></script>
+        <div id="disqus_thread"></div>
+        <!--<div class="post_disqus show-comments" title="Privacy: Click to enable Disqus (uses cookies!)"><b>Enable Disqus</b></div>
+	END DISQUS IMPLEMENTATION -->
+</article>
+
+
+		</div>
+
+		<!-- SIDEBAR -->
+		<div class="side_container">
+
+			<div class="side_sub_one well">
+				<b>Note</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>All information provided on this site is for educational purposes only. The site and it's author is in no way responsible for any misuse of the information.</p>
+			</div>
+			<div class="side_sub_one well">
+				<b>Links</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="../random-notes/index.html">Random Notes and CheatSheets</a><br>
+				<hr>
+				<a href="http://learnpythonthehardway.org/book/">Python the hard way</a><br>
+				<a href="http://cspplayground.com">CSP Playground</a><br>
+				<a href="http://www.offensive-security.com/metasploit-unleashed/Main_Page">Metasploit Unleashed</a><br>
+				<hr>
+				<a href="https://www.linkedin.com/profile/view?id=203397467">Me - LinkedIn</a><br>
+				<a href="https://ctftime.org/team/9072">Me - CTFTime.org</a><br>
+				</p>
+			</div>		
+			<div class="side_sub_one well">
+				<b>Blogs</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="http://wearetheartillery.blogspot.com.es/">WeAreTheArtillery</a><br>
+				<a href="https://www.imperialviolet.org">Imperial Violet</a><br>
+				<a href="http://www.nerd-supreme.de">NerdSupreme (DE)</a><br>
+				<a href="http://krebsonsecurity.com/">KrebsOnSecurity</a><br>
+				<a href="https://www.corelan.be/">Corelan Team</a><br>
+				<a href="http://blog.g0tmi1k.com/">G0tmi1k</a><br>
+				</p>
+			</div>		
+			<div class="side_sub_one well">
+				<b>Reddits</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="http://www.reddit.com/r/netsec/">/r/netsec</a><br>
+				<a href="http://www.reddit.com/r/Python/">/r/Python</a><br>
+				<a href="http://www.reddit.com/r/Defcon/">/r/Defcon</a><br>
+				<a href="http://www.reddit.com/r/securityCTF/">/r/securityCTF</a><br>
+				<a href="index.html"></a><br>
+				</p>
+			</div>		
+		</div>
+	</div> <!-- End of Sidebar -->
+</div>
+	<div class="footer">
+	<div class=navline></div>
+		HashtagSecurity<br><small>... keeping security in mind.<br><a href="../impressum">Impressum</a> | <a href="../datenschutzerklarung">Datenschutzerklärung</a> | <a href="../privacy-policy">Privacy Policy</a></small>
+	</div>
+</body>
+</html>

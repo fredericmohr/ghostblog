@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HashtagSecurity</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="wot-verification" content="06cd687a47e37736daed"/> 
+    <link rel="stylesheet" type="text/css" href="../assets/css/mofirst-min.css?v=8ff1f2e80d"/>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script> <!-- disqus loader needs latest jquery -->
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="HashtagSecurity" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Lynis Enterprise – The 1st Encounter" />
+    <meta property="og:description" content="I recently got my hands on a trial of Lynis Enterprise, the commercial SaaS version of the open source Linux system auditing software Lynis. In exchange I promised to write about my experience here and share some feedback with the developers. I could spent some time with the tool and" />
+    <meta property="og:url" content="fredericmohr.github.io/ghostblog/lynis-enterprise-the-1st-encounter/" />
+    <meta property="article:published_time" content="2015-04-29T22:06:08.000Z" />
+    <meta property="article:modified_time" content="2015-04-30T12:16:01.000Z" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Lynis Enterprise – The 1st Encounter" />
+    <meta name="twitter:description" content="I recently got my hands on a trial of Lynis Enterprise, the commercial SaaS version of the open source Linux system auditing software Lynis. In exchange I promised to write about my experience here and share some feedback with the developers. I could spent some time with the tool and" />
+    <meta name="twitter:url" content="fredericmohr.github.io/ghostblog/lynis-enterprise-the-1st-encounter/" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Frederic Mohr" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "HashtagSecurity",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "fredericmohr.github.io/ghostblog/content/images/2014/Oct/tw-logo_400x400-1.png",
+            "width": 60,
+            "height": 60
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Frederic Mohr",
+        "url": "fredericmohr.github.io/ghostblog/author/frederic/",
+        "sameAs": []
+    },
+    "headline": "Lynis Enterprise – The 1st Encounter",
+    "url": "fredericmohr.github.io/ghostblog/lynis-enterprise-the-1st-encounter/",
+    "datePublished": "2015-04-29T22:06:08.000Z",
+    "dateModified": "2015-04-30T12:16:01.000Z",
+    "description": "I recently got my hands on a trial of Lynis Enterprise, the commercial SaaS version of the open source Linux system auditing software Lynis. In exchange I promised to write about my experience here and share some feedback with the developers. I could spent some time with the tool and",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "fredericmohr.github.io/ghostblog/"
+    }
+}
+    </script>
+
+    <script src="../public/ghost-sdk.min.js?v=8ff1f2e80d"></script>
+<script>
+ghost.init({
+	clientId: "ghost-frontend",
+	clientSecret: "5a567477c5aa"
+});
+</script>
+    <meta name="generator" content="Ghost 2.23" />
+    <link rel="alternate" type="application/rss+xml" title="HashtagSecurity" href="../rss/index.html" />
+</head>
+<body>
+<!--NAVIGATION-->
+<div class="nav_bar">
+	<div class="nav_container">	
+		<ul class="nav">
+			<li id="nav-index"><a href="../index.html" class="icon-home"></a></li>
+			<li id="nav-kalibook"><a href="../getting-started-with-kali-linux/index.html" class="icon-book"></a></li>
+			<li id="nav-about"><a href="../about/index.html" class="icon-info"></a></li>
+		</ul>
+
+		<!-- Follow Me -->
+		<div class="follow_me">
+			<a href="https://twitter.com/HashtagSecurity" title="Twitter"><img alt="twitter" src="../assets/images/twi.png?v=8ff1f2e80d"></a>
+			<a href="https://www.hashtagsecurity.com/rss" title="RSS"><img alt="rss" src="../assets/images/rss.png?v=8ff1f2e80d"></a>
+		</div>
+	</div>
+</div>
+<div class="navline"></div>
+<!-- End Header -->
+<div class="outer_container">
+	<!-- PAGE -->
+	<div class="page_container">
+		<!-- CONTENT -->
+		<div class="post_container">
+			    <article class="post">
+
+
+        <h1 class="post-title">Lynis Enterprise – The 1st Encounter</h1>
+		<span class="post-meta"><a href="http://de.linkedin.com/in/fredericmohr"><b>Frederic Mohr</b></a> - <time datetime="2015-04-29">29 Apr 2015</time> </span>
+
+        <section class="post-content">
+            <!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="../content/images/2015/04/2015_04-CISOfy_Lynis_Braindump.png" alt=""><br>
+I recently got my hands on a trial of Lynis Enterprise, the commercial SaaS version of the open source Linux system auditing software Lynis. In exchange I promised to write about my experience here and share some feedback with the developers.</p>
+<p>I could spent some time with the tool and write about it afterwards, but instead I decided to write down my thoughts as I stumble across things. That means, that some questions might get answered later down the road, or that I write stuff that seems stupid, but in return this post will be more closely to how really I experienced my first encounter with Lynis. My thoughts? Unfiltered? On (digital) paper? This will get weird - you have been warned!</p>
+<p>I did run the open source version once on one of my servers and scrolled through the results, so to keep this fair, this is what I knew before I started.</p>
+<ul>
+<li>Lynis is in apt-get, but (of course) not in its most current version</li>
+<li>Out of the box, it doesn't run with normal user privileges (that can be fixed though)</li>
+</ul>
+<p><img src="../content/images/2015/04/pasted_image002-1.png" alt=""></p>
+<ul>
+<li>Lynis can simply be downloaded from cisofy.com and installed</li>
+<li>Lynis ./include/const folder must belong to root if it is run with root privileges</li>
+</ul>
+<p><img src="../content/images/2015/04/pasted_image003.png" alt=""></p>
+<ul>
+<li>Lynis results look like <a href="https://raw.githubusercontent.com/fredericmohr/hashtagsecurity/master/misc/lynis_example_report.txt">this</a>, but in color.</li>
+</ul>
+<p>Now that we're on equal footing, let's get started.</p>
+<h2 id="setup">Setup</h2>
+<p>The first thing I noticed after I logged into the web console was this.<br>
+<img src="../content/images/2015/04/pasted_image-1.png" alt=""><br>
+Which is not really a problem, but even though I don't have anything in production at that point, I still immediately asked myself &quot;When exactly will it expire&quot;, followed by &quot;and what type of license do I have?&quot;. The later is a result of me not paying for the trial, otherwise I would have probably known about the type of license I ordered. Or maybe I wouldn't have. Who knows how many licenses I have to manage.</p>
+<p>I almost instantly dropped the questions, as all I wanted to do is setup my first server to send data to LE. Trying to do so, I took a closer look at the overview page, which looks like this.<br>
+<img src="../content/images/2015/04/pasted_image005-1.png" alt=""><br>
+&quot;OK, so that's my username, I have a trial account, my email, no messages, no subscriptions,... hm, but how do I get started. What's that down there at the bottom, Control Panel, System, Compliance... No wait, that's just the change log. Maybe in the navigation panel? Ah, there it is, in the box on the right. First time user.&quot;</p>
+<p>Don't ask me why it took me so long to find this, but somehow I kept missing it. It could just be me, but I feel if you login for the first time, that box should present itself a little bit more.</p>
+<p>Now then, let's got to the systems page to add the first host...<br>
+<img src="../content/images/2015/04/pasted_image006.png" alt=""></p>
+<p><strong>Thoughts?</strong></p>
+<pre><code>Hm, adjust config and run with --upload switch.
+Looks easy enough. But what's that -k option? 
+For self signed certificates? 
+
+Maybe that's for the on-premise version.
+
+Yeah probably, but for a moment I felt unsure about this whole thing... 
+Sending my data to the cloud, to a unsigned cert?
+
+Nah, it'll be fine!
+
+...editing config
+...copy paste command
+sudo lynis audit system --quick --upload
+
+Damn, I ran the outdated apt-get version...
+sudo ./lynis audit system --quick --upload
+</code></pre>
+<h2 id="dashboard">Dashboard</h2>
+<p>The Dashboard showed the one host in a &quot;Technical&quot; overview, which I assume includes every option the Dashboard has to offer, while the other two &quot;Business&quot; and &quot;Operational&quot; only showed data regarding those areas.<br>
+What caught my eye though was that &quot;Data Loss&quot; was listed under &quot;Technical Risk&quot;, while at the same time, right next to it a nice, all green circle stated &quot;All systems are compliant&quot;. That strikes me as odd, although I never really thought that being compliant means being safe. Still, it seems strange seeing it on a dashboard for some reason.<br>
+<img src="../content/images/2015/04/pasted_image007.png" alt=""></p>
+<p>But what else is there? One system, zero outdated. Zero systems or Lynis clients? What's that Average rating. Average compared to? And based on? No events.<br>
+But I though I had risk of data loss. By the way, where can I see what's that all about exactly? Probably by clicking on the host link. But first I'll check out the tags.<br>
+<img src="../content/images/2015/04/pasted_image008.png" alt=""><br>
+Hm, white font color on white/gray background. For the record, the tags are &quot;firewall&quot;, &quot;ipv6&quot;, &quot;iptables&quot; and &quot;unknown&quot;. The last one fits my question perfectly. &quot;What are these tags for and why is data loss not one of them?&quot;<br>
+<img src="../content/images/2015/04/pasted_image009.png" alt=""><br>
+I know what tags are for - in general, but why these, and why not data loss. That seems to be the main risk that was identified on this host. Speaking of data loss, let's look for more detail on that.<br>
+Clicking on the host link brought me to this page.<br>
+<img src="../content/images/2015/04/pasted_image010.png" alt=""><br>
+What have we got here, OS information, Network information and Other. IPv6. Does this mean IPv6 is enabled or that is has been deemed as securely configured?<br>
+There we have the compliance check again, and there is a bit more information on the average rating. So it's average risk rating and it's a comparison to the same OS and over all scanned systems.</p>
+<p>I assume at this point, that this only includes my systems, since there is only one. The tags are readable this time. Scrolling down...<br>
+<img src="../content/images/2015/04/pasted_image011.png" alt=""><br>
+OK, so file integrity was gray because no checks have been performed. Is there a plugin for that or what do I have to do to get them. Maybe just another switch?<br>
+I think at some point I need to dig through the man page, but for now let's just keep wandering around.</p>
+<p>Wait, I am compliant because I have no policies assigned? That's an easy way out... and a bit confusing to be honest. Why wasn't this gray like the file integrity checks?</p>
+<p>Networking doesn't say anything about being secure, so I guess the green checkmark is about IPv6 being enabled. The same goes for the firewall audit. What else is there?<br>
+No expired certificates, one warning about a misconfiguration in <code>/etc/resolv.conf</code> and a bunch of suggestions to harden the host. These look eerily similar to the compliance checks from Nessus, although they are quite fewer in numbers.</p>
+<p>The only thing that really goes against my personal recommendation is enabling password aging limits. I simply don't believe that chaining passwords increases security, but that's a discussion for another time and place.<br>
+<img src="../content/images/2015/04/pasted_image013.png" alt=""><br>
+Last but not least, there are a few manual tasks and an empty scan history.<br>
+<img src="../content/images/2015/04/pasted_image014.png" alt=""></p>
+<h2 id="systemoverview">System Overview</h2>
+<p>Move along, nothing to see here!<br>
+Well, that's not entirely true. While there is only one host listed here, it's easy to see why this page might get useful later on.<br>
+<img src="../content/images/2015/04/pasted_image017.png" alt=""><br>
+21 Suggestions, 0 Warnings, the host version and name, last updated, Lynis version and of course compliance trickery. With multiple hosts, this will definitely come in handy, although I'm missing a &quot;sort by x&quot; feature.<br>
+Show hidden controls? Of course!<br>
+<img src="../content/images/2015/04/pasted_image018.png" alt=""><br>
+Bummer.</p>
+<h2 id="compliance">Compliance</h2>
+<p>Right, we haven't done this one yet. We got the checkmark though, that fine right?<br>
+<img src="../content/images/2015/04/pasted_image019.png" alt=""><br>
+Hm, but High Secure does have a nice ring to it and I wanna try the others as well. Maybe I'll even create a custom one – for Cyber. But before that, let's finish the round through the navigation panel.</p>
+<h2 id="fileintegrity">File Integrity</h2>
+<p>This page doesn't give much more information then the gray area in the dashboard did. I still wonder why Lynis didn't run file integrity checks. Or what I have to do in order to get them running. This would be a good place for a quick howto. <em>hint</em><br>
+<img src="../content/images/2015/04/pasted_image020.png" alt=""></p>
+<h2 id="reports">Reports</h2>
+<p>Ignoring the Improvement Plan page, which is more of a documentation page then a feature, brought me to reports.<br>
+<img src="../content/images/2015/04/pasted_image021.png" alt=""><br>
+Systems and applicable controls is basically just a list of hosts with their associated suggestions. It's nice to have it all in one place, but not worth yet another giant screenshot.<br>
+My systems overview and Systems without compliance policy is fairly obvious. It's the same thing as the Systems Overview page, with or without compliance policies. There is but one difference.<br>
+<img src="../content/images/2015/04/pasted_image022.png" alt=""><br>
+Needless to say, I instantly copied the report data into LibreOffice Calc. The result looks... well, bad.<br>
+<img src="../content/images/2015/04/pasted_image023.png" alt=""><br>
+I know, it's to small to read, but that's the overall structure of the report. Something tells me that won't be used much by anyone - unless I just did it wrong, or Libre Calc is nobody's favorite spreadsheet software. Anyway, an export to spreadsheet, csv, pdf function would be swell.</p>
+<h2 id="configuration">Configuration</h2>
+<p>The final page in the main navigation is configuration, which didn't bring much enlightenment to tell the truth.<br>
+<img src="../content/images/2015/04/pasted_image024.png" alt=""><br>
+So both Lynis and Lynis Control Panel are up to date. I guess the later is just interesting to people running the on premise version. No Lynis plugins found. Ok, so how do I get some?<br>
+This would be the right place for a link to, say, a plugin repository or at least the part of the documentation explaining how to get and use plugins.</p>
+<p>But let's continue with the Modules section. Most of these were either links to pages we already saw, or simply not clickable. The others were rather short in content.<br>
+<img src="../content/images/2015/04/pasted_image025.png" alt=""><br>
+Ok, so no events. That might change once a few more hosts are scanned.<br>
+<img src="../content/images/2015/04/pasted_image026.png" alt=""><br>
+Nope. Let's skip that.<br>
+<img src="../content/images/2015/04/pasted_image027.png" alt=""><br>
+Ah, there is something new. Security Controls. What's that for? Maybe the link will tell us more?<br>
+<img src="../content/images/2015/04/pasted_image028.png" alt=""><br>
+So it's advice on how to correct the specified flaws. Neat! It even has Ansible, CfEngine, Chef and Puppet snippets.<br>
+<img src="../content/images/2015/04/pasted_image029.png" alt=""><br>
+Or it doesn't. What's the checkmark for then I wonder.</p>
+<h2 id="summary">Summary</h2>
+<p>What you've just read is literally a brain dump. I wrote down everything while looking at Lynis Enterprise for the first time. I don't really have an opinion on it yet, other that I like it (no reason) and that I think it has potential to help Linux admins keep an eye on their hosts.</p>
+<p>I will take a closer look on file integrity and compliance checks and write about that in a more traditional manner. I will also try to figure out, how Lynis can benefit penetration testers in their work. It is clearly thought of as a program that should be used for continuous auditing, so I'm curious how much help it will be in one time assignments. Especially in regards to the difference between the enterprise and open source versions.</p>
+<p>After that, I probably have to take a closer look at the Lynis config file and documentation to answer questions like &quot;Can I tell Lynis that password aging is stupid&quot; or &quot;How do I add/enable/run plugins?&quot;.</p>
+<p>PS: @Michael, if you're reading this. I like the Business dashboard for management, but I still don't know why I'm at risk of data loss. That's probably the first question any auditor will have to answer. Maybe I just missed it, or maybe a link to the cause in the dashboard isn't such a bad idea.</p>
+<!--kg-card-end: markdown--><!--kg-card-end: markdown-->
+	</p>
+        </section>
+
+<br>
+<hr>
+<br>
+	<!-- START DISQUS IMPLEMENTATION -->
+        <script src="/assets/js/disqus.js?v=8ff1f2e80d></script>
+        <div id="disqus_thread"></div>
+        <!--<div class="post_disqus show-comments" title="Privacy: Click to enable Disqus (uses cookies!)"><b>Enable Disqus</b></div>
+	END DISQUS IMPLEMENTATION -->
+</article>
+
+
+		</div>
+
+		<!-- SIDEBAR -->
+		<div class="side_container">
+
+			<div class="side_sub_one well">
+				<b>Note</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>All information provided on this site is for educational purposes only. The site and it's author is in no way responsible for any misuse of the information.</p>
+			</div>
+			<div class="side_sub_one well">
+				<b>Links</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="../random-notes/index.html">Random Notes and CheatSheets</a><br>
+				<hr>
+				<a href="http://learnpythonthehardway.org/book/">Python the hard way</a><br>
+				<a href="http://cspplayground.com">CSP Playground</a><br>
+				<a href="http://www.offensive-security.com/metasploit-unleashed/Main_Page">Metasploit Unleashed</a><br>
+				<hr>
+				<a href="https://www.linkedin.com/profile/view?id=203397467">Me - LinkedIn</a><br>
+				<a href="https://ctftime.org/team/9072">Me - CTFTime.org</a><br>
+				</p>
+			</div>		
+			<div class="side_sub_one well">
+				<b>Blogs</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="http://wearetheartillery.blogspot.com.es/">WeAreTheArtillery</a><br>
+				<a href="https://www.imperialviolet.org">Imperial Violet</a><br>
+				<a href="http://www.nerd-supreme.de">NerdSupreme (DE)</a><br>
+				<a href="http://krebsonsecurity.com/">KrebsOnSecurity</a><br>
+				<a href="https://www.corelan.be/">Corelan Team</a><br>
+				<a href="http://blog.g0tmi1k.com/">G0tmi1k</a><br>
+				</p>
+			</div>		
+			<div class="side_sub_one well">
+				<b>Reddits</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="http://www.reddit.com/r/netsec/">/r/netsec</a><br>
+				<a href="http://www.reddit.com/r/Python/">/r/Python</a><br>
+				<a href="http://www.reddit.com/r/Defcon/">/r/Defcon</a><br>
+				<a href="http://www.reddit.com/r/securityCTF/">/r/securityCTF</a><br>
+				<a href="index.html"></a><br>
+				</p>
+			</div>		
+		</div>
+	</div> <!-- End of Sidebar -->
+</div>
+	<div class="footer">
+	<div class=navline></div>
+		HashtagSecurity<br><small>... keeping security in mind.<br><a href="../impressum">Impressum</a> | <a href="../datenschutzerklarung">Datenschutzerklärung</a> | <a href="../privacy-policy">Privacy Policy</a></small>
+	</div>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HashtagSecurity</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="wot-verification" content="06cd687a47e37736daed"/> 
+    <link rel="stylesheet" type="text/css" href="../assets/css/mofirst-min.css?v=8ff1f2e80d"/>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script> <!-- disqus loader needs latest jquery -->
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="HashtagSecurity" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Unicode display problems in bash" />
+    <meta property="og:description" content="Ok, I know this has nothing to do with security and I&#x27;m just writing about typical, everyday sysadmin stuff right now. But this problem has cost me way too much time to not be sharing the solution with the world. The problem I was trying to build the owncloud sync" />
+    <meta property="og:url" content="fredericmohr.github.io/ghostblog/unicode-display-problems-in-bash/" />
+    <meta property="article:published_time" content="2014-11-09T13:38:02.000Z" />
+    <meta property="article:modified_time" content="2014-11-09T13:46:54.000Z" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Unicode display problems in bash" />
+    <meta name="twitter:description" content="Ok, I know this has nothing to do with security and I&#x27;m just writing about typical, everyday sysadmin stuff right now. But this problem has cost me way too much time to not be sharing the solution with the world. The problem I was trying to build the owncloud sync" />
+    <meta name="twitter:url" content="fredericmohr.github.io/ghostblog/unicode-display-problems-in-bash/" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Frederic Mohr" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "HashtagSecurity",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "fredericmohr.github.io/ghostblog/content/images/2014/Oct/tw-logo_400x400-1.png",
+            "width": 60,
+            "height": 60
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Frederic Mohr",
+        "url": "fredericmohr.github.io/ghostblog/author/frederic/",
+        "sameAs": []
+    },
+    "headline": "Unicode display problems in bash",
+    "url": "fredericmohr.github.io/ghostblog/unicode-display-problems-in-bash/",
+    "datePublished": "2014-11-09T13:38:02.000Z",
+    "dateModified": "2014-11-09T13:46:54.000Z",
+    "description": "Ok, I know this has nothing to do with security and I&#x27;m just writing about typical, everyday sysadmin stuff right now. But this problem has cost me way too much time to not be sharing the solution with the world. The problem I was trying to build the owncloud sync",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "fredericmohr.github.io/ghostblog/"
+    }
+}
+    </script>
+
+    <script src="../public/ghost-sdk.min.js?v=8ff1f2e80d"></script>
+<script>
+ghost.init({
+	clientId: "ghost-frontend",
+	clientSecret: "5a567477c5aa"
+});
+</script>
+    <meta name="generator" content="Ghost 2.23" />
+    <link rel="alternate" type="application/rss+xml" title="HashtagSecurity" href="../rss/index.html" />
+</head>
+<body>
+<!--NAVIGATION-->
+<div class="nav_bar">
+	<div class="nav_container">	
+		<ul class="nav">
+			<li id="nav-index"><a href="../index.html" class="icon-home"></a></li>
+			<li id="nav-kalibook"><a href="../getting-started-with-kali-linux/index.html" class="icon-book"></a></li>
+			<li id="nav-about"><a href="../about/index.html" class="icon-info"></a></li>
+		</ul>
+
+		<!-- Follow Me -->
+		<div class="follow_me">
+			<a href="https://twitter.com/HashtagSecurity" title="Twitter"><img alt="twitter" src="../assets/images/twi.png?v=8ff1f2e80d"></a>
+			<a href="https://www.hashtagsecurity.com/rss" title="RSS"><img alt="rss" src="../assets/images/rss.png?v=8ff1f2e80d"></a>
+		</div>
+	</div>
+</div>
+<div class="navline"></div>
+<!-- End Header -->
+<div class="outer_container">
+	<!-- PAGE -->
+	<div class="page_container">
+		<!-- CONTENT -->
+		<div class="post_container">
+			    <article class="post">
+
+
+        <h1 class="post-title">Unicode display problems in bash</h1>
+		<span class="post-meta"><a href="http://de.linkedin.com/in/fredericmohr"><b>Frederic Mohr</b></a> - <time datetime="2014-11-09">09 Nov 2014</time> </span>
+
+        <section class="post-content">
+            <!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="../content/images/2014/Nov/snapshot1-3.jpg" alt=""><br>
+Ok, I know this has nothing to do with security and I'm just writing about typical, everyday sysadmin stuff right now. But this problem has cost me way too much time to not be sharing the solution with the world.</p>
+<p><strong>The problem</strong></p>
+<p>I was trying to build the owncloud sync client mirall when I noticed that certain characters aren't displayed correctly. This looks like a typicall <code>locales</code> misconfiguration, so I started to mess with that a bit.</p>
+<p>I switched to <code>de_DE.UTF-8</code> which unfortunately didn't fix the problem. What did though, was switching to <code>de_DE.ISO-8859-1@euro</code>. Well, so far so good but now I had my whole system throwing german messages at me. And I like my system to be in english (ever tried to google for a german error message?)</p>
+<p>I didn't quite understand the problem at the time, because UTF-8 is unicode and should be able to handle special characters like <code>ä</code>, <code>ö</code> and <code>ü</code>.</p>
+<p>So here is a picture of a file called äöü.txt<br>
+<img src="../content/images/2014/Nov/snapshot4.png" alt=""></p>
+<p>Here is the same file shown in dolphin:<br>
+<img src="../content/images/2014/Nov/snapshot5.png" alt=""></p>
+<p>Another thing I noticed was the <code>command-not-found</code> crash, whenever I typed <code>öö</code> instead of <code>ll</code>, which is an alias for <code>ls -lah</code> on my system.<br>
+<img src="../content/images/2014/Nov/snapshot6-1.png" alt=""></p>
+<p><strong>The solution</strong></p>
+<p>To make a long story short, I tried setting locales for quite a while until I finally checked my terminals shell profile. Under advanced, I found that the default was always set to ISO-8859-1 despite my locale settings.</p>
+<p>After changing that, I went from this<br>
+<img src="../content/images/2014/Nov/snapshot1-1.jpg" alt=""></p>
+<p>to this<br>
+<img src="../content/images/2014/Nov/snapshot2.png" alt=""></p>
+<p>while still having my system running with <code>en_US</code> as locale.<br>
+<img src="../content/images/2014/Nov/snapshot3.png" alt=""></p>
+<!--kg-card-end: markdown--><!--kg-card-end: markdown-->
+	</p>
+        </section>
+
+<br>
+<hr>
+<br>
+	<!-- START DISQUS IMPLEMENTATION -->
+        <script src="/assets/js/disqus.js?v=8ff1f2e80d></script>
+        <div id="disqus_thread"></div>
+        <!--<div class="post_disqus show-comments" title="Privacy: Click to enable Disqus (uses cookies!)"><b>Enable Disqus</b></div>
+	END DISQUS IMPLEMENTATION -->
+</article>
+
+
+		</div>
+
+		<!-- SIDEBAR -->
+		<div class="side_container">
+
+			<div class="side_sub_one well">
+				<b>Note</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>All information provided on this site is for educational purposes only. The site and it's author is in no way responsible for any misuse of the information.</p>
+			</div>
+			<div class="side_sub_one well">
+				<b>Links</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="../random-notes/index.html">Random Notes and CheatSheets</a><br>
+				<hr>
+				<a href="http://learnpythonthehardway.org/book/">Python the hard way</a><br>
+				<a href="http://cspplayground.com">CSP Playground</a><br>
+				<a href="http://www.offensive-security.com/metasploit-unleashed/Main_Page">Metasploit Unleashed</a><br>
+				<hr>
+				<a href="https://www.linkedin.com/profile/view?id=203397467">Me - LinkedIn</a><br>
+				<a href="https://ctftime.org/team/9072">Me - CTFTime.org</a><br>
+				</p>
+			</div>		
+			<div class="side_sub_one well">
+				<b>Blogs</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="http://wearetheartillery.blogspot.com.es/">WeAreTheArtillery</a><br>
+				<a href="https://www.imperialviolet.org">Imperial Violet</a><br>
+				<a href="http://www.nerd-supreme.de">NerdSupreme (DE)</a><br>
+				<a href="http://krebsonsecurity.com/">KrebsOnSecurity</a><br>
+				<a href="https://www.corelan.be/">Corelan Team</a><br>
+				<a href="http://blog.g0tmi1k.com/">G0tmi1k</a><br>
+				</p>
+			</div>		
+			<div class="side_sub_one well">
+				<b>Reddits</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="http://www.reddit.com/r/netsec/">/r/netsec</a><br>
+				<a href="http://www.reddit.com/r/Python/">/r/Python</a><br>
+				<a href="http://www.reddit.com/r/Defcon/">/r/Defcon</a><br>
+				<a href="http://www.reddit.com/r/securityCTF/">/r/securityCTF</a><br>
+				<a href="index.html"></a><br>
+				</p>
+			</div>		
+		</div>
+	</div> <!-- End of Sidebar -->
+</div>
+	<div class="footer">
+	<div class=navline></div>
+		HashtagSecurity<br><small>... keeping security in mind.<br><a href="../impressum">Impressum</a> | <a href="../datenschutzerklarung">Datenschutzerklärung</a> | <a href="../privacy-policy">Privacy Policy</a></small>
+	</div>
+</body>
+</html>

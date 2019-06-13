@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HashtagSecurity</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="wot-verification" content="06cd687a47e37736daed"/> 
+    <link rel="stylesheet" type="text/css" href="../assets/css/mofirst-min.css?v=8ff1f2e80d"/>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script> <!-- disqus loader needs latest jquery -->
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="HashtagSecurity" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Lynis Enterprise - The 2nd Encounter" />
+    <meta property="og:description" content="This time we will dive into compliance scans and take a look at how multiple hosts are displayed. I also want to find out why I am at risk of data loss - that&#x27;s right, I still don&#x27;t know! This round, I&#x27;ll take a look at the documentation, which can" />
+    <meta property="og:url" content="fredericmohr.github.io/ghostblog/lynis-the-2nd-encounter/" />
+    <meta property="article:published_time" content="2015-05-09T10:12:16.000Z" />
+    <meta property="article:modified_time" content="2015-05-09T10:21:03.000Z" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Lynis Enterprise - The 2nd Encounter" />
+    <meta name="twitter:description" content="This time we will dive into compliance scans and take a look at how multiple hosts are displayed. I also want to find out why I am at risk of data loss - that&#x27;s right, I still don&#x27;t know! This round, I&#x27;ll take a look at the documentation, which can" />
+    <meta name="twitter:url" content="fredericmohr.github.io/ghostblog/lynis-the-2nd-encounter/" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Frederic Mohr" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "HashtagSecurity",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "fredericmohr.github.io/ghostblog/content/images/2014/Oct/tw-logo_400x400-1.png",
+            "width": 60,
+            "height": 60
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Frederic Mohr",
+        "url": "fredericmohr.github.io/ghostblog/author/frederic/",
+        "sameAs": []
+    },
+    "headline": "Lynis Enterprise - The 2nd Encounter",
+    "url": "fredericmohr.github.io/ghostblog/lynis-the-2nd-encounter/",
+    "datePublished": "2015-05-09T10:12:16.000Z",
+    "dateModified": "2015-05-09T10:21:03.000Z",
+    "description": "This time we will dive into compliance scans and take a look at how multiple hosts are displayed. I also want to find out why I am at risk of data loss - that&#x27;s right, I still don&#x27;t know! This round, I&#x27;ll take a look at the documentation, which can",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "fredericmohr.github.io/ghostblog/"
+    }
+}
+    </script>
+
+    <script src="../public/ghost-sdk.min.js?v=8ff1f2e80d"></script>
+<script>
+ghost.init({
+	clientId: "ghost-frontend",
+	clientSecret: "5a567477c5aa"
+});
+</script>
+    <meta name="generator" content="Ghost 2.23" />
+    <link rel="alternate" type="application/rss+xml" title="HashtagSecurity" href="../rss/index.html" />
+</head>
+<body>
+<!--NAVIGATION-->
+<div class="nav_bar">
+	<div class="nav_container">	
+		<ul class="nav">
+			<li id="nav-index"><a href="../index.html" class="icon-home"></a></li>
+			<li id="nav-kalibook"><a href="../getting-started-with-kali-linux/index.html" class="icon-book"></a></li>
+			<li id="nav-about"><a href="../about/index.html" class="icon-info"></a></li>
+		</ul>
+
+		<!-- Follow Me -->
+		<div class="follow_me">
+			<a href="https://twitter.com/HashtagSecurity" title="Twitter"><img alt="twitter" src="../assets/images/twi.png?v=8ff1f2e80d"></a>
+			<a href="https://www.hashtagsecurity.com/rss" title="RSS"><img alt="rss" src="../assets/images/rss.png?v=8ff1f2e80d"></a>
+		</div>
+	</div>
+</div>
+<div class="navline"></div>
+<!-- End Header -->
+<div class="outer_container">
+	<!-- PAGE -->
+	<div class="page_container">
+		<!-- CONTENT -->
+		<div class="post_container">
+			    <article class="post">
+
+
+        <h1 class="post-title">Lynis Enterprise - The 2nd Encounter</h1>
+		<span class="post-meta"><a href="http://de.linkedin.com/in/fredericmohr"><b>Frederic Mohr</b></a> - <time datetime="2015-05-09">09 May 2015</time> </span>
+
+        <section class="post-content">
+            <!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="../content/images/2015/05/2015_04-CISOfy_Lynis_second_encounter-1.png" alt=""><br>
+This time we will dive into compliance scans and take a look at how multiple hosts are displayed. I also want to find out why I am at risk of data loss - that's right, I still don't know!</p>
+<p>This round, I'll take a look at the documentation, which can be found <a href="https://cisofy.com/documentation/lynis/">here</a>.</p>
+<h3 id="rtfmifyoucan">RTFM if you can!</h3>
+<p>In order to get different results, I wanted to add another host. But, because around 9 days went by since I last touched Lynis, I couldn't remember how exactly the Enterprise key was added to a new host.</p>
+<p>After searching and searching in the documentation, I found nothing but the information that the key is in the configuration panel. Great, but how do I add it? What's the secret option I need? I did check the config file, but there was no license key option to be found either.</p>
+<p>Then I remembered, that I ran Lynis as root from the /root/ folder, so I checked the config file there. And to no surprise, there it was.</p>
+<p><img src="../content/images/2015/05/lastbreach1-2.png" alt=""></p>
+<p>I should've checked <a href="https://hashtagsecurity.com/lynis-enterprise-the-1st-encounter/">this site</a> though, since it's all there...</p>
+<p>Anyway, putting this information in the documentation and a link to it in the configuration page would help a ton. Speaking of documentation, there are a few other things that I came across, such as the icon description being a little off</p>
+<p><img src="../content/images/2015/05/lastbreach1-3.png" alt=""></p>
+<p>and topics that are linked in the documentation or application but lead to nowhere.<br>
+<img src="../content/images/2015/05/lastbreach1-5.png" alt=""></p>
+<p>Parts of the documentation just don't seem to exist at all, while others at least have the decency to tell you so!</p>
+<p><img src="../content/images/2015/05/lastbreach1-6.png" alt=""></p>
+<h3 id="addingotherhosts">Adding other hosts</h3>
+<p>But enough about the docs, I wanted to add three more hosts so I have two 14.04 and two 12.04, which I could then scan with either the --check-all or the --pentest switch, to get an idea of how they impact the scan results. Also, this should give us a bit more then just &quot;21 Suggestions&quot; and might be more representative of what version is actually being used out there, with companies not always running the latest shit and all.</p>
+<pre><code>I want to see criticals and a red cross at compliance!
+</code></pre>
+<p>To get an overview, here are the hosts with their OS versions.</p>
+<pre><code>test-ossec-lynis01		Ubuntu 14.04	audit system --check-all
+test-ossec-lynis02		Ubuntu 14.04	audit system --pentest
+test-ossec-lynis03		Ubuntu 12.04	audit system --check-all
+test-ossec-lynis04		Ubuntu 12.04	audit system --pentest
+</code></pre>
+<p>After copying the lynis folder with the enterprise key to the other hosts, I ran the commands, to add the hosts to the enterprise web UI.</p>
+<p>One thing I noticed, is that the Ubuntu 12.04 hosts didn't show up in the UI after the scan completed. The culprit here was that the curl package wasn't installed on these hosts.</p>
+<p>After running <code>apt-get install curl -y</code> and running the scans again, they where listed with the other hosts.</p>
+<p><img src="../content/images/2015/05/lastbreach1-7.png" alt=""></p>
+<p>Two things stick out here, one is that the Ubuntu 12.04 version string is empty. The other is the bandage sign in the Lynis version column. Hovering over it says &quot;This version is outdated and needs an update&quot;. This being in the Lynis version column, I assume it's referring to the Lynis binary needing an update, which is strange since I rsynced the folder from the test-ossec-lynis01 host and should therefore be the same.</p>
+<pre><code>test-ossec-lynis03.prod.lan:~/lynis $ sudo ./lynis --check-update
+ == Lynis ==
+
+  Version         : 2.1.0
+  Status          : Up-to-date
+  Release date    : 16 April 2015
+  Update location : https://cisofy.com
+
+
+Copyright 2007-2015 - CISOfy, https://cisofy.com
+</code></pre>
+<p>Yup, it's the current version alright. Ideas? Ignore, for now at least.<br>
+Let's check out the findings instead.</p>
+<p>According to the dashboard, we now are at risk of system intrusion, which is never a good thing!</p>
+<p><img src="../content/images/2015/05/lastbreach1-8.png" alt=""></p>
+<p>Since I took a quick look after the host <code>test-ossec-lynis03</code> was added, I know that that's where the problem was first found.</p>
+<p><img src="../content/images/2015/05/lastbreach1-9.png" alt=""></p>
+<p>So what do we have here? Great, &quot;one or more vulnerable packages&quot;, I wonder which packages are vulnerable.</p>
+<p><img src="../content/images/2015/05/lastbreach1-10.png" alt=""></p>
+<p>Wait, what? That is one way to make a great design around no additional information whatsoever. I understand that I should update my system, but as a technical person I would love to be able to understand what exactly the threat is and where it has its source. Maybe this host is running under certain circumstances that make upgrades hard. In this case, I might want to check if an upgrade is really necessary.</p>
+<p>Note: I'm not saying that I'm a fan of the above scenario, but it does happen sometimes - unfortunately!</p>
+<p>Since I can't do much more then upgrading my server, let's just continue with the other hosts.</p>
+<p>The older hosts have the highest risk rating, no surprise there. But they didn't introduce new risks, which is interesting. I know that 12.04 still receives security updates, but I'm pretty sure that they're not running the latest versions.</p>
+<p><img src="../content/images/2015/05/lastbreach1-11.png" alt=""></p>
+<p>Fun fact, some problems solve themselves, such as the &quot;Old Lynis version&quot; one.</p>
+<p><img src="../content/images/2015/05/lastbreach1-12.png" alt=""></p>
+<p>Let's checkout one of the 12.04 hosts and see what they have to offer. Apparently there isn't much difference between the <code>--check-all</code> and <code>--pentest</code> checks, since the results are the same, at least when it comes to number of findings.</p>
+<p><img src="../content/images/2015/05/lastbreach1-13.png" alt=""></p>
+<p>I won't show the rest of the results as it's pretty much the same as the <a href="index.html">first scan results</a>. Obviously, we have the &quot;vulnerable packages&quot; finding and again I would love to know which packages are vulnerable, but it just shows the same page as before.</p>
+<p>Just out of curiosity, let's check real quick which packages are listed for security updates.</p>
+<pre><code>$ grep security /etc/apt/sources.list |sudo tee /tmp/security-updates-only.list
+$ sudo apt-get dist-upgrade -o Dir::Etc::SourceList=/tmp/security-updates-only.list
+</code></pre>
+<p><img src="../content/images/2015/05/lastbreach1-14.png" alt=""></p>
+<p>As you can see, there is definitely a difference between the two hosts, even if it's not a substantial as I would have thought. Still though, in a production environment, hosts are not all the same and having information on what exactly causes a problem goes a long way towards improving things.</p>
+<p>They should all be updated, since these are all security updates, but I would still love to know which of them is responsible for the &quot;system intrusion&quot; risk.</p>
+<h3 id="compliance">Compliance</h3>
+<p>I'm still compliant with running not compliance checks, so let's fix that next.</p>
+<p><img src="../content/images/2015/05/lastbreach1-16.png" alt=""></p>
+<p>It seems that policies are changed in the web interface, not via cli switches. This begs the question how the command is initiated, but let's try to run a scan with compliance first.</p>
+<p><img src="../content/images/2015/05/lastbreach1-17.png" alt=""></p>
+<p>I think &quot;High Secure&quot; should be enough, but ultimately I want to check all of the predefined policies.</p>
+<p>To check for compliancy, I need to run the rule checker.</p>
+<p><img src="../content/images/2015/05/lastbreach1-18.png" alt=""></p>
+<p>So my system is not compliant after all. Since it was that easy, I ran a quick check over all rule sets.</p>
+<p><img src="../content/images/2015/05/lastbreach1-19.png" alt=""></p>
+<p>Turns out it doesn't make that big a difference. Let's examine the findings one by one.</p>
+<p><strong>Firewall</strong> is pretty obvious, it's installed and running. Since this host is actually just a Linux container (LXC), the detected firewall is the host IPTables rule set.</p>
+<p><strong>Time synchronization is configured</strong>, is more of a general information than anything else. Is the configuration compliant with the defined rule sets? Should it not be configured? Why isn't it marked with a cross or checkmark?</p>
+<p>Clicking on the link just shows the rule definition but no further information on the findings.</p>
+<p><img src="../content/images/2015/05/lastbreach1-20.png" alt=""></p>
+<p>For the record, neither NTPd nor timed are running on the host, so the checks have probably failed. If it's not a compliance issue, why is it listed at all?</p>
+<p><strong>Malware</strong> includes a check if an anti malware tool (clamd) is installed and, apparently, if it's configuration is protected.</p>
+<p><img src="../content/images/2015/05/lastbreach1-21.png" alt=""></p>
+<p>This is probably a variable that Lynis sets after a certain check. What I'm wondering is how this could have gone off, since clamd isn't even installed.</p>
+<p><strong>Limited access to compiler</strong> seems to check if a compiler is installed!?</p>
+<p><strong>Compliant:</strong> check! I'm still compliant, at least according to the dashboard and the hosts overview. Even after running Lynis again - no change!</p>
+<p><img src="../content/images/2015/05/lastbreach1-22.png" alt=""></p>
+<p>So what exactly do compliance checks look for?</p>
+<pre><code>$ sudo apt-get install clamav
+$ sudo /etc/init.d/clamav-freshclam start
+$ ps aux |grep clam
+clamav    1915  5.0  0.0  52364  2908 ?        Ss   15:47   0:06 /usr/bin/freshclam -d --quiet
+$ sudo ./lynis audit system -c --quick --upload
+</code></pre>
+<p>Seems like it worked!</p>
+<p><img src="../content/images/2015/05/lastbreach1-23.png" alt=""></p>
+<p>The compliance check shows a read cross, let's see what the UI has to say about the updated status.</p>
+<p><img src="../content/images/2015/05/lastbreach1-24.png" alt=""></p>
+<p>What? OK, this doesn't make sense.</p>
+<p><img src="../content/images/2015/05/lastbreach1-25.png" alt=""></p>
+<p>There is no change in the result, whatsoever. And just for the record, here are the config permissions.</p>
+<pre><code>test-ossec-lynis03.prod.lan:~/lynis $ ls -lh /etc/clamav/
+-rw-r--r--  1 root   root 2.0K clamd.conf
+-r--r--r--  1 clamav adm   717 freshclam.conf
+drwxr-xr-x  2 root   root 4.0K onerrorexecute.d
+drwxr-xr-x  2 root   root 4.0K onupdateexecute.d
+</code></pre>
+<p>Only root is able to write and the config belongs to clamav. Seems reasonable to me.</p>
+<p>Taking a closer look at the policies, I found that some of them are empty and don't have any rules set. That would explain why so few results showed up in the overview page.</p>
+<p><img src="../content/images/2015/05/lastbreach1-26.png" alt=""></p>
+<p><img src="../content/images/2015/05/lastbreach1-27.png" alt=""></p>
+<p>While this makes sense, since it's hard to check for, let's say, every possible backup service that could be in place, it's also kind of misleading since the policies are named after &quot;HIPAA&quot;, &quot;ISO27x&quot; and &quot;PCI-DSS&quot;. Anyone getting a checkmark on these should check the rule tables before the auditor shows up!</p>
+<p><img src="../content/images/2015/05/lastbreach1-28.png" alt=""></p>
+<p>I'm not an expert in compliance, but I'm pretty sure that each of them has more then 8 things that should be done properly, before you can pat yourself on the shoulder!</p>
+<h3 id="summary">Summary</h3>
+<p>So what have we learned?</p>
+<ul>
+<li>The documentation is lacking in some parts</li>
+<li>Results could be more detailed, especially regarding the source of the problem</li>
+<li>I still don't know what puts me at risk of dataloss</li>
+<li>Now I also don't know which packet puts me at risk of system intrusion</li>
+<li>I also don't know how likely the exploitation of said risks is (linkt to CVSS?)</li>
+<li>I havent' seen a &quot;mark as false positive&quot; or &quot;ignore because can't be fixed&quot; option.</li>
+</ul>
+<p>All in all there is a lot of time that has to go into writing rules before Lynis Enterprise can really be used for compliance checks. On one hand I love it, as it forces people to create checks that fit their environment, on the other hand it would be great to have a ISO27001 rule set premade for some distros - say Ubuntu - to run a quick check and see how the host is holding up.</p>
+<p>What really stopped me from &quot;digging deeper&quot;, is that I wasn't able to figure out how the checks actually worked. I get that &quot;malware running&quot; is marked as compliant, if the &quot;process running&quot; variable contains &quot;clamd&quot;, but what is Lynis, the cli tool actually checking for and more importantly, how can I check the content of &quot;process running&quot; myself? I know it's a OSS tool and I could look at the source code, but that's not how I want to use my time - and your boss wouldn't want you to use yours that way as well. Especially after he payed for the license.</p>
+<p>What I'm getting at is, that as newcomer to Lynis, it's sometimes hard to understand what exactly is being done in the background and how some results came to be.</p>
+<p>I'm looking forward to my next encounter, as I still have to</p>
+<ul>
+<li>write my own compliance rules</li>
+<li>check out historical data, after I fixed and unfixed stuff</li>
+<li>and most of all, find out if LE can actually be of use to the average pentester.</li>
+</ul>
+<p>Also, what's up with that?<br>
+<img src="../content/images/2015/05/lastbreach1-29.png" alt=""><br>
+I did everything imaginable to get this to show a red cross - without any luck!</p>
+<!--kg-card-end: markdown--><!--kg-card-end: markdown-->
+	</p>
+        </section>
+
+<br>
+<hr>
+<br>
+	<!-- START DISQUS IMPLEMENTATION -->
+        <script src="/assets/js/disqus.js?v=8ff1f2e80d></script>
+        <div id="disqus_thread"></div>
+        <!--<div class="post_disqus show-comments" title="Privacy: Click to enable Disqus (uses cookies!)"><b>Enable Disqus</b></div>
+	END DISQUS IMPLEMENTATION -->
+</article>
+
+
+		</div>
+
+		<!-- SIDEBAR -->
+		<div class="side_container">
+
+			<div class="side_sub_one well">
+				<b>Note</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>All information provided on this site is for educational purposes only. The site and it's author is in no way responsible for any misuse of the information.</p>
+			</div>
+			<div class="side_sub_one well">
+				<b>Links</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="../random-notes/index.html">Random Notes and CheatSheets</a><br>
+				<hr>
+				<a href="http://learnpythonthehardway.org/book/">Python the hard way</a><br>
+				<a href="http://cspplayground.com">CSP Playground</a><br>
+				<a href="http://www.offensive-security.com/metasploit-unleashed/Main_Page">Metasploit Unleashed</a><br>
+				<hr>
+				<a href="https://www.linkedin.com/profile/view?id=203397467">Me - LinkedIn</a><br>
+				<a href="https://ctftime.org/team/9072">Me - CTFTime.org</a><br>
+				</p>
+			</div>		
+			<div class="side_sub_one well">
+				<b>Blogs</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="http://wearetheartillery.blogspot.com.es/">WeAreTheArtillery</a><br>
+				<a href="https://www.imperialviolet.org">Imperial Violet</a><br>
+				<a href="http://www.nerd-supreme.de">NerdSupreme (DE)</a><br>
+				<a href="http://krebsonsecurity.com/">KrebsOnSecurity</a><br>
+				<a href="https://www.corelan.be/">Corelan Team</a><br>
+				<a href="http://blog.g0tmi1k.com/">G0tmi1k</a><br>
+				</p>
+			</div>		
+			<div class="side_sub_one well">
+				<b>Reddits</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="http://www.reddit.com/r/netsec/">/r/netsec</a><br>
+				<a href="http://www.reddit.com/r/Python/">/r/Python</a><br>
+				<a href="http://www.reddit.com/r/Defcon/">/r/Defcon</a><br>
+				<a href="http://www.reddit.com/r/securityCTF/">/r/securityCTF</a><br>
+				<a href="index.html"></a><br>
+				</p>
+			</div>		
+		</div>
+	</div> <!-- End of Sidebar -->
+</div>
+	<div class="footer">
+	<div class=navline></div>
+		HashtagSecurity<br><small>... keeping security in mind.<br><a href="../impressum">Impressum</a> | <a href="../datenschutzerklarung">Datenschutzerklärung</a> | <a href="../privacy-policy">Privacy Policy</a></small>
+	</div>
+</body>
+</html>

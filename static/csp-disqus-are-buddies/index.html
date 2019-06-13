@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HashtagSecurity</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="wot-verification" content="06cd687a47e37736daed"/> 
+    <link rel="stylesheet" type="text/css" href="../assets/css/mofirst-min.css?v=8ff1f2e80d"/>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script> <!-- disqus loader needs latest jquery -->
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="HashtagSecurity" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="CSP and Disqus are buddies!" />
+    <meta property="og:description" content="After all that trouble I had with Disqus and my Content-Security-Policy, I finally got it working. Not only that, but I got some help from a Disqus JS dev! First of all, I want to apoligize for a few things in my last post. I blamed Disqus for using eval," />
+    <meta property="og:url" content="fredericmohr.github.io/ghostblog/csp-disqus-are-buddies/" />
+    <meta property="article:published_time" content="2015-01-23T13:28:08.000Z" />
+    <meta property="article:modified_time" content="2015-01-24T10:38:17.000Z" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="CSP and Disqus are buddies!" />
+    <meta name="twitter:description" content="After all that trouble I had with Disqus and my Content-Security-Policy, I finally got it working. Not only that, but I got some help from a Disqus JS dev! First of all, I want to apoligize for a few things in my last post. I blamed Disqus for using eval," />
+    <meta name="twitter:url" content="fredericmohr.github.io/ghostblog/csp-disqus-are-buddies/" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Frederic Mohr" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "HashtagSecurity",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "fredericmohr.github.io/ghostblog/content/images/2014/Oct/tw-logo_400x400-1.png",
+            "width": 60,
+            "height": 60
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Frederic Mohr",
+        "url": "fredericmohr.github.io/ghostblog/author/frederic/",
+        "sameAs": []
+    },
+    "headline": "CSP and Disqus are buddies!",
+    "url": "fredericmohr.github.io/ghostblog/csp-disqus-are-buddies/",
+    "datePublished": "2015-01-23T13:28:08.000Z",
+    "dateModified": "2015-01-24T10:38:17.000Z",
+    "description": "After all that trouble I had with Disqus and my Content-Security-Policy, I finally got it working. Not only that, but I got some help from a Disqus JS dev! First of all, I want to apoligize for a few things in my last post. I blamed Disqus for using eval,",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "fredericmohr.github.io/ghostblog/"
+    }
+}
+    </script>
+
+    <script src="../public/ghost-sdk.min.js?v=8ff1f2e80d"></script>
+<script>
+ghost.init({
+	clientId: "ghost-frontend",
+	clientSecret: "5a567477c5aa"
+});
+</script>
+    <meta name="generator" content="Ghost 2.23" />
+    <link rel="alternate" type="application/rss+xml" title="HashtagSecurity" href="../rss/index.html" />
+</head>
+<body>
+<!--NAVIGATION-->
+<div class="nav_bar">
+	<div class="nav_container">	
+		<ul class="nav">
+			<li id="nav-index"><a href="../index.html" class="icon-home"></a></li>
+			<li id="nav-kalibook"><a href="../getting-started-with-kali-linux/index.html" class="icon-book"></a></li>
+			<li id="nav-about"><a href="../about/index.html" class="icon-info"></a></li>
+		</ul>
+
+		<!-- Follow Me -->
+		<div class="follow_me">
+			<a href="https://twitter.com/HashtagSecurity" title="Twitter"><img alt="twitter" src="../assets/images/twi.png?v=8ff1f2e80d"></a>
+			<a href="https://www.hashtagsecurity.com/rss" title="RSS"><img alt="rss" src="../assets/images/rss.png?v=8ff1f2e80d"></a>
+		</div>
+	</div>
+</div>
+<div class="navline"></div>
+<!-- End Header -->
+<div class="outer_container">
+	<!-- PAGE -->
+	<div class="page_container">
+		<!-- CONTENT -->
+		<div class="post_container">
+			    <article class="post">
+
+
+        <h1 class="post-title">CSP and Disqus are buddies!</h1>
+		<span class="post-meta"><a href="http://de.linkedin.com/in/fredericmohr"><b>Frederic Mohr</b></a> - <time datetime="2015-01-23">23 Jan 2015</time> </span>
+
+        <section class="post-content">
+            <!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="../content/images/2015/01/Disqus_is_back.jpg" alt=""><br>
+After all that trouble I had with Disqus and my Content-Security-Policy, I finally got it working. Not only that, but I got some help from a Disqus JS dev!</p>
+<p>First of all, I want to apoligize for a few things in my <a href="https://hashtagsecurity.com/csp-disqus-gotta-go/">last post</a>. I blamed Disqus for using eval, when it was really me who, unknowingly, invoked it by using the jQuery <code>load()</code> function.</p>
+<p>I also said that Disqus is not compatible with CSP at all - which is not really true.<br>
+Thanks to Burak Yiğit Kaya, a javascript developer at Disqus who reached out to me via Twitter, I now know more about how Disqus and CSP work together.</p>
+<p>And I want to thank Burak and Disqus for their reaction to my post.<br>
+Burak contacted me, not to tell me that I was wrong, but to try and understand what the problem was in order to fix it.</p>
+<pre><code>We take security quite seriously and also respect users treating it highly so I'll do my best to make this easier for you.
+</code></pre>
+<p>And he did! Which is awesome, because I have heard this one so many times already, and it's very rare that there's more behind it then just PR.</p>
+<p>But back to the technical stuff. After some back and forth with Burak, I finally got a working CSP which looks like this.</p>
+<pre><code>Content-Security-Policy: default-src 'self'; script-src 'self' a.disquscdn.com/embed.js hashtagsecurity.disqus.com code.jquery.com; img-src 'self' referrer.disqus.com/juggler/stat.gif a.disquscdn.com/next/assets/img/; frame-src 'self' disqus.com/embed/comments/; style-src 'self' 'unsafe-inline' a.disquscdn.com;
+</code></pre>
+<p><strong>unsafe-inline</strong><br><br>
+This CSP still contains the <code>unsafe-inline</code> option for style sources, which is not really a good thing. Burak told me that I can ignore it, as it's doing is making the loading logo spin.<br>
+<img src="../content/images/2015/01/del1-2.png" alt=""></p>
+<p>While I can absolute go without the spinning logo, there is another problem here. Ignoring CSP violations, even if there just a spinning icon, will at some point have a negative impact on your CSP logs if you have them enabled.</p>
+<p>So it works, but it's still not perfect.</p>
+<p><strong>Too many sources</strong><br><br>
+The other thing that would need improvement is the amount of different sources. Burak explained, that they use a.disquscdn.com as a cookieless domain, and refferer.disqus.com as a stat beacon to check if the load was successfull. As I said to him before, this is just a nice to have. It would increase maintainability of CSPs but it's not absolutely necessary.</p>
+<p>Burak came up with the idea, to unify the sources under two domains.<br>
+<code>a.disquscdn.com</code> and <code>some-subdomain.disqus.com</code></p>
+<p><strong>Disqus CSP</strong><br><br>
+Something I didn't know before, is that Disqus ships with it's own Content-Security-Policy. As Burak told me, if you load Disqus and take a look at the response headers of the <code>discus.com/embed/comments</code> request, you can see a custom CSP is being set.<br>
+<img src="../content/images/2015/01/disquscsp.png" alt=""></p>
+<pre><code>content-security-policy:script-src https://*.twitter.com:* https://api.adsnative.com/v1/ad.json *.adsafeprotected.com *.google-analytics.com https://glitter-services.disqus.com https://*.services.disqus.com:* disqus.com http://*.twitter.com:* a.disquscdn.com api.taboola.com referrer.disqus.com *.scorecardresearch.com *.moatads.com https://admin.appnext.com/offerWallApi.aspx 'unsafe-eval' https://mobile.adnxs.com/mob *.services.disqus.com:*
+</code></pre>
+<p>For me this is just show even more that Disqus actually cares about security. Otherwise, they wouldn't have bothered to limit the sources in the first place.</p>
+<p><strong>Summary</strong><br><br>
+So, Disqus is back on hashtagsecurity.com. And now it's not just a convenient comment system anymore. I actually have an opinion about it now.</p>
+<p>The conversation between Burak and me brought a few things to light that could be improved, and Burak said he will look into it. Although he couldn't make any promises, I'm looking forward to see these improvements go live in the future.</p>
+<ul>
+<li>Move inline CSS into an external file to remove <code>unsafe-inline</code> style source</li>
+<li>Unify sources under <code>a.disquscdn.com</code> and <code>some-subdomain.disqus.com</code></li>
+</ul>
+<p>And something we didn't talk about, which I noticed later. The Disqus homepage only shows how to implement Disqus inline. Another option showing how to do it CSP compatible would be a great addition, especially for people just getting started with this kind of thing.</p>
+<p><strong>Wait, so what with the eval problem?</strong><br><br>
+Oh yeah, I almost forgot to mention that. The eval problem only occured, because I don't want Disqus to be loaded automatically. Instead I want visitors to click on the big blue bar below the article whenever they want to leave a comment.</p>
+<p>The way I did this was by loading Disqus via jQuerys <code>load()</code> function. Which seems to use the <code>eval()</code> function internally.</p>
+<p>After playing with both jQuery and plain old JS for a bit, I finally found this [nifty little helper}(<a href="http://internet-inspired.com/wrote/load-disqus-on-demand/">http://internet-inspired.com/wrote/load-disqus-on-demand/</a>) which works like a charm. So kudos to <a href="https://twitter.com/nternetinspired">@nternetinspired</a> for solving this problem way before me!</p>
+<!--kg-card-end: markdown--><!--kg-card-end: markdown-->
+	</p>
+        </section>
+
+<br>
+<hr>
+<br>
+	<!-- START DISQUS IMPLEMENTATION -->
+        <script src="/assets/js/disqus.js?v=8ff1f2e80d></script>
+        <div id="disqus_thread"></div>
+        <!--<div class="post_disqus show-comments" title="Privacy: Click to enable Disqus (uses cookies!)"><b>Enable Disqus</b></div>
+	END DISQUS IMPLEMENTATION -->
+</article>
+
+
+		</div>
+
+		<!-- SIDEBAR -->
+		<div class="side_container">
+
+			<div class="side_sub_one well">
+				<b>Note</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>All information provided on this site is for educational purposes only. The site and it's author is in no way responsible for any misuse of the information.</p>
+			</div>
+			<div class="side_sub_one well">
+				<b>Links</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="../random-notes/index.html">Random Notes and CheatSheets</a><br>
+				<hr>
+				<a href="http://learnpythonthehardway.org/book/">Python the hard way</a><br>
+				<a href="http://cspplayground.com">CSP Playground</a><br>
+				<a href="http://www.offensive-security.com/metasploit-unleashed/Main_Page">Metasploit Unleashed</a><br>
+				<hr>
+				<a href="https://www.linkedin.com/profile/view?id=203397467">Me - LinkedIn</a><br>
+				<a href="https://ctftime.org/team/9072">Me - CTFTime.org</a><br>
+				</p>
+			</div>		
+			<div class="side_sub_one well">
+				<b>Blogs</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="http://wearetheartillery.blogspot.com.es/">WeAreTheArtillery</a><br>
+				<a href="https://www.imperialviolet.org">Imperial Violet</a><br>
+				<a href="http://www.nerd-supreme.de">NerdSupreme (DE)</a><br>
+				<a href="http://krebsonsecurity.com/">KrebsOnSecurity</a><br>
+				<a href="https://www.corelan.be/">Corelan Team</a><br>
+				<a href="http://blog.g0tmi1k.com/">G0tmi1k</a><br>
+				</p>
+			</div>		
+			<div class="side_sub_one well">
+				<b>Reddits</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="http://www.reddit.com/r/netsec/">/r/netsec</a><br>
+				<a href="http://www.reddit.com/r/Python/">/r/Python</a><br>
+				<a href="http://www.reddit.com/r/Defcon/">/r/Defcon</a><br>
+				<a href="http://www.reddit.com/r/securityCTF/">/r/securityCTF</a><br>
+				<a href="index.html"></a><br>
+				</p>
+			</div>		
+		</div>
+	</div> <!-- End of Sidebar -->
+</div>
+	<div class="footer">
+	<div class=navline></div>
+		HashtagSecurity<br><small>... keeping security in mind.<br><a href="../impressum">Impressum</a> | <a href="../datenschutzerklarung">Datenschutzerklärung</a> | <a href="../privacy-policy">Privacy Policy</a></small>
+	</div>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HashtagSecurity</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="wot-verification" content="06cd687a47e37736daed"/> 
+    <link rel="stylesheet" type="text/css" href="../../../../assets/css/mofirst-min.css?v=8ff1f2e80d"/>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script> <!-- disqus loader needs latest jquery -->
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="../../../../favicon.ico" type="image/x-icon" />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="prev" href="../2/index.html" />
+    <link rel="next" href="fredericmohr.github.io/ghostblog/author/frederic/page/4/" />
+    <script src="../../../../public/ghost-sdk.min.js?v=8ff1f2e80d"></script>
+<script>
+ghost.init({
+	clientId: "ghost-frontend",
+	clientSecret: "5a567477c5aa"
+});
+</script>
+    <meta name="generator" content="Ghost 2.23" />
+    <link rel="alternate" type="application/rss+xml" title="HashtagSecurity" href="../../../../rss/index.html" />
+</head>
+<body>
+<!--NAVIGATION-->
+<div class="nav_bar">
+	<div class="nav_container">	
+		<ul class="nav">
+			<li id="nav-index"><a href="../../../../index.html" class="icon-home"></a></li>
+			<li id="nav-kalibook"><a href="../../../../getting-started-with-kali-linux/index.html" class="icon-book"></a></li>
+			<li id="nav-about"><a href="../../../../about/index.html" class="icon-info"></a></li>
+		</ul>
+
+		<!-- Follow Me -->
+		<div class="follow_me">
+			<a href="https://twitter.com/HashtagSecurity" title="Twitter"><img alt="twitter" src="../../../../assets/images/twi.png?v=8ff1f2e80d"></a>
+			<a href="https://www.hashtagsecurity.com/rss" title="RSS"><img alt="rss" src="../../../../assets/images/rss.png?v=8ff1f2e80d"></a>
+		</div>
+	</div>
+</div>
+<div class="navline"></div>
+<!-- End Header -->
+<div class="outer_container">
+	<!-- PAGE -->
+	<div class="page_container">
+		<!-- CONTENT -->
+		<div class="post_container">
+			    
+<article class="post">
+<div class="post_sub_one postexcerpt">
+        <h1><a href="../../../../testing-for-ghost-vulnerability-with-ansible/index.html" title="Testing for GHOST Vulnerability with Ansible">Testing for GHOST Vulnerability with Ansible</a></h1>
+    	<!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="../../../../content/images/2015/01/ghost_vuln_check_ansible.jpg" alt=""><br>
+Yesterday, reports of a critical vulnerability in the GNU C Library (glibc) hit the news. If you have more then just a handful servers to check, this Ansible playbook might be helpful.</p>
+<p>You can read all about the vulnerability <a href="http://blog.sucuri.net/2015/01/critical-ghost-vulnerability-released.html">here</a>.</p>
+<p>Usually when I have to check multiple servers, I use Ansible like this.</p>
+<pre><code>ansible 'servergroup' -m shell -a 'command to execute'
+</code></pre>
+<p>In the case of GHOST, this wasn't working for me as the test command contained both <code>'</code> and <code>&quot;</code></p>
+</div>
+</article>
+<article class="post">
+<div class="post_sub_one postexcerpt">
+        <h1><a href="../../../../wbp2/index.html" title="WBP#2 - SHA256, Flask, Safari, Keybase.io and more...">WBP#2 - SHA256, Flask, Safari, Keybase.io and more...</a></h1>
+    	<!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="../../../../content/images/2015/01/WBP2.jpg" alt=""><br>
+The Weekly Bucket Post goes into the second round. This week we have wrong sha256 hashes, problems with Safari and amongst other things an invitation to keybase.io!</p>
+<p><strong>sha256sum creates &quot;wrong&quot; hash</strong> - Recently I was wondering, why a SHA256 hash of the string <code>password</code> was listed in neither the <a href="http://hashtoolkit.com/">Hash Toolkit</a> nor the <a href="http://leakdb.abusix.com">LeakDB</a> databases. Surely someone must have used <code>password</code> as password somewhere!?</p>
+<p>Turns out, <code>password</code> is of course in both those databases, what isn't listed</p>
+</div>
+</article>
+<article class="post">
+<div class="post_sub_one postexcerpt">
+        <h1><a href="../../../../csp-disqus-are-buddies/index.html" title="CSP and Disqus are buddies!">CSP and Disqus are buddies!</a></h1>
+    	<!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="../../../../content/images/2015/01/Disqus_is_back.jpg" alt=""><br>
+After all that trouble I had with Disqus and my Content-Security-Policy, I finally got it working. Not only that, but I got some help from a Disqus JS dev!</p>
+<p>First of all, I want to apoligize for a few things in my <a href="https://hashtagsecurity.com/csp-disqus-gotta-go/">last post</a>. I blamed Disqus for using eval, when it was really me who, unknowingly, invoked it by using the jQuery <code>load()</code> function.</p>
+<p>I also said that Disqus is not compatible with CSP at all - which is</p>
+</div>
+</article>
+<article class="post">
+<div class="post_sub_one postexcerpt">
+        <h1><a href="../../../../csp-disqus-gotta-go/index.html" title="CSP: &quot;Disqus gotta go!&quot;">CSP: &quot;Disqus gotta go!&quot;</a></h1>
+    	<!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="../../../../content/images/2015/01/Disqus_gotta_go.jpg" alt=""><br>
+Recently I noticed that Disqus isn't loading anymore. It was easy to figure out that CSP was the reason why. In the end I was left with nothing more then the choice of which one needs to go.</p>
+<p><strong>Update: Burak Yiğit Kaya, a javascript developer at Disqus reached out to me to to address the problems in this post. I will write another post about the results shortly!</strong></p>
+<p>Obviously my choice was to keep CSP - this is a security</p>
+</div>
+</article>
+<article class="post">
+<div class="post_sub_one postexcerpt">
+        <h1><a href="../../../../wsp-weekly-short-post-01/index.html" title="WBP#1 - All New Weekly Bucket Post">WBP#1 - All New Weekly Bucket Post</a></h1>
+    	<!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="../../../../content/images/2015/01/bucketpost.jpg" alt=""><br>
+Since I can't bring myself to write full blown blog posts on a regular basis, let's try to do something else. I will attempt to publish a short blogpost every friday about all the small things that I encountered during the last week.</p>
+<p><strong>PFX Certificates</strong> -<br>
+After finally receiving confirmation that our code signing certificate has been validated, I got a link to &quot;download&quot; it. And by download they actually mean, import it in your browsers certificate store.</p>
+</div>
+</article>
+        <nav class="pagination" role="navigation">
+        <a class="newer-posts icon-angle-left" href="../2/index.html"></a>
+    <span class="page-number">Page 3 of 12</span>
+        <a class="older-posts icon-angle-right" href="fredericmohr.github.io/ghostblog/author/frederic/page/4/"></a>
+</nav>
+
+
+		</div>
+
+		<!-- SIDEBAR -->
+		<div class="side_container">
+
+			<div class="side_sub_one well">
+				<b>Note</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>All information provided on this site is for educational purposes only. The site and it's author is in no way responsible for any misuse of the information.</p>
+			</div>
+			<div class="side_sub_one well">
+				<b>Links</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="../../../../random-notes/index.html">Random Notes and CheatSheets</a><br>
+				<hr>
+				<a href="http://learnpythonthehardway.org/book/">Python the hard way</a><br>
+				<a href="http://cspplayground.com">CSP Playground</a><br>
+				<a href="http://www.offensive-security.com/metasploit-unleashed/Main_Page">Metasploit Unleashed</a><br>
+				<hr>
+				<a href="https://www.linkedin.com/profile/view?id=203397467">Me - LinkedIn</a><br>
+				<a href="https://ctftime.org/team/9072">Me - CTFTime.org</a><br>
+				</p>
+			</div>		
+			<div class="side_sub_one well">
+				<b>Blogs</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="http://wearetheartillery.blogspot.com.es/">WeAreTheArtillery</a><br>
+				<a href="https://www.imperialviolet.org">Imperial Violet</a><br>
+				<a href="http://www.nerd-supreme.de">NerdSupreme (DE)</a><br>
+				<a href="http://krebsonsecurity.com/">KrebsOnSecurity</a><br>
+				<a href="https://www.corelan.be/">Corelan Team</a><br>
+				<a href="http://blog.g0tmi1k.com/">G0tmi1k</a><br>
+				</p>
+			</div>		
+			<div class="side_sub_one well">
+				<b>Reddits</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="http://www.reddit.com/r/netsec/">/r/netsec</a><br>
+				<a href="http://www.reddit.com/r/Python/">/r/Python</a><br>
+				<a href="http://www.reddit.com/r/Defcon/">/r/Defcon</a><br>
+				<a href="http://www.reddit.com/r/securityCTF/">/r/securityCTF</a><br>
+				<a href="index.html"></a><br>
+				</p>
+			</div>		
+		</div>
+	</div> <!-- End of Sidebar -->
+</div>
+	<div class="footer">
+	<div class=navline></div>
+		HashtagSecurity<br><small>... keeping security in mind.<br><a href="../../../../impressum">Impressum</a> | <a href="../../../../datenschutzerklarung">Datenschutzerklärung</a> | <a href="../../../../privacy-policy">Privacy Policy</a></small>
+	</div>
+</body>
+</html>

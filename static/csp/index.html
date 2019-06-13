@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HashtagSecurity</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="wot-verification" content="06cd687a47e37736daed"/> 
+    <link rel="stylesheet" type="text/css" href="../assets/css/mofirst-min.css?v=8ff1f2e80d"/>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script> <!-- disqus loader needs latest jquery -->
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="HashtagSecurity" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="BSidesLondon 2014" />
+    <meta property="og:description" content="Here is my review on the BSidesLondon &#x27;14 with a heavy focus on the rookie track, since I spent almost all of my time there. As promised in my talk &amp;quot;CSP Analysis - Attacking XSS Mitigation&amp;quot;, I published the source code of all my examples (and more) along" />
+    <meta property="og:url" content="fredericmohr.github.io/ghostblog/csp/" />
+    <meta property="article:published_time" content="2014-04-29T17:13:42.000Z" />
+    <meta property="article:modified_time" content="2015-05-10T16:08:52.000Z" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="BSidesLondon 2014" />
+    <meta name="twitter:description" content="Here is my review on the BSidesLondon &#x27;14 with a heavy focus on the rookie track, since I spent almost all of my time there. As promised in my talk &amp;quot;CSP Analysis - Attacking XSS Mitigation&amp;quot;, I published the source code of all my examples (and more) along" />
+    <meta name="twitter:url" content="fredericmohr.github.io/ghostblog/csp/" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Frederic Mohr" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "HashtagSecurity",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "fredericmohr.github.io/ghostblog/content/images/2014/Oct/tw-logo_400x400-1.png",
+            "width": 60,
+            "height": 60
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Frederic Mohr",
+        "url": "fredericmohr.github.io/ghostblog/author/frederic/",
+        "sameAs": []
+    },
+    "headline": "BSidesLondon 2014",
+    "url": "fredericmohr.github.io/ghostblog/csp/",
+    "datePublished": "2014-04-29T17:13:42.000Z",
+    "dateModified": "2015-05-10T16:08:52.000Z",
+    "description": "Here is my review on the BSidesLondon &#x27;14 with a heavy focus on the rookie track, since I spent almost all of my time there. As promised in my talk &amp;quot;CSP Analysis - Attacking XSS Mitigation&amp;quot;, I published the source code of all my examples (and more) along",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "fredericmohr.github.io/ghostblog/"
+    }
+}
+    </script>
+
+    <script src="../public/ghost-sdk.min.js?v=8ff1f2e80d"></script>
+<script>
+ghost.init({
+	clientId: "ghost-frontend",
+	clientSecret: "5a567477c5aa"
+});
+</script>
+    <meta name="generator" content="Ghost 2.23" />
+    <link rel="alternate" type="application/rss+xml" title="HashtagSecurity" href="../rss/index.html" />
+</head>
+<body>
+<!--NAVIGATION-->
+<div class="nav_bar">
+	<div class="nav_container">	
+		<ul class="nav">
+			<li id="nav-index"><a href="../index.html" class="icon-home"></a></li>
+			<li id="nav-kalibook"><a href="../getting-started-with-kali-linux/index.html" class="icon-book"></a></li>
+			<li id="nav-about"><a href="../about/index.html" class="icon-info"></a></li>
+		</ul>
+
+		<!-- Follow Me -->
+		<div class="follow_me">
+			<a href="https://twitter.com/HashtagSecurity" title="Twitter"><img alt="twitter" src="../assets/images/twi.png?v=8ff1f2e80d"></a>
+			<a href="https://www.hashtagsecurity.com/rss" title="RSS"><img alt="rss" src="../assets/images/rss.png?v=8ff1f2e80d"></a>
+		</div>
+	</div>
+</div>
+<div class="navline"></div>
+<!-- End Header -->
+<div class="outer_container">
+	<!-- PAGE -->
+	<div class="page_container">
+		<!-- CONTENT -->
+		<div class="post_container">
+			    <article class="post">
+
+
+        <h1 class="post-title">BSidesLondon 2014</h1>
+		<span class="post-meta"><a href="http://de.linkedin.com/in/fredericmohr"><b>Frederic Mohr</b></a> - <time datetime="2014-04-29">29 Apr 2014</time> </span>
+
+        <section class="post-content">
+            <!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="../content/images/2014/Aug/23_bsideslnd14_cover.jpg" alt=""><br>
+Here is my review on the BSidesLondon '14 with a heavy focus on the rookie track, since I spent almost all of my time there.</p>
+<p>As promised in my talk &quot;CSP Analysis - Attacking XSS Mitigation&quot;, I published the source code of all my examples (and more) along with some explanation of what I did on <a href="https://github.com/fredericmohr/hashtagsecurity/tree/master/csp_analysis_sourcecode">github</a>.</p>
+<p><b>My Rookie Talk</b><br><br>
+First of all, here is the video :)</p>
+<iframe width="560" height="315" src="http://www.youtube.com/embed/l26KSEqVOj4" frameborder="0" allowfullscreen></iframe>
+I had a lot of fun talking at BSidesLND and I'm really looking forward to see all the great people again I met.
+<p><strong>BSidesLondon 2014 - Rookie Talks:</strong><br></p>
+<p>First talk was by Sasha Zijinovic and was called &quot;Run-time tools to aid application security assessments&quot;. It was an interesting topic, although I found it hard to follow because Sasha often looked at the floor or his slides. It was still a good talk though and I hope to see Sasha talk at other cons in the future.</p>
+<p>Right after that Kristo Helasvuo held his &quot;Copenhagen and Becks for Cybersecurity&quot; talk, and I'm sorry but I really can't tell you what's it all about. I had problems understanding him but it could also be because I missed the first five minutes from his 15 minute talk. In retrospective, it's probably the later.</p>
+<p>The next talk, &quot;Reputational Damage&quot; was canceled and replaced with &quot;A look at modern warfare&quot; by Kaitlyn Garratley (@kaitlyn4495) and was very well presented. We got a good look at the costs of normal warfare (building tanks, training troops, etc.) and modern warfare (e.g. developing and distributing stuxnet like weapons).</p>
+<p>&quot;When a noob comes aware&quot; was an excellent talk by Herbie Zimmerman and let's just say he nailed it. The talk was about awareness programs and how they are often approached from the wrong perspective. Herbie said he will probably publish the video of his talk. If I get it, I'll add the link.</p>
+<p>After Herbie, Scott MacKenzie presented his &quot;Infosec is board Responsibility&quot; talk, which I really enjoyed. @Scott, I might have to get back to you with some questions once I'm back home.</p>
+<p>Just before lunch, Grant Willcox presented his Recon-NG module in &quot;Crawling Metadata with Recon-ng&quot; which was really interesting. Now I have to play with it - thanks Grant... so much to do, so little time.</p>
+<p>After lunch, I came a little bit to late back to the rookie track so I missed half of Joseph Greenwoods talk on &quot;Game-Based CTFs - Engaging University Students in InfoSec&quot;. Keypoint for me was, that the reason for doing CTFs, aside from being really interesting and a lot of fun, are rarely explained. Joseph took an approach to show students what are possible results of an actual breach in an end-of-world scenario. He and his team recoded the nuclear-apocalypse game DefCon in Python and hooked it up to vulnerable servers. Once a team hacked a server, it could launch enemy nuclear missles in DefCon at enemy cities.</p>
+<p>I did a quick sweep through the BSides halls and after talking to some of the sponsors, I watched the talks &quot;Why information security should be important to all of us&quot; by Beverley A MacKenzie and &quot;Zero-Day Surprises via your Supply Chain&quot; by Vivian Nwoji. Both of them got me thinking, which is probably why I didn't pay too much attention to Vinayak Rams talk &quot;SIEM - making the white elephant dance&quot;. Sorry about that, but if I remember correctly it was something along the lines of people putting in the wrong data and expecting marvelous result while ending up being dissapointed by their SIEM.</p>
+<p>The &quot;Best Rookie Talk&quot; prize winning presentation was &quot;Is privacy still a thing&quot; by Georgi Boiko, and I think there is no need for me to say anything about it. He earned it, go watch it! (if you find it..)</p>
+<p>&quot;A multidisciplinary Perspective on Cybersecurity&quot; is definitely not your average infosec talk. It was a completely different approach by Emil Tan, which I'm not able to explain from memory, however if it is uploaded (I'm looking at you Emil!) I will definitely watch it again, maybe I'll be able to explain it then. Good talk!</p>
+<p>Between Emils talk and the next one, there was a short break giving me just enough time to realize that I had to give my own presentation soon. Joseph Gwynne-Jones gave his talk completely in sign-language, with a translator speaking to us. This was definately a new experience and kudos to Joseph for pulling this one off!</p>
+<p>RFID hacking is something I haven't had much contact with yet, but I probably will try my luck at it after watching &quot;RFID Hacking - an introduction&quot; by @d3sre. I'm amazed that she did most of it on an arduino, writing all of the protocol stuff herself.</p>
+<p>Time for Fraser Scotts talk on &quot;Privacy Through Choice: Something for the Masses&quot;. I'm sorry Scott, but I don't remember anything of your talk. Probably because I was nervous being up next. I'll watch it once it's on Youtube though ;)</p>
+<p>My own talk was &quot;Content Security Policy Analysis - Attacking XSS Mitigation&quot;. I will probably add more info once I get home, but for now, please checkout the git repo with the examples and explanations at <a href="https://github.com/fredericmohr/hashtagsecurity/tree/master/csp_analysis_sourcecode">github</a></p>
+<p>I think my talk went well, but I won't know for sure until I see the video (which I will post regardless of the outcome!). Big Thanks goes out to my mentor Dave Hartley from MWR Labs for helping me, as well as to Scott Finlay, a colleague of mine who helped out with the javascript examples during research and my brother Moritz Jäger (the one from nerd-supreme.de) for his honest feedback.</p>
+<p>Also of course to everyone who made BSidesLondon 2014 possible, to Robin and Finnux for running the Rookie Track and for everyone who attended for an awesome event.</p>
+<p><strong>PS:</strong><br><br>
+I'm sorry that I didn't watch all of the rookie talks, especially &quot;Teaching Kids programming and Cyber Security&quot; by Dalian Terry and Sam Sanoop. I was really looking forward to this one, but after my talk I went out and just like that the keynote was up. Don't know what happened there...</p>
+<!--kg-card-end: markdown--><!--kg-card-end: markdown-->
+	</p>
+        </section>
+
+<br>
+<hr>
+<br>
+	<!-- START DISQUS IMPLEMENTATION -->
+        <script src="/assets/js/disqus.js?v=8ff1f2e80d></script>
+        <div id="disqus_thread"></div>
+        <!--<div class="post_disqus show-comments" title="Privacy: Click to enable Disqus (uses cookies!)"><b>Enable Disqus</b></div>
+	END DISQUS IMPLEMENTATION -->
+</article>
+
+
+		</div>
+
+		<!-- SIDEBAR -->
+		<div class="side_container">
+
+			<div class="side_sub_one well">
+				<b>Note</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>All information provided on this site is for educational purposes only. The site and it's author is in no way responsible for any misuse of the information.</p>
+			</div>
+			<div class="side_sub_one well">
+				<b>Links</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="../random-notes/index.html">Random Notes and CheatSheets</a><br>
+				<hr>
+				<a href="http://learnpythonthehardway.org/book/">Python the hard way</a><br>
+				<a href="http://cspplayground.com">CSP Playground</a><br>
+				<a href="http://www.offensive-security.com/metasploit-unleashed/Main_Page">Metasploit Unleashed</a><br>
+				<hr>
+				<a href="https://www.linkedin.com/profile/view?id=203397467">Me - LinkedIn</a><br>
+				<a href="https://ctftime.org/team/9072">Me - CTFTime.org</a><br>
+				</p>
+			</div>		
+			<div class="side_sub_one well">
+				<b>Blogs</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="http://wearetheartillery.blogspot.com.es/">WeAreTheArtillery</a><br>
+				<a href="https://www.imperialviolet.org">Imperial Violet</a><br>
+				<a href="http://www.nerd-supreme.de">NerdSupreme (DE)</a><br>
+				<a href="http://krebsonsecurity.com/">KrebsOnSecurity</a><br>
+				<a href="https://www.corelan.be/">Corelan Team</a><br>
+				<a href="http://blog.g0tmi1k.com/">G0tmi1k</a><br>
+				</p>
+			</div>		
+			<div class="side_sub_one well">
+				<b>Reddits</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="http://www.reddit.com/r/netsec/">/r/netsec</a><br>
+				<a href="http://www.reddit.com/r/Python/">/r/Python</a><br>
+				<a href="http://www.reddit.com/r/Defcon/">/r/Defcon</a><br>
+				<a href="http://www.reddit.com/r/securityCTF/">/r/securityCTF</a><br>
+				<a href="index.html"></a><br>
+				</p>
+			</div>		
+		</div>
+	</div> <!-- End of Sidebar -->
+</div>
+	<div class="footer">
+	<div class=navline></div>
+		HashtagSecurity<br><small>... keeping security in mind.<br><a href="../impressum">Impressum</a> | <a href="../datenschutzerklarung">Datenschutzerklärung</a> | <a href="../privacy-policy">Privacy Policy</a></small>
+	</div>
+</body>
+</html>

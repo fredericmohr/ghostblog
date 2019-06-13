@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HashtagSecurity</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="wot-verification" content="06cd687a47e37736daed"/> 
+    <link rel="stylesheet" type="text/css" href="../assets/css/mofirst-min.css?v=8ff1f2e80d"/>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script> <!-- disqus loader needs latest jquery -->
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="HashtagSecurity" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="HA-Proxy for the win" />
+    <meta property="og:description" content="I finally found time to take a closer look at HA-Proxy. It is a high-availability load balancer and (reverse-) proxy server and fully open source. Attention: This is me testing stuff - I have not taken care of settings like no-sslv3, etc. So if you use this in production, make" />
+    <meta property="og:url" content="fredericmohr.github.io/ghostblog/ha-proxy-for-the-win/" />
+    <meta property="article:published_time" content="2014-11-01T15:57:30.000Z" />
+    <meta property="article:modified_time" content="2014-11-21T20:10:19.000Z" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="HA-Proxy for the win" />
+    <meta name="twitter:description" content="I finally found time to take a closer look at HA-Proxy. It is a high-availability load balancer and (reverse-) proxy server and fully open source. Attention: This is me testing stuff - I have not taken care of settings like no-sslv3, etc. So if you use this in production, make" />
+    <meta name="twitter:url" content="fredericmohr.github.io/ghostblog/ha-proxy-for-the-win/" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Frederic Mohr" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "HashtagSecurity",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "fredericmohr.github.io/ghostblog/content/images/2014/Oct/tw-logo_400x400-1.png",
+            "width": 60,
+            "height": 60
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Frederic Mohr",
+        "url": "fredericmohr.github.io/ghostblog/author/frederic/",
+        "sameAs": []
+    },
+    "headline": "HA-Proxy for the win",
+    "url": "fredericmohr.github.io/ghostblog/ha-proxy-for-the-win/",
+    "datePublished": "2014-11-01T15:57:30.000Z",
+    "dateModified": "2014-11-21T20:10:19.000Z",
+    "description": "I finally found time to take a closer look at HA-Proxy. It is a high-availability load balancer and (reverse-) proxy server and fully open source. Attention: This is me testing stuff - I have not taken care of settings like no-sslv3, etc. So if you use this in production, make",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "fredericmohr.github.io/ghostblog/"
+    }
+}
+    </script>
+
+    <script src="../public/ghost-sdk.min.js?v=8ff1f2e80d"></script>
+<script>
+ghost.init({
+	clientId: "ghost-frontend",
+	clientSecret: "5a567477c5aa"
+});
+</script>
+    <meta name="generator" content="Ghost 2.23" />
+    <link rel="alternate" type="application/rss+xml" title="HashtagSecurity" href="../rss/index.html" />
+</head>
+<body>
+<!--NAVIGATION-->
+<div class="nav_bar">
+	<div class="nav_container">	
+		<ul class="nav">
+			<li id="nav-index"><a href="../index.html" class="icon-home"></a></li>
+			<li id="nav-kalibook"><a href="../getting-started-with-kali-linux/index.html" class="icon-book"></a></li>
+			<li id="nav-about"><a href="../about/index.html" class="icon-info"></a></li>
+		</ul>
+
+		<!-- Follow Me -->
+		<div class="follow_me">
+			<a href="https://twitter.com/HashtagSecurity" title="Twitter"><img alt="twitter" src="../assets/images/twi.png?v=8ff1f2e80d"></a>
+			<a href="https://www.hashtagsecurity.com/rss" title="RSS"><img alt="rss" src="../assets/images/rss.png?v=8ff1f2e80d"></a>
+		</div>
+	</div>
+</div>
+<div class="navline"></div>
+<!-- End Header -->
+<div class="outer_container">
+	<!-- PAGE -->
+	<div class="page_container">
+		<!-- CONTENT -->
+		<div class="post_container">
+			    <article class="post">
+
+
+        <h1 class="post-title">HA-Proxy for the win</h1>
+		<span class="post-meta"><a href="http://de.linkedin.com/in/fredericmohr"><b>Frederic Mohr</b></a> - <time datetime="2014-11-01">01 Nov 2014</time> </span>
+
+        <section class="post-content">
+            <!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="../content/images/2014/Nov/HAproxy01.png" alt=""><br>
+I finally found time to take a closer look at HA-Proxy. It is a high-availability load balancer and (reverse-) proxy server and fully open source.</p>
+<p><strong>Attention:</strong> This is me testing stuff - I have not taken care of settings like <code>no-sslv3</code>, etc. So if you use this in production, make sure to read up on this first! Also, since I'm new to HA-Proxy, I might have misconfigured or missed a few options so don't blame me if things aren't perfect regarding either security or performance!</p>
+<p><strong>Goals:</strong><br><br>
+My goals utilizing HA-Proxy included</p>
+<ul>
+<li>Testing TLS offloading and passthrough capabilities</li>
+<li>Moving client authentication from backend servers to HA-Proxy</li>
+<li>Replacing Apache as reverse proxy</li>
+<li>Increasing availability by adding loadbalancing to servers</li>
+<li>Increasing availability through HA-Proxy failover setup</li>
+<li>Learn lot's of new stuff and share it! :)</li>
+</ul>
+<p>First off I installed the current stable version 1.5.6 from the haproxy repositories, since Ubuntu 14.04 server still uses the old stable 1.4, which has a lot of features still missing - such as native SSL support.</p>
+<pre><code>sudo apt-get install software-properties-common
+sudo add-apt-repository ppa:vbernat/haproxy-1.5
+sudo apt-get update
+sudo apt-get install haproxy
+</code></pre>
+<p>If you want to know more about the parameters used, check out the documentation here: <a href="http://cbonte.github.io/haproxy-dconv/configuration-1.5.html">http://cbonte.github.io/haproxy-dconv/configuration-1.5.html</a> (from now on referenced to as $dokulink)</p>
+<p>Edit the conf <code>/etc/haproxy/haproxy.cfg</code> to look like this.</p>
+<pre><code>global
+    log 127.0.0.1 local0 notice                 # log to local rsyslog daemon
+    maxconn 2000                                # Number of concurrent connections allowed
+    user haproxy
+    group haproxy
+    tune.ssl.default-dh-param 2048				# DHE max size of parameters for key exchange - $dokulink#tune.ssl.default-dh-param
+
+defaults
+    log     global
+    mode    http
+    #option  httplog							# this option messed with my SSL passthrough, so I disabled it
+    option  dontlognull
+    retries 3
+    option redispatch                           # redistribute sessions if a node goes down (no session stickiness)
+    timeout connect  5000                       # minimum time to wait until timeout
+    timeout client  10000                       # timeout received from client
+    timeout server  10000                       # timeout received from server
+</code></pre>
+<p>To add a farm, you should first know a bit about the config structure.<br>
+There are three other config types besides <code>global</code> and <code>defaults</code>, named <code>frontend</code>, <code>backend</code> and <code>listen</code>.</p>
+<p>The first two are used to configure the the interface that will be addressed by visitors (<code>frontend</code>) and the farm and loadbalancing settings (<code>backend</code>). The third one (<code>listen</code>) is actually just the combination of the first two, which takes less lines for the same config, but on the downside has a negative impact on the readability. Since I'm fairly new to HA-Proxy, I will use frontend and backend but it's really up to you which path you'll choose.</p>
+<p><strong>SSL Passthrough</strong><br><br>
+Here haproxy doesn't terminate the SSL connection but passes it right through to the internal server. This also means that you can't mess with the traffic, add header options and so on. But it's an easy way to loadbalance servers that already have SSL enabled without much effort.</p>
+<pre><code>frontend https_passthrough
+  bind *:443
+  option tcplog
+  mode tcp
+  default_backend apache01
+
+backend apache01
+  mode tcp
+  option ssl-hello-chk
+  # balance roundrobin		# Since I only have one server atm, I don't need a balance option
+  server apache01.lan 10.0.3.4:443 check
+</code></pre>
+<p><strong>SSL Offloading / Termination</strong><br><br>
+The nice thing here is, that you can have either HTTP or HTTPS traffic internally, as it gets terminated by HA-Proxy and than sent out to the user over the secured connection which has been established between HA-Proxy and the user.</p>
+<p>One possible reason to do this, is to use TLS certificates signed by a private CA in the internal network and only deploy the official &quot;trusted&quot; certificate to HA-Proxy. This makes it easier to switch certificates internally as you have full control over the CA and can create certificates as much as you want for any internal domain. If you want to renew your websites official certificate, you just have to deploy it onto HA-Proxy and restart the service. Or you can have HTTP traffic internally, in case one of your applications isn't capable of TLS and send encrypt the traffic between the user and your loadbalancer.</p>
+<pre><code>frontend https_termination
+  bind *:443 ssl crt /etc/ssl/private/officialcert.pem
+  mode http
+  option httpclose
+  option forwardfor
+  reqadd X-Forwarded-Proto:\ https
+  default_backend ghostblog
+
+backend ghostblog
+  mode http
+  server ghostblog.lan 10.0.3.4:2368 check
+</code></pre>
+<p>Note that the HA-Proxy TLS certificate format is actually a combined file of the .crt and the .key file. To create the file, just run</p>
+<pre><code>cat sitecert.crt sitecert.key &gt; sitecert_haproxy.pem
+</code></pre>
+<p>So much for testing TLS passthrough and termination. Let's move on to client certificate authentication.</p>
+<p><strong>Client Certificate Authentication</strong></p>
+<p>In the TLS passthrough section, client certificate auth will still work if it was enabled on the internal apache server, as everything get's just passed through including the request for the user to authenticate.</p>
+<p>But I'd rather have one, highly available place to do all the config and not care about deploying authentication onto every internal webserver.</p>
+<p>Enabling it is pretty straight forward, just append the ca-file and verify parameter to the bind option in your TLS termination section. (Note: <code>$certs/ == /etc/ssl/private/</code>)</p>
+<pre><code>bind *:443 ssl crt $certs/officialcert.pem ca-file $certs/private_ca.crt verify required
+</code></pre>
+<p>Now, users are required to show a certificate that has been signed by myca.crt in order to fully establish the TLS connection. However, right now no one without a valid cert can visit my blog.</p>
+<pre><code>frontend https_termination
+  bind *:8080  ssl crt $certs/officialcert.pem ca-file $certs/private_ca.pem verify optional
+  mode http
+  
+  #Update - 17.11.2014
+  #redirect location / if { path_beg /ghost/ } ! { ssl_fc_has_crt }
+  redirect location / if { path_beg /ghost/ } ! { ssl_c_used }
+  default_backend ghost-htsec
+
+backend ghost-htsec
+  mode http
+  server ghost-htsec01 10.0.3.57:2368 check
+</code></pre>
+<p>Setting <code>verify optional</code> basically means that we don't care if a visitor provides a certificate or not. Adding the <code>redirect</code> line adds the additional security for the subfolder we want to protect. Now visitors can browse my blog, but only those with a valid cert can go to <code>/ghost/login/</code> or <code>/ghost/signup/</code>. The best part is, that those who try to login without a certificate don't get an error message but instead are redirected to the root homepage <code>/</code>.</p>
+<p>This adds another tiny bit of security by obscuring the login and register pages. Security by obscurity is nothing bad as long as you don't solely rely on it for protection!</p>
+<p>Since this is already quite a bit of haproxyness to take in, I'm going to stop here and publish what I have learned so far. Stay tuned for another post on HA-Proxy, where I will try to tackle my remaining goals.</p>
+<p><strong>UPDATE: 17.11.2014</strong></p>
+<p>I experienced huge problems with <code>ssl_fc_has_crt</code> in the past couple of days. The first connection to my host with a valid certificate would always be handled correctly, but a reload of the same page resulted in the redirect that should only be applied to users without a certificate. After going through the HA-Proxy documentation, I found that <code>ssl_c_used</code> is the better choice. Quote from the (<a href="http://www.haproxy.org/download/1.5/doc/configuration.txt">http://www.haproxy.org/download/1.5/doc/configuration.txt</a>)[docs]:</p>
+<pre><code>ssl_fc_has_crt : boolean
+  Returns true if a client certificate is present in an incoming connection over
+  SSL/TLS transport layer. Useful if 'verify' statement is set to 'optional'.
+  Note: on SSL session resumption with Session ID or TLS ticket, client
+  certificate is not present in the current connection but may be retrieved
+  from the cache or the ticket. So prefer &quot;ssl_c_used&quot; if you want to check if
+  current SSL session uses a client certificate.
+
+ssl_c_used : boolean
+  Returns true if current SSL session uses a client certificate even if current
+  connection uses SSL session resumption. See also &quot;ssl_fc_has_crt&quot;.
+</code></pre>
+<p><strong>Update: 21.11.2014</strong><br>
+I noticed, that a brand new Firefox profile as well as Firefox mobile on my Android where greeting me with this message instead of my website.<br>
+<img src="../content/images/2014/Nov/snapshot2-1.png" alt=""></p>
+<pre><code>www.hashtagsecurity.com uses and invalid security certificate.
+The certificate is not trusted becauzse no issuer chain was provided.
+(Error code: sec_error_unknown_issuer)
+</code></pre>
+<p>I found that a little bit strange, since I bought a valid certificate at a Comodo reseller. This is due to Firefox being a bit more strict then other browsers when it comes to TLS implementation.</p>
+<p>The fix is to add the ca-bundle certificates to your webserver config, which contains the TLS-Chain certificates.</p>
+<pre><code># In Apache, add this line
+SSLCertificateChainFile /etc/ssl/private/servername.ca-bundle
+# In Lighttpd, add this line
+ssl.ca-file = &quot;/etc/ssl/private/servername.ca-bundle&quot;
+</code></pre>
+<p>In NGINX and HAPROXY, you don't change the config file. Just add the content of the ca-bundle.crt to your original certificate.</p>
+<pre><code>cd /wherever/your/certs/are/
+cat servername.ca-bundle &gt;&gt; servername.crt
+</code></pre>
+<p>For HAPROXY, your certificate should look like this:</p>
+<pre><code>-----BEGIN CERTIFICATE-----
+long-server-cert-string
+-----END CERTIFICATE-----
+-----BEGIN PRIVATE KEY-----
+long-server-key-string
+-----END PRIVATE KEY-----
+-----BEGIN CERTIFICATE-----
+long-ca-cert-string-01    
+-----END CERTIFICATE-----
+-----BEGIN CERTIFICATE-----
+long-ca-cert-string-02
+-----END CERTIFICATE-----
+</code></pre>
+<p>After restarting HAPROXY, the error message went away and Firefox displayed the website just like any other browser.</p>
+<p><strong>Links:</strong><br>
+Here are a few links that helped me come this far.</p>
+<ul>
+<li>HA-Proxy Repository: <a href="http://haproxy.debian.net/">http://haproxy.debian.net/</a></li>
+<li>SSL Termination: <a href="https://serversforhackers.com/editions/2014/07/29/haproxy-ssl-termation-pass-through/">https://serversforhackers.com/editions/2014/07/29/haproxy-ssl-termation-pass-through/</a></li>
+<li>Loadbalancing with SSL: <a href="http://virtuallyhyper.com/2013/05/configure-haproxy-to-load-balance-sites-with-ssl/">http://virtuallyhyper.com/2013/05/configure-haproxy-to-load-balance-sites-with-ssl/</a></li>
+<li>SSL Termination in Ubuntu 14.04: <a href="https://www.digitalocean.com/community/tutorials/how-to-implement-ssl-termination-with-haproxy-on-ubuntu-14-04">https://www.digitalocean.com/community/tutorials/how-to-implement-ssl-termination-with-haproxy-on-ubuntu-14-04</a></li>
+<li>Detailed example config: <a href="http://vmtoday.com/2013/07/updated-load-balancer-virtual-appliance/">http://vmtoday.com/2013/07/updated-load-balancer-virtual-appliance/</a></li>
+<li>Why won't SSL work?: <a href="http://seanmcgary.com/posts/using-sslhttps-with-haproxy">http://seanmcgary.com/posts/using-sslhttps-with-haproxy</a></li>
+<li>HA Proxy Start Parameters: <a href="http://stackoverflow.com/questions/6154543/haproxy-which-configuration-files">http://stackoverflow.com/questions/6154543/haproxy-which-configuration-files</a></li>
+<li>HA-Proxy Random Learnings: <a href="http://nbevans.wordpress.com/2011/03/03/cultural-learnings-of-ha-proxy-for-make-benefit/">http://nbevans.wordpress.com/2011/03/03/cultural-learnings-of-ha-proxy-for-make-benefit/</a></li>
+<li>No ClientCert Redirects (Thanks Babtiste!): <a href="http://comments.gmane.org/gmane.comp.web.haproxy/14717">http://comments.gmane.org/gmane.comp.web.haproxy/14717</a></li>
+</ul>
+<p><strong>haproxy.com</strong> - they have a lot of stuff but I'm not always sure if it's still accurate!</p>
+<ul>
+<li>SSL Client Certs <a href="http://blog.haproxy.com/2012/10/03/ssl-client-certificate-management-at-application-level/">http://blog.haproxy.com/2012/10/03/ssl-client-certificate-management-at-application-level/</a></li>
+<li>Native SSL: <a href="http://blog.haproxy.com/2012/09/04/howto-ssl-native-in-haproxy/">http://blog.haproxy.com/2012/09/04/howto-ssl-native-in-haproxy/</a></li>
+<li>Another native SSL: <a href="http://blog.haproxy.com/2012/09/10/how-to-get-ssl-with-haproxy-getting-rid-of-stunnel-stud-nginx-or-pound/">http://blog.haproxy.com/2012/09/10/how-to-get-ssl-with-haproxy-getting-rid-of-stunnel-stud-nginx-or-pound/</a></li>
+</ul>
+<!--kg-card-end: markdown--><!--kg-card-end: markdown-->
+	</p>
+        </section>
+
+<br>
+<hr>
+<br>
+	<!-- START DISQUS IMPLEMENTATION -->
+        <script src="/assets/js/disqus.js?v=8ff1f2e80d></script>
+        <div id="disqus_thread"></div>
+        <!--<div class="post_disqus show-comments" title="Privacy: Click to enable Disqus (uses cookies!)"><b>Enable Disqus</b></div>
+	END DISQUS IMPLEMENTATION -->
+</article>
+
+
+		</div>
+
+		<!-- SIDEBAR -->
+		<div class="side_container">
+
+			<div class="side_sub_one well">
+				<b>Note</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>All information provided on this site is for educational purposes only. The site and it's author is in no way responsible for any misuse of the information.</p>
+			</div>
+			<div class="side_sub_one well">
+				<b>Links</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="../random-notes/index.html">Random Notes and CheatSheets</a><br>
+				<hr>
+				<a href="http://learnpythonthehardway.org/book/">Python the hard way</a><br>
+				<a href="http://cspplayground.com">CSP Playground</a><br>
+				<a href="http://www.offensive-security.com/metasploit-unleashed/Main_Page">Metasploit Unleashed</a><br>
+				<hr>
+				<a href="https://www.linkedin.com/profile/view?id=203397467">Me - LinkedIn</a><br>
+				<a href="https://ctftime.org/team/9072">Me - CTFTime.org</a><br>
+				</p>
+			</div>		
+			<div class="side_sub_one well">
+				<b>Blogs</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="http://wearetheartillery.blogspot.com.es/">WeAreTheArtillery</a><br>
+				<a href="https://www.imperialviolet.org">Imperial Violet</a><br>
+				<a href="http://www.nerd-supreme.de">NerdSupreme (DE)</a><br>
+				<a href="http://krebsonsecurity.com/">KrebsOnSecurity</a><br>
+				<a href="https://www.corelan.be/">Corelan Team</a><br>
+				<a href="http://blog.g0tmi1k.com/">G0tmi1k</a><br>
+				</p>
+			</div>		
+			<div class="side_sub_one well">
+				<b>Reddits</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="http://www.reddit.com/r/netsec/">/r/netsec</a><br>
+				<a href="http://www.reddit.com/r/Python/">/r/Python</a><br>
+				<a href="http://www.reddit.com/r/Defcon/">/r/Defcon</a><br>
+				<a href="http://www.reddit.com/r/securityCTF/">/r/securityCTF</a><br>
+				<a href="index.html"></a><br>
+				</p>
+			</div>		
+		</div>
+	</div> <!-- End of Sidebar -->
+</div>
+	<div class="footer">
+	<div class=navline></div>
+		HashtagSecurity<br><small>... keeping security in mind.<br><a href="../impressum">Impressum</a> | <a href="../datenschutzerklarung">Datenschutzerklärung</a> | <a href="../privacy-policy">Privacy Policy</a></small>
+	</div>
+</body>
+</html>

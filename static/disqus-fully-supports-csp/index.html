@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HashtagSecurity</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="wot-verification" content="06cd687a47e37736daed"/> 
+    <link rel="stylesheet" type="text/css" href="../assets/css/mofirst-min.css?v=8ff1f2e80d"/>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script> <!-- disqus loader needs latest jquery -->
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="HashtagSecurity" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Disqus to fully support CSP" />
+    <meta property="og:description" content="I already blogged about my problems with Disqus and the Content Security Policy header twice, but recent changes in Disqus made me revisit the whole topic. Burak Yiğit Kaya, developer at Disqus, made a few changes we discussed about a month ago, that would improve the coexistence of Disqus and" />
+    <meta property="og:url" content="fredericmohr.github.io/ghostblog/disqus-fully-supports-csp/" />
+    <meta property="article:published_time" content="2015-03-01T16:42:15.000Z" />
+    <meta property="article:modified_time" content="2015-03-01T16:42:25.000Z" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Disqus to fully support CSP" />
+    <meta name="twitter:description" content="I already blogged about my problems with Disqus and the Content Security Policy header twice, but recent changes in Disqus made me revisit the whole topic. Burak Yiğit Kaya, developer at Disqus, made a few changes we discussed about a month ago, that would improve the coexistence of Disqus and" />
+    <meta name="twitter:url" content="fredericmohr.github.io/ghostblog/disqus-fully-supports-csp/" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Frederic Mohr" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "HashtagSecurity",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "fredericmohr.github.io/ghostblog/content/images/2014/Oct/tw-logo_400x400-1.png",
+            "width": 60,
+            "height": 60
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Frederic Mohr",
+        "url": "fredericmohr.github.io/ghostblog/author/frederic/",
+        "sameAs": []
+    },
+    "headline": "Disqus to fully support CSP",
+    "url": "fredericmohr.github.io/ghostblog/disqus-fully-supports-csp/",
+    "datePublished": "2015-03-01T16:42:15.000Z",
+    "dateModified": "2015-03-01T16:42:25.000Z",
+    "description": "I already blogged about my problems with Disqus and the Content Security Policy header twice, but recent changes in Disqus made me revisit the whole topic. Burak Yiğit Kaya, developer at Disqus, made a few changes we discussed about a month ago, that would improve the coexistence of Disqus and",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "fredericmohr.github.io/ghostblog/"
+    }
+}
+    </script>
+
+    <script src="../public/ghost-sdk.min.js?v=8ff1f2e80d"></script>
+<script>
+ghost.init({
+	clientId: "ghost-frontend",
+	clientSecret: "5a567477c5aa"
+});
+</script>
+    <meta name="generator" content="Ghost 2.23" />
+    <link rel="alternate" type="application/rss+xml" title="HashtagSecurity" href="../rss/index.html" />
+</head>
+<body>
+<!--NAVIGATION-->
+<div class="nav_bar">
+	<div class="nav_container">	
+		<ul class="nav">
+			<li id="nav-index"><a href="../index.html" class="icon-home"></a></li>
+			<li id="nav-kalibook"><a href="../getting-started-with-kali-linux/index.html" class="icon-book"></a></li>
+			<li id="nav-about"><a href="../about/index.html" class="icon-info"></a></li>
+		</ul>
+
+		<!-- Follow Me -->
+		<div class="follow_me">
+			<a href="https://twitter.com/HashtagSecurity" title="Twitter"><img alt="twitter" src="../assets/images/twi.png?v=8ff1f2e80d"></a>
+			<a href="https://www.hashtagsecurity.com/rss" title="RSS"><img alt="rss" src="../assets/images/rss.png?v=8ff1f2e80d"></a>
+		</div>
+	</div>
+</div>
+<div class="navline"></div>
+<!-- End Header -->
+<div class="outer_container">
+	<!-- PAGE -->
+	<div class="page_container">
+		<!-- CONTENT -->
+		<div class="post_container">
+			    <article class="post">
+
+
+        <h1 class="post-title">Disqus to fully support CSP</h1>
+		<span class="post-meta"><a href="http://de.linkedin.com/in/fredericmohr"><b>Frederic Mohr</b></a> - <time datetime="2015-03-01">01 Mar 2015</time> </span>
+
+        <section class="post-content">
+            <!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="../content/images/2015/03/2015_03-Disqus_CSP_support.jpg" alt=""><br>
+I already blogged about my <a href="https://hashtagsecurity.com">problems with Disqus</a> and the Content Security Policy header <a href="../csp-disqus-are-buddies/index.html">twice</a>, but recent changes in Disqus made me revisit the whole topic.</p>
+<p>Burak Yiğit Kaya, developer at Disqus, made a few changes we discussed about a month ago, that would improve the coexistence of Disqus and CSP on a website. While both could be run together before, these improvements transform the from a dirtily hacked state into a real dream team.</p>
+<p>If you ever implemented CSP on a site that includes third party components, which today nearly every site does in some form of social integration plugin, you know how many different hosts, urls and objects have to be whitelisted. And even if you whitelist everything, some cloud services depend on things like inline javascript, CSS or even the dreaded eval function (shudder).</p>
+<p>Back when Burak first contacted me, we came up with a few ideas on how to improve Disqus to work better with CSP, such as</p>
+<ul>
+<li>remove all inline CSS</li>
+<li>remove all inline Images (data:base64=…)</li>
+<li>Unify all ressources under two distinct domains,</li>
+<li>a.disquscdn.com for static content (cookieless domain)</li>
+<li>disqus.com for dynamic content</li>
+</ul>
+<p>I'm happy to report that all of the above improvements have now been implemented, which I think is awesome news. There is one more thing on the to-do list, which Burak said, he has yet to solve.</p>
+<ul>
+<li>move the beacon pixel at referrer.disqus.com to the other domain.</li>
+</ul>
+<p>The last one isn't really that important, but it removes one domain from the policy, which is always a good thing as it keeps the ruleset shorter and thus easier to maintain. But why is it so important to have a good integration with CSP? If the hack worked, why should Disqus care about a proper fix and more importantly – why should they spend resources on this?</p>
+<p>For one, supporting security features like CSP, and actually working together with people who have  questions, concerns or ideas for improvement on a products security, shows that a company actually cares. Of course, that's what every company always claims – especially in the light of any recent security fails – but here we have actual proof.</p>
+<p>There is more to it then that though. Up until now, getting CSP and Disqus on the same page required to either block certain requests or allow them via unsafe CSP options. I'm talking about things like inline CSS, images embedded as base64 encoded strings and alternate domains that serve nice-to-have content such as icons. Of course diminishing the security of our CSP is not really an option, but blocking sources in favor of keeping <code>unsafe-*</code> options disabled is also a bad choice, as it results in your CSP logs getting spammed with violations. You do log your violations, don't you?</p>
+<p>The CSP logs are a great way of receiving notifications as soon as someone stumbles across a potential XSS vulnerability and starts tinkering with it. If code is injected successfully, the CSP will block it and create a new entry in the log files. All you need to do is setup CSP and make sure that normal browsing of your site doesn't create any violations. Once your site is clean, setup some form of notification for anything that hits the logs.</p>
+<p>Of course that's only an option when your site is actually clean and not constantly throwing violation errors in your face.</p>
+<p>Finally, Burak told me that he wanted to write a howto on using Disqus with CSP, which is great.</p>
+<p>If you're curious as how my CSP looks, just take a look at my HTTP headers with</p>
+<pre><code>curl -I https://www.hashtagsecurity.com
+</code></pre>
+<p>This should give you the full ruleset, among other headers I've set.<br>
+If you have questions about CSP, use the comments, contact me on <a href="https://twitter.com/HashtagSecurity">Twitter</a>, or check out <a href="../csp/index.html">my CSP talk</a>.</p>
+<!--kg-card-end: markdown--><!--kg-card-end: markdown-->
+	</p>
+        </section>
+
+<br>
+<hr>
+<br>
+	<!-- START DISQUS IMPLEMENTATION -->
+        <script src="/assets/js/disqus.js?v=8ff1f2e80d></script>
+        <div id="disqus_thread"></div>
+        <!--<div class="post_disqus show-comments" title="Privacy: Click to enable Disqus (uses cookies!)"><b>Enable Disqus</b></div>
+	END DISQUS IMPLEMENTATION -->
+</article>
+
+
+		</div>
+
+		<!-- SIDEBAR -->
+		<div class="side_container">
+
+			<div class="side_sub_one well">
+				<b>Note</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>All information provided on this site is for educational purposes only. The site and it's author is in no way responsible for any misuse of the information.</p>
+			</div>
+			<div class="side_sub_one well">
+				<b>Links</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="../random-notes/index.html">Random Notes and CheatSheets</a><br>
+				<hr>
+				<a href="http://learnpythonthehardway.org/book/">Python the hard way</a><br>
+				<a href="http://cspplayground.com">CSP Playground</a><br>
+				<a href="http://www.offensive-security.com/metasploit-unleashed/Main_Page">Metasploit Unleashed</a><br>
+				<hr>
+				<a href="https://www.linkedin.com/profile/view?id=203397467">Me - LinkedIn</a><br>
+				<a href="https://ctftime.org/team/9072">Me - CTFTime.org</a><br>
+				</p>
+			</div>		
+			<div class="side_sub_one well">
+				<b>Blogs</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="http://wearetheartillery.blogspot.com.es/">WeAreTheArtillery</a><br>
+				<a href="https://www.imperialviolet.org">Imperial Violet</a><br>
+				<a href="http://www.nerd-supreme.de">NerdSupreme (DE)</a><br>
+				<a href="http://krebsonsecurity.com/">KrebsOnSecurity</a><br>
+				<a href="https://www.corelan.be/">Corelan Team</a><br>
+				<a href="http://blog.g0tmi1k.com/">G0tmi1k</a><br>
+				</p>
+			</div>		
+			<div class="side_sub_one well">
+				<b>Reddits</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="http://www.reddit.com/r/netsec/">/r/netsec</a><br>
+				<a href="http://www.reddit.com/r/Python/">/r/Python</a><br>
+				<a href="http://www.reddit.com/r/Defcon/">/r/Defcon</a><br>
+				<a href="http://www.reddit.com/r/securityCTF/">/r/securityCTF</a><br>
+				<a href="index.html"></a><br>
+				</p>
+			</div>		
+		</div>
+	</div> <!-- End of Sidebar -->
+</div>
+	<div class="footer">
+	<div class=navline></div>
+		HashtagSecurity<br><small>... keeping security in mind.<br><a href="../impressum">Impressum</a> | <a href="../datenschutzerklarung">Datenschutzerklärung</a> | <a href="../privacy-policy">Privacy Policy</a></small>
+	</div>
+</body>
+</html>

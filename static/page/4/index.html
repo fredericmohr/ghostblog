@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HashtagSecurity</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="wot-verification" content="06cd687a47e37736daed"/> 
+    <link rel="stylesheet" type="text/css" href="../../assets/css/mofirst-min.css?v=8ff1f2e80d"/>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script> <!-- disqus loader needs latest jquery -->
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon" />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="prev" href="../3/index.html" />
+    <link rel="next" href="../5/index.html" />
+    <script src="../../public/ghost-sdk.min.js?v=8ff1f2e80d"></script>
+<script>
+ghost.init({
+	clientId: "ghost-frontend",
+	clientSecret: "5a567477c5aa"
+});
+</script>
+    <meta name="generator" content="Ghost 2.23" />
+    <link rel="alternate" type="application/rss+xml" title="HashtagSecurity" href="../../rss/index.html" />
+</head>
+<body>
+<!--NAVIGATION-->
+<div class="nav_bar">
+	<div class="nav_container">	
+		<ul class="nav">
+			<li id="nav-index"><a href="../../index.html" class="icon-home"></a></li>
+			<li id="nav-kalibook"><a href="../../getting-started-with-kali-linux/index.html" class="icon-book"></a></li>
+			<li id="nav-about"><a href="../../about/index.html" class="icon-info"></a></li>
+		</ul>
+
+		<!-- Follow Me -->
+		<div class="follow_me">
+			<a href="https://twitter.com/HashtagSecurity" title="Twitter"><img alt="twitter" src="../../assets/images/twi.png?v=8ff1f2e80d"></a>
+			<a href="https://www.hashtagsecurity.com/rss" title="RSS"><img alt="rss" src="../../assets/images/rss.png?v=8ff1f2e80d"></a>
+		</div>
+	</div>
+</div>
+<div class="navline"></div>
+<!-- End Header -->
+<div class="outer_container">
+	<!-- PAGE -->
+	<div class="page_container">
+		<!-- CONTENT -->
+		<div class="post_container">
+			    
+<article class="post">
+<div class="post_sub_one postexcerpt">
+        <h1><a href="../../linux-acls-and-sticky-users/index.html" title="Linux ACLs and sticky Users">Linux ACLs and sticky Users</a></h1>
+    	<!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="../../content/images/2014/Nov/acl_logo.jpg" alt=""><br>
+Sticky and suid bits are quite helpfull tools when it comes to keeping the correct permissions throughout a set of folders and files. But what if you want to do more then just a fixed group or an execute-as user option?</p>
+<p><strong>Problem</strong>: get <code>/var/www/</code> to be editable by a bunch of users (group:editors), without messing up the following permission schema: <code>www-data:editors:others</code> <code>r-w:rwx:---</code>.</p>
+<pre><code>folder: /var/www/ 
+owner: www-data
+group: editors 
+</code></pre>
+<p>New files will be created</p>
+</div>
+</article>
+<article class="post">
+<div class="post_sub_one postexcerpt">
+        <h1><a href="../../check-open-ports-with-python/index.html" title="Check open ports with Python">Check open ports with Python</a></h1>
+    	<!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="../../content/images/2014/Nov/CheckOpenPortsWithPython.jpg" alt=""><br>
+Everyonce in a while I run into problems testing new setups just to find out that a certain port just isn't reachable from within our company network. This simple tool should make it easier to find open ports for quick testing.</p>
+<p>Note it's not the fastest tool for huge numbers of ports (e.g. 1-65535) but it's capable of rather quickly showing open ports in 1-1024 like ranges.</p>
+<p>Without further ado, here it is.</p>
+<pre><code>from multiprocessing import Process, Pool
+import</code></pre>
+</div>
+</article>
+<article class="post">
+<div class="post_sub_one postexcerpt">
+        <h1><a href="../../troubleshooting-with-burp/index.html" title="Troubleshooting with BURP">Troubleshooting with BURP</a></h1>
+    	<!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="../../content/images/2014/Nov/postcover.jpg" alt=""><br>
+Recently I installed owncloud on one of my servers. The setup went fine and all seemed good, until I noticed that the redirection after the login page was behaving somewhat strangely. But no worries - BURP to the rescue!</p>
+<p>Before we delve into this whole thing let me just say that, while I really like BURP, I don't want to sell it (or anything really). So far I always used the free version and never experienced any problems due to</p>
+</div>
+</article>
+<article class="post">
+<div class="post_sub_one postexcerpt">
+        <h1><a href="../../unicode-display-problems-in-bash/index.html" title="Unicode display problems in bash">Unicode display problems in bash</a></h1>
+    	<!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="../../content/images/2014/Nov/snapshot1-3.jpg" alt=""><br>
+Ok, I know this has nothing to do with security and I'm just writing about typical, everyday sysadmin stuff right now. But this problem has cost me way too much time to not be sharing the solution with the world.</p>
+<p><strong>The problem</strong></p>
+<p>I was trying to build the owncloud sync client mirall when I noticed that certain characters aren't displayed correctly. This looks like a typicall <code>locales</code> misconfiguration, so I started to mess with that a bit.</p>
+<p>I switched to</p>
+</div>
+</article>
+<article class="post">
+<div class="post_sub_one postexcerpt">
+        <h1><a href="../../ha-proxy-for-the-win/index.html" title="HA-Proxy for the win">HA-Proxy for the win</a></h1>
+    	<!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="../../content/images/2014/Nov/HAproxy01.png" alt=""><br>
+I finally found time to take a closer look at HA-Proxy. It is a high-availability load balancer and (reverse-) proxy server and fully open source.</p>
+<p><strong>Attention:</strong> This is me testing stuff - I have not taken care of settings like <code>no-sslv3</code>, etc. So if you use this in production, make sure to read up on this first! Also, since I'm new to HA-Proxy, I might have misconfigured or missed a few options so don't blame me if things aren't perfect</p>
+</div>
+</article>
+        <nav class="pagination" role="navigation">
+        <a class="newer-posts icon-angle-left" href="../3/index.html"></a>
+    <span class="page-number">Page 4 of 12</span>
+        <a class="older-posts icon-angle-right" href="../5/index.html"></a>
+</nav>
+
+
+		</div>
+
+		<!-- SIDEBAR -->
+		<div class="side_container">
+
+			<div class="side_sub_one well">
+				<b>Note</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>All information provided on this site is for educational purposes only. The site and it's author is in no way responsible for any misuse of the information.</p>
+			</div>
+			<div class="side_sub_one well">
+				<b>Links</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="../../random-notes/index.html">Random Notes and CheatSheets</a><br>
+				<hr>
+				<a href="http://learnpythonthehardway.org/book/">Python the hard way</a><br>
+				<a href="http://cspplayground.com">CSP Playground</a><br>
+				<a href="http://www.offensive-security.com/metasploit-unleashed/Main_Page">Metasploit Unleashed</a><br>
+				<hr>
+				<a href="https://www.linkedin.com/profile/view?id=203397467">Me - LinkedIn</a><br>
+				<a href="https://ctftime.org/team/9072">Me - CTFTime.org</a><br>
+				</p>
+			</div>		
+			<div class="side_sub_one well">
+				<b>Blogs</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="http://wearetheartillery.blogspot.com.es/">WeAreTheArtillery</a><br>
+				<a href="https://www.imperialviolet.org">Imperial Violet</a><br>
+				<a href="http://www.nerd-supreme.de">NerdSupreme (DE)</a><br>
+				<a href="http://krebsonsecurity.com/">KrebsOnSecurity</a><br>
+				<a href="https://www.corelan.be/">Corelan Team</a><br>
+				<a href="http://blog.g0tmi1k.com/">G0tmi1k</a><br>
+				</p>
+			</div>		
+			<div class="side_sub_one well">
+				<b>Reddits</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="http://www.reddit.com/r/netsec/">/r/netsec</a><br>
+				<a href="http://www.reddit.com/r/Python/">/r/Python</a><br>
+				<a href="http://www.reddit.com/r/Defcon/">/r/Defcon</a><br>
+				<a href="http://www.reddit.com/r/securityCTF/">/r/securityCTF</a><br>
+				<a href="index.html"></a><br>
+				</p>
+			</div>		
+		</div>
+	</div> <!-- End of Sidebar -->
+</div>
+	<div class="footer">
+	<div class=navline></div>
+		HashtagSecurity<br><small>... keeping security in mind.<br><a href="../../impressum">Impressum</a> | <a href="../../datenschutzerklarung">Datenschutzerklärung</a> | <a href="../../privacy-policy">Privacy Policy</a></small>
+	</div>
+</body>
+</html>

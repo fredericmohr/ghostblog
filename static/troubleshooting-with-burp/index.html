@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HashtagSecurity</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="wot-verification" content="06cd687a47e37736daed"/> 
+    <link rel="stylesheet" type="text/css" href="../assets/css/mofirst-min.css?v=8ff1f2e80d"/>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script> <!-- disqus loader needs latest jquery -->
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="HashtagSecurity" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Troubleshooting with BURP" />
+    <meta property="og:description" content="Recently I installed owncloud on one of my servers. The setup went fine and all seemed good, until I noticed that the redirection after the login page was behaving somewhat strangely. But no worries - BURP to the rescue! Before we delve into this whole thing let me just say" />
+    <meta property="og:url" content="fredericmohr.github.io/ghostblog/troubleshooting-with-burp/" />
+    <meta property="article:published_time" content="2014-11-13T10:52:32.000Z" />
+    <meta property="article:modified_time" content="2014-11-13T11:12:55.000Z" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Troubleshooting with BURP" />
+    <meta name="twitter:description" content="Recently I installed owncloud on one of my servers. The setup went fine and all seemed good, until I noticed that the redirection after the login page was behaving somewhat strangely. But no worries - BURP to the rescue! Before we delve into this whole thing let me just say" />
+    <meta name="twitter:url" content="fredericmohr.github.io/ghostblog/troubleshooting-with-burp/" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Frederic Mohr" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "HashtagSecurity",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "fredericmohr.github.io/ghostblog/content/images/2014/Oct/tw-logo_400x400-1.png",
+            "width": 60,
+            "height": 60
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Frederic Mohr",
+        "url": "fredericmohr.github.io/ghostblog/author/frederic/",
+        "sameAs": []
+    },
+    "headline": "Troubleshooting with BURP",
+    "url": "fredericmohr.github.io/ghostblog/troubleshooting-with-burp/",
+    "datePublished": "2014-11-13T10:52:32.000Z",
+    "dateModified": "2014-11-13T11:12:55.000Z",
+    "description": "Recently I installed owncloud on one of my servers. The setup went fine and all seemed good, until I noticed that the redirection after the login page was behaving somewhat strangely. But no worries - BURP to the rescue! Before we delve into this whole thing let me just say",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "fredericmohr.github.io/ghostblog/"
+    }
+}
+    </script>
+
+    <script src="../public/ghost-sdk.min.js?v=8ff1f2e80d"></script>
+<script>
+ghost.init({
+	clientId: "ghost-frontend",
+	clientSecret: "5a567477c5aa"
+});
+</script>
+    <meta name="generator" content="Ghost 2.23" />
+    <link rel="alternate" type="application/rss+xml" title="HashtagSecurity" href="../rss/index.html" />
+</head>
+<body>
+<!--NAVIGATION-->
+<div class="nav_bar">
+	<div class="nav_container">	
+		<ul class="nav">
+			<li id="nav-index"><a href="../index.html" class="icon-home"></a></li>
+			<li id="nav-kalibook"><a href="../getting-started-with-kali-linux/index.html" class="icon-book"></a></li>
+			<li id="nav-about"><a href="../about/index.html" class="icon-info"></a></li>
+		</ul>
+
+		<!-- Follow Me -->
+		<div class="follow_me">
+			<a href="https://twitter.com/HashtagSecurity" title="Twitter"><img alt="twitter" src="../assets/images/twi.png?v=8ff1f2e80d"></a>
+			<a href="https://www.hashtagsecurity.com/rss" title="RSS"><img alt="rss" src="../assets/images/rss.png?v=8ff1f2e80d"></a>
+		</div>
+	</div>
+</div>
+<div class="navline"></div>
+<!-- End Header -->
+<div class="outer_container">
+	<!-- PAGE -->
+	<div class="page_container">
+		<!-- CONTENT -->
+		<div class="post_container">
+			    <article class="post">
+
+
+        <h1 class="post-title">Troubleshooting with BURP</h1>
+		<span class="post-meta"><a href="http://de.linkedin.com/in/fredericmohr"><b>Frederic Mohr</b></a> - <time datetime="2014-11-13">13 Nov 2014</time> </span>
+
+        <section class="post-content">
+            <!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="../content/images/2014/Nov/postcover.jpg" alt=""><br>
+Recently I installed owncloud on one of my servers. The setup went fine and all seemed good, until I noticed that the redirection after the login page was behaving somewhat strangely. But no worries - BURP to the rescue!</p>
+<p>Before we delve into this whole thing let me just say that, while I really like BURP, I don't want to sell it (or anything really). So far I always used the free version and never experienced any problems due to feature locks but if you're an open source enthusiast you might wanna try the OWASP Zed Attack Proxy (ZAP) as an alternative to BURP.</p>
+<p>Back to the story. In order to understand my problem, you need some insight into the setup I'm using.</p>
+<pre><code>  User     HTTPS     Public       HTTP      Internal
+[BROWSER] -(443)&gt; [APACHE PROXY] -(80)&gt; [APACHE OWNCLOUD]
+
+All Requests to HTTP:80 are redirected by [APACHE PROXY] to https://www.hashtagsecurity.com
+All Requests to HTTPS:443 are handled by [APACHE PROXY] vHosts (SNI)
+</code></pre>
+<p>Now, whenever I tried to login at <code>https://owncloud.hashtagsecurity.com/owncloud/index.php</code>, I got redirected to <code>https://www.hashtagsecurity.com/owncloud/index.php</code> and had to manually change the subdomain back to owncloud in order to be logged in.</p>
+<p>So the first step for me was to find out where the redirect to www.hashtagsecurity.com came from.</p>
+<p>Enter <a href="http://portswigger.net/burp/">BURP</a>, the reverse proxy tool that I came to know as a pentesting and troubleshooting gem.</p>
+<p>BURP is an intercepting proxy first and foremost, which gives you the ability to do a local man-in-the-middle between your browser and webz and examine, drop, forward, alter, forge, etc. HTTP(S) requests and responses.</p>
+<p>In this case, I used it to find out why I was redirected to <code>www.</code> instead of going to <code>owncloud.</code>.</p>
+<p>After starting BURP and adjusting my Firefox proxy settings to use localhost:8080, I went to my owncloud login page and started the BURP proxy in intercepting mode.</p>
+<p><img src="../content/images/2014/Nov/dk39dnas_screenshot_08.jpg" alt=""></p>
+<p>Here is where I hit the first bump. Apparently BURP doesn't forward TLS client certificates so I had to import mine first.<br>
+<img src="../content/images/2014/Nov/burp02.jpg" alt=""></p>
+<p>After that, I changed the proxy settings to also intercept responses. This enabled me to look closer at whatever the server sent me in response to my requests.<br>
+<img src="../content/images/2014/Nov/burp03.jpg" alt=""></p>
+<p>The first intercepted request was the login, in which you can see my login credentials being sent to the server. In the first response we can see exactly where the problem lies. The URL in the Location header is correct, but it is set to <code>http://</code> which results in a redirect by apache to <code>https://www.hashtagsecurity.com/</code>.<br>
+<img src="../content/images/2014/Nov/burp05-a.jpg" alt=""></p>
+<p>Obviously, this can easily be solved by changing the apache vhost config from <code>Redirect</code> to <code>Rewrite</code>.</p>
+<pre><code># Remove Redirect
+RedirectPermanent / https://www.hashtagsecurity.com/
+
+# And add Rewrite
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
+</code></pre>
+<p>While this did solve my problem, it wasn't a satisfying solution. I'm still being redirected which is totally unnecessary. In order to change that, I needed to enable <code>Enforce HTTPS</code> in owncloud.<br>
+<img src="../content/images/2014/Nov/burp06.jpg" alt=""></p>
+<p>The last hurdle was, that owncloud told me that I need to visit the page via HTTPS in order to enable <code>Enforce HTTPS</code>. That was a bit confusing, until I realized that from the perspective of the owncloud server I am browsing via HTTP all the time. In order to get this fixed, I just needed to enable TLS on the backend owncloud apache and set the proxy to use HTTPS connections in the internal network as well.</p>
+<!--kg-card-end: markdown--><!--kg-card-end: markdown-->
+	</p>
+        </section>
+
+<br>
+<hr>
+<br>
+	<!-- START DISQUS IMPLEMENTATION -->
+        <script src="/assets/js/disqus.js?v=8ff1f2e80d></script>
+        <div id="disqus_thread"></div>
+        <!--<div class="post_disqus show-comments" title="Privacy: Click to enable Disqus (uses cookies!)"><b>Enable Disqus</b></div>
+	END DISQUS IMPLEMENTATION -->
+</article>
+
+
+		</div>
+
+		<!-- SIDEBAR -->
+		<div class="side_container">
+
+			<div class="side_sub_one well">
+				<b>Note</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>All information provided on this site is for educational purposes only. The site and it's author is in no way responsible for any misuse of the information.</p>
+			</div>
+			<div class="side_sub_one well">
+				<b>Links</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="../random-notes/index.html">Random Notes and CheatSheets</a><br>
+				<hr>
+				<a href="http://learnpythonthehardway.org/book/">Python the hard way</a><br>
+				<a href="http://cspplayground.com">CSP Playground</a><br>
+				<a href="http://www.offensive-security.com/metasploit-unleashed/Main_Page">Metasploit Unleashed</a><br>
+				<hr>
+				<a href="https://www.linkedin.com/profile/view?id=203397467">Me - LinkedIn</a><br>
+				<a href="https://ctftime.org/team/9072">Me - CTFTime.org</a><br>
+				</p>
+			</div>		
+			<div class="side_sub_one well">
+				<b>Blogs</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="http://wearetheartillery.blogspot.com.es/">WeAreTheArtillery</a><br>
+				<a href="https://www.imperialviolet.org">Imperial Violet</a><br>
+				<a href="http://www.nerd-supreme.de">NerdSupreme (DE)</a><br>
+				<a href="http://krebsonsecurity.com/">KrebsOnSecurity</a><br>
+				<a href="https://www.corelan.be/">Corelan Team</a><br>
+				<a href="http://blog.g0tmi1k.com/">G0tmi1k</a><br>
+				</p>
+			</div>		
+			<div class="side_sub_one well">
+				<b>Reddits</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="http://www.reddit.com/r/netsec/">/r/netsec</a><br>
+				<a href="http://www.reddit.com/r/Python/">/r/Python</a><br>
+				<a href="http://www.reddit.com/r/Defcon/">/r/Defcon</a><br>
+				<a href="http://www.reddit.com/r/securityCTF/">/r/securityCTF</a><br>
+				<a href="index.html"></a><br>
+				</p>
+			</div>		
+		</div>
+	</div> <!-- End of Sidebar -->
+</div>
+	<div class="footer">
+	<div class=navline></div>
+		HashtagSecurity<br><small>... keeping security in mind.<br><a href="../impressum">Impressum</a> | <a href="../datenschutzerklarung">Datenschutzerklärung</a> | <a href="../privacy-policy">Privacy Policy</a></small>
+	</div>
+</body>
+</html>

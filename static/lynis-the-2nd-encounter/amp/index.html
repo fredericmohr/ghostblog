@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+
+    <title>Lynis Enterprise - The 2nd Encounter</title>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon" />
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="HashtagSecurity" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Lynis Enterprise - The 2nd Encounter" />
+    <meta property="og:description" content="This time we will dive into compliance scans and take a look at how multiple hosts are displayed. I also want to find out why I am at risk of data loss - that&#x27;s right, I still don&#x27;t know! This round, I&#x27;ll take a look at the documentation, which can" />
+    <meta property="og:url" content="fredericmohr.github.io/ghostblog/lynis-the-2nd-encounter/" />
+    <meta property="article:published_time" content="2015-05-09T10:12:16.000Z" />
+    <meta property="article:modified_time" content="2015-05-09T10:21:03.000Z" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Lynis Enterprise - The 2nd Encounter" />
+    <meta name="twitter:description" content="This time we will dive into compliance scans and take a look at how multiple hosts are displayed. I also want to find out why I am at risk of data loss - that&#x27;s right, I still don&#x27;t know! This round, I&#x27;ll take a look at the documentation, which can" />
+    <meta name="twitter:url" content="fredericmohr.github.io/ghostblog/lynis-the-2nd-encounter/" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Frederic Mohr" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "HashtagSecurity",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "fredericmohr.github.io/ghostblog/content/images/2014/Oct/tw-logo_400x400-1.png",
+            "width": 60,
+            "height": 60
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Frederic Mohr",
+        "url": "fredericmohr.github.io/ghostblog/author/frederic/",
+        "sameAs": []
+    },
+    "headline": "Lynis Enterprise - The 2nd Encounter",
+    "url": "fredericmohr.github.io/ghostblog/lynis-the-2nd-encounter/",
+    "datePublished": "2015-05-09T10:12:16.000Z",
+    "dateModified": "2015-05-09T10:21:03.000Z",
+    "description": "This time we will dive into compliance scans and take a look at how multiple hosts are displayed. I also want to find out why I am at risk of data loss - that&#x27;s right, I still don&#x27;t know! This round, I&#x27;ll take a look at the documentation, which can",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "fredericmohr.github.io/ghostblog/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 2.23" />
+    <link rel="alternate" type="application/rss+xml" title="HashtagSecurity" href="../../rss/index.html" />
+
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,600,400" />
+    <style amp-custom>html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,main,menu,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block;vertical-align:baseline}audio:not([controls]){display:none;height:0}[hidden],template{display:none}a{background-color:transparent}a:active,a:hover{outline:0}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:bold}dfn{font-style:italic}h1{margin:0.67em 0;font-size:2em}mark{background:#ff0;color:#000}small{font-size:80%}sub,sup{position:relative;vertical-align:baseline;font-size:75%;line-height:0}sup{top:-0.5em}sub{bottom:-0.25em}img{border:0}amp-img{border:0}svg:not(:root){overflow:hidden}figure{margin:1em 40px}hr{box-sizing:content-box;height:0}pre{overflow:auto}code,kbd,pre,samp{font-family:monospace, monospace;font-size:1em}button,input,optgroup,select,textarea{margin:0;color:inherit;font:inherit}button{overflow:visible}button,select{text-transform:none}button,html input[type="button"],input[type="reset"],input[type="submit"]{cursor:pointer;-webkit-appearance:button}button[disabled],html input[disabled]{cursor:default}button::-moz-focus-inner,input::-moz-focus-inner{padding:0;border:0}input{line-height:normal}input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}input[type="number"]::-webkit-inner-spin-button,input[type="number"]::-webkit-outer-spin-button{height:auto}input[type="search"]{-webkit-appearance:textfield}input[type="search"]::-webkit-search-cancel-button,input[type="search"]::-webkit-search-decoration{-webkit-appearance:none}fieldset{margin:0 2px;padding:0.35em 0.625em 0.75em;border:1px solid #c0c0c0}legend{padding:0;border:0}textarea{overflow:auto}optgroup{font-weight:bold}table{border-spacing:0;border-collapse:collapse}td,th{padding:0}html{max-height:100%;height:100%;font-size:62.5%;-webkit-tap-highlight-color:rgba(0, 0, 0, 0)}body{max-height:100%;height:100%;color:#3a4145;background:#f4f8fb;letter-spacing:0.01rem;font-family:"Merriweather", serif;font-size:1.8rem;line-height:1.75em;text-rendering:geometricPrecision;-webkit-font-feature-settings:"kern" 1;-moz-font-feature-settings:"kern" 1;-o-font-feature-settings:"kern" 1}::-moz-selection{background:#d6edff}::selection{background:#d6edff}h1,h2,h3,h4,h5,h6{margin:0 0 0.3em 0;color:#2e2e2e;font-family:"Open Sans", sans-serif;line-height:1.15em;text-rendering:geometricPrecision;-webkit-font-feature-settings:"dlig" 1, "liga" 1, "lnum" 1, "kern" 1;-moz-font-feature-settings:"dlig" 1, "liga" 1, "lnum" 1, "kern" 1;-o-font-feature-settings:"dlig" 1, "liga" 1, "lnum" 1, "kern" 1}h1{text-indent:-2px;letter-spacing:-1px;font-size:2.6rem}h2{letter-spacing:0;font-size:2.4rem}h3{letter-spacing:-0.6px;font-size:2.1rem}h4{font-size:1.9rem}h5{font-size:1.8rem}h6{font-size:1.8rem}a{color:#4a4a4a}a:hover{color:#111}p,ul,ol,dl{margin:0 0 2.5rem 0;font-size:1.5rem;text-rendering:geometricPrecision;-webkit-font-feature-settings:"liga" 1, "onum" 1, "kern" 1;-moz-font-feature-settings:"liga" 1, "onum" 1, "kern" 1;-o-font-feature-settings:"liga" 1, "onum" 1, "kern" 1}ol,ul{padding-left:2em}ol ol,ul ul,ul ol,ol ul{margin:0 0 0.4em 0;padding-left:2em}dl dt{float:left;clear:left;overflow:hidden;margin-bottom:1em;width:180px;text-align:right;text-overflow:ellipsis;white-space:nowrap;font-weight:700}dl dd{margin-bottom:1em;margin-left:200px}li{margin:0.4em 0}li li{margin:0}hr{display:block;margin:1.75em 0;padding:0;height:1px;border:0;border-top:#efefef 1px solid}blockquote{box-sizing:border-box;margin:1.75em 0 1.75em 0;padding:0 0 0 1.75em;border-left:#4a4a4a 0.4em solid;-moz-box-sizing:border-box}blockquote p{margin:0.8em 0;font-style:italic}blockquote small{display:inline-block;margin:0.8em 0 0.8em 1.5em;color:#ccc;font-size:0.9em}blockquote small:before{content:"\2014 \00A0"}blockquote cite{font-weight:700}blockquote cite a{font-weight:normal}mark{background-color:#fdffb6}code,tt{padding:1px 3px;border:#e3edf3 1px solid;background:#f7fafb;border-radius:2px;white-space:pre-wrap;font-family:Inconsolata, monospace, sans-serif;font-size:0.85em;font-feature-settings:"liga" 0;-webkit-font-feature-settings:"liga" 0;-moz-font-feature-settings:"liga" 0}pre{overflow:auto;box-sizing:border-box;margin:0 0 1.75em 0;padding:10px;width:100%;border:#e3edf3 1px solid;background:#f7fafb;border-radius:3px;white-space:pre;font-family:Inconsolata, monospace, sans-serif;font-size:0.9em;-moz-box-sizing:border-box}pre code,pre tt{padding:0;border:none;background:transparent;white-space:pre-wrap;font-size:inherit}kbd{display:inline-block;margin-bottom:0.4em;padding:1px 8px;border:#ccc 1px solid;background:#f4f4f4;border-radius:4px;box-shadow:0 1px 0 rgba(0, 0, 0, 0.2), 0 1px 0 0 #fff inset;color:#666;text-shadow:#fff 0 1px 0;font-size:0.9em;font-weight:700}table{box-sizing:border-box;margin:1.75em 0;max-width:100%;width:100%;background-color:transparent;-moz-box-sizing:border-box}table th,table td{padding:8px;border-top:#efefef 1px solid;vertical-align:top;text-align:left;line-height:20px}table th{color:#000}table caption + thead tr:first-child th,table caption + thead tr:first-child td,table colgroup + thead tr:first-child th,table colgroup + thead tr:first-child td,table thead:first-child tr:first-child th,table thead:first-child tr:first-child td{border-top:0}table tbody + tbody{border-top:#efefef 2px solid}table table table{background-color:#fff}table tbody > tr:nth-child(odd) > td,table tbody > tr:nth-child(odd) > th{background-color:#f6f6f6}table.plain tbody > tr:nth-child(odd) > td,table.plain tbody > tr:nth-child(odd) > th{background:transparent}iframe,amp-iframe,.fluid-width-video-wrapper{display:block;margin:1.75em 0}.fluid-width-video-wrapper iframe,.fluid-width-video-wrapper amp-iframe{margin:0}textarea,select,input{margin:0 0 5px 0;padding:6px 9px;width:260px;outline:0;border:#e7eef2 1px solid;background:#fff;border-radius:4px;box-shadow:none;font-family:"Open Sans", sans-serif;font-size:1.6rem;line-height:1.4em;font-weight:100;-webkit-appearance:none}textarea{min-width:250px;min-height:80px;max-width:340px;width:100%;height:auto}input[type="text"]:focus,input[type="email"]:focus,input[type="search"]:focus,input[type="tel"]:focus,input[type="url"]:focus,input[type="password"]:focus,input[type="number"]:focus,input[type="date"]:focus,input[type="month"]:focus,input[type="week"]:focus,input[type="time"]:focus,input[type="datetime"]:focus,input[type="datetime-local"]:focus,textarea:focus{outline:none;outline-width:0;border:#bbc7cc 1px solid;background:#fff}select{width:270px;height:30px;line-height:30px}.clearfix:before,.clearfix:after{content:" ";display:table}.clearfix:after{clear:both}.clearfix{zoom:1}.main-header{position:relative;display:table;overflow:hidden;box-sizing:border-box;width:100%;height:50px;background:#5ba4e5 no-repeat center center;background-size:cover;text-align:left;-webkit-box-sizing:border-box;-moz-box-sizing:border-box}.content{background:#fff;padding-top:15px}.blog-title,.content{margin:auto;max-width:600px}.blog-title a{display:block;padding-right:16px;padding-left:16px;height:50px;color:#fff;text-decoration:none;font-family:"Open Sans", sans-serif;font-size:16px;line-height:50px;font-weight:600}.post{position:relative;margin-top:0;margin-right:16px;margin-left:16px;padding-bottom:0;max-width:100%;border-bottom:#ebf2f6 1px solid;word-wrap:break-word;font-size:0.95em;line-height:1.65em}.post-header{margin-bottom:1rem}.post-title{margin-bottom:0}.post-title a{text-decoration:none}.post-meta{display:block;margin:3px 0 0 0;color:#9eabb3;font-family:"Open Sans", sans-serif;font-size:1.3rem;line-height:2.2rem}.post-meta a{color:#9eabb3;text-decoration:none}.post-meta a:hover{text-decoration:underline}.post-meta .author{margin:0;font-size:1.3rem;line-height:1.3em}.post-date{display:inline-block;text-transform:uppercase;white-space:nowrap;font-size:1.2rem;line-height:1.2em}.post-image{margin:0;padding-top:3rem;padding-bottom:30px;border-top:1px #E8E8E8 solid}.post-content amp-img,.post-content amp-anim{position:relative;left:50%;display:block;padding:0;min-width:0;max-width:112%;width:calc(100% + 32px);height:auto;transform:translateX(-50%);-webkit-transform:translateX(-50%);-ms-transform:translateX(-50%)}.footnotes{font-size:1.3rem;line-height:1.6em;font-style:italic}.footnotes li{margin:0.6rem 0}.footnotes p{margin:0}.footnotes p a:last-child{text-decoration:none}.site-footer{position:relative;margin:0 auto 20px auto;padding:1rem 15px;max-width:600px;color:rgba(0,0,0,0.5);font-family:"Open Sans", sans-serif;font-size:1.1rem;line-height:1.75em}.site-footer a{color:rgba(0,0,0,0.5);text-decoration:none;font-weight:bold}.site-footer a:hover{border-bottom:#bbc7cc 1px solid}.poweredby{display:block;float:right;width:45%;text-align:right}.copyright{display:block;float:left;width:45%}</style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="main-header">
+        <nav class="blog-title">
+            <a href="../../index.html">HashtagSecurity</a>
+        </nav>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Lynis Enterprise - The 2nd Encounter</h1>
+                <section class="post-meta">
+                    <p class="author">by <a href="../../author/frederic/index.html">Frederic Mohr</a></p>
+                    <time class="post-date" datetime="2015-05-09">2015-05-09</time>
+                </section>
+            </header>
+            <section class="post-content">
+
+                <p><br />
+This time we will dive into compliance scans and take a look at how multiple hosts are displayed. I also want to find out why I am at risk of data loss - that's right, I still don't know!</p>
+<p>This round, I'll take a look at the documentation, which can be found <a href="https://cisofy.com/documentation/lynis/">here</a>.</p>
+<h3 id="rtfmifyoucan">RTFM if you can!</h3>
+<p>In order to get different results, I wanted to add another host. But, because around 9 days went by since I last touched Lynis, I couldn't remember how exactly the Enterprise key was added to a new host.</p>
+<p>After searching and searching in the documentation, I found nothing but the information that the key is in the configuration panel. Great, but how do I add it? What's the secret option I need? I did check the config file, but there was no license key option to be found either.</p>
+<p>Then I remembered, that I ran Lynis as root from the /root/ folder, so I checked the config file there. And to no surprise, there it was.</p>
+<p></p>
+<p>I should've checked <a href="https://hashtagsecurity.com/lynis-enterprise-the-1st-encounter/">this site</a> though, since it's all there...</p>
+<p>Anyway, putting this information in the documentation and a link to it in the configuration page would help a ton. Speaking of documentation, there are a few other things that I came across, such as the icon description being a little off</p>
+<p></p>
+<p>and topics that are linked in the documentation or application but lead to nowhere.<br />
+</p>
+<p>Parts of the documentation just don't seem to exist at all, while others at least have the decency to tell you so!</p>
+<p></p>
+<h3 id="addingotherhosts">Adding other hosts</h3>
+<p>But enough about the docs, I wanted to add three more hosts so I have two 14.04 and two 12.04, which I could then scan with either the --check-all or the --pentest switch, to get an idea of how they impact the scan results. Also, this should give us a bit more then just "21 Suggestions" and might be more representative of what version is actually being used out there, with companies not always running the latest shit and all.</p>
+<pre><code>I want to see criticals and a red cross at compliance!
+</code></pre>
+<p>To get an overview, here are the hosts with their OS versions.</p>
+<pre><code>test-ossec-lynis01		Ubuntu 14.04	audit system --check-all
+test-ossec-lynis02		Ubuntu 14.04	audit system --pentest
+test-ossec-lynis03		Ubuntu 12.04	audit system --check-all
+test-ossec-lynis04		Ubuntu 12.04	audit system --pentest
+</code></pre>
+<p>After copying the lynis folder with the enterprise key to the other hosts, I ran the commands, to add the hosts to the enterprise web UI.</p>
+<p>One thing I noticed, is that the Ubuntu 12.04 hosts didn't show up in the UI after the scan completed. The culprit here was that the curl package wasn't installed on these hosts.</p>
+<p>After running <code>apt-get install curl -y</code> and running the scans again, they where listed with the other hosts.</p>
+<p></p>
+<p>Two things stick out here, one is that the Ubuntu 12.04 version string is empty. The other is the bandage sign in the Lynis version column. Hovering over it says "This version is outdated and needs an update". This being in the Lynis version column, I assume it's referring to the Lynis binary needing an update, which is strange since I rsynced the folder from the test-ossec-lynis01 host and should therefore be the same.</p>
+<pre><code>test-ossec-lynis03.prod.lan:~/lynis $ sudo ./lynis --check-update
+ == Lynis ==
+
+  Version         : 2.1.0
+  Status          : Up-to-date
+  Release date    : 16 April 2015
+  Update location : https://cisofy.com
+
+
+Copyright 2007-2015 - CISOfy, https://cisofy.com
+</code></pre>
+<p>Yup, it's the current version alright. Ideas? Ignore, for now at least.<br />
+Let's check out the findings instead.</p>
+<p>According to the dashboard, we now are at risk of system intrusion, which is never a good thing!</p>
+<p></p>
+<p>Since I took a quick look after the host <code>test-ossec-lynis03</code> was added, I know that that's where the problem was first found.</p>
+<p></p>
+<p>So what do we have here? Great, "one or more vulnerable packages", I wonder which packages are vulnerable.</p>
+<p></p>
+<p>Wait, what? That is one way to make a great design around no additional information whatsoever. I understand that I should update my system, but as a technical person I would love to be able to understand what exactly the threat is and where it has its source. Maybe this host is running under certain circumstances that make upgrades hard. In this case, I might want to check if an upgrade is really necessary.</p>
+<p>Note: I'm not saying that I'm a fan of the above scenario, but it does happen sometimes - unfortunately!</p>
+<p>Since I can't do much more then upgrading my server, let's just continue with the other hosts.</p>
+<p>The older hosts have the highest risk rating, no surprise there. But they didn't introduce new risks, which is interesting. I know that 12.04 still receives security updates, but I'm pretty sure that they're not running the latest versions.</p>
+<p></p>
+<p>Fun fact, some problems solve themselves, such as the "Old Lynis version" one.</p>
+<p></p>
+<p>Let's checkout one of the 12.04 hosts and see what they have to offer. Apparently there isn't much difference between the <code>--check-all</code> and <code>--pentest</code> checks, since the results are the same, at least when it comes to number of findings.</p>
+<p></p>
+<p>I won't show the rest of the results as it's pretty much the same as the <a href="../index.html">first scan results</a>. Obviously, we have the "vulnerable packages" finding and again I would love to know which packages are vulnerable, but it just shows the same page as before.</p>
+<p>Just out of curiosity, let's check real quick which packages are listed for security updates.</p>
+<pre><code>$ grep security /etc/apt/sources.list |sudo tee /tmp/security-updates-only.list
+$ sudo apt-get dist-upgrade -o Dir::Etc::SourceList=/tmp/security-updates-only.list
+</code></pre>
+<p></p>
+<p>As you can see, there is definitely a difference between the two hosts, even if it's not a substantial as I would have thought. Still though, in a production environment, hosts are not all the same and having information on what exactly causes a problem goes a long way towards improving things.</p>
+<p>They should all be updated, since these are all security updates, but I would still love to know which of them is responsible for the "system intrusion" risk.</p>
+<h3 id="compliance">Compliance</h3>
+<p>I'm still compliant with running not compliance checks, so let's fix that next.</p>
+<p></p>
+<p>It seems that policies are changed in the web interface, not via cli switches. This begs the question how the command is initiated, but let's try to run a scan with compliance first.</p>
+<p></p>
+<p>I think "High Secure" should be enough, but ultimately I want to check all of the predefined policies.</p>
+<p>To check for compliancy, I need to run the rule checker.</p>
+<p></p>
+<p>So my system is not compliant after all. Since it was that easy, I ran a quick check over all rule sets.</p>
+<p></p>
+<p>Turns out it doesn't make that big a difference. Let's examine the findings one by one.</p>
+<p><strong>Firewall</strong> is pretty obvious, it's installed and running. Since this host is actually just a Linux container (LXC), the detected firewall is the host IPTables rule set.</p>
+<p><strong>Time synchronization is configured</strong>, is more of a general information than anything else. Is the configuration compliant with the defined rule sets? Should it not be configured? Why isn't it marked with a cross or checkmark?</p>
+<p>Clicking on the link just shows the rule definition but no further information on the findings.</p>
+<p></p>
+<p>For the record, neither NTPd nor timed are running on the host, so the checks have probably failed. If it's not a compliance issue, why is it listed at all?</p>
+<p><strong>Malware</strong> includes a check if an anti malware tool (clamd) is installed and, apparently, if it's configuration is protected.</p>
+<p></p>
+<p>This is probably a variable that Lynis sets after a certain check. What I'm wondering is how this could have gone off, since clamd isn't even installed.</p>
+<p><strong>Limited access to compiler</strong> seems to check if a compiler is installed!?</p>
+<p><strong>Compliant:</strong> check! I'm still compliant, at least according to the dashboard and the hosts overview. Even after running Lynis again - no change!</p>
+<p></p>
+<p>So what exactly do compliance checks look for?</p>
+<pre><code>$ sudo apt-get install clamav
+$ sudo /etc/init.d/clamav-freshclam start
+$ ps aux |grep clam
+clamav    1915  5.0  0.0  52364  2908 ?        Ss   15:47   0:06 /usr/bin/freshclam -d --quiet
+$ sudo ./lynis audit system -c --quick --upload
+</code></pre>
+<p>Seems like it worked!</p>
+<p></p>
+<p>The compliance check shows a read cross, let's see what the UI has to say about the updated status.</p>
+<p></p>
+<p>What? OK, this doesn't make sense.</p>
+<p></p>
+<p>There is no change in the result, whatsoever. And just for the record, here are the config permissions.</p>
+<pre><code>test-ossec-lynis03.prod.lan:~/lynis $ ls -lh /etc/clamav/
+-rw-r--r--  1 root   root 2.0K clamd.conf
+-r--r--r--  1 clamav adm   717 freshclam.conf
+drwxr-xr-x  2 root   root 4.0K onerrorexecute.d
+drwxr-xr-x  2 root   root 4.0K onupdateexecute.d
+</code></pre>
+<p>Only root is able to write and the config belongs to clamav. Seems reasonable to me.</p>
+<p>Taking a closer look at the policies, I found that some of them are empty and don't have any rules set. That would explain why so few results showed up in the overview page.</p>
+<p></p>
+<p></p>
+<p>While this makes sense, since it's hard to check for, let's say, every possible backup service that could be in place, it's also kind of misleading since the policies are named after "HIPAA", "ISO27x" and "PCI-DSS". Anyone getting a checkmark on these should check the rule tables before the auditor shows up!</p>
+<p></p>
+<p>I'm not an expert in compliance, but I'm pretty sure that each of them has more then 8 things that should be done properly, before you can pat yourself on the shoulder!</p>
+<h3 id="summary">Summary</h3>
+<p>So what have we learned?</p>
+<ul>
+<li>The documentation is lacking in some parts</li>
+<li>Results could be more detailed, especially regarding the source of the problem</li>
+<li>I still don't know what puts me at risk of dataloss</li>
+<li>Now I also don't know which packet puts me at risk of system intrusion</li>
+<li>I also don't know how likely the exploitation of said risks is (linkt to CVSS?)</li>
+<li>I havent' seen a "mark as false positive" or "ignore because can't be fixed" option.</li>
+</ul>
+<p>All in all there is a lot of time that has to go into writing rules before Lynis Enterprise can really be used for compliance checks. On one hand I love it, as it forces people to create checks that fit their environment, on the other hand it would be great to have a ISO27001 rule set premade for some distros - say Ubuntu - to run a quick check and see how the host is holding up.</p>
+<p>What really stopped me from "digging deeper", is that I wasn't able to figure out how the checks actually worked. I get that "malware running" is marked as compliant, if the "process running" variable contains "clamd", but what is Lynis, the cli tool actually checking for and more importantly, how can I check the content of "process running" myself? I know it's a OSS tool and I could look at the source code, but that's not how I want to use my time - and your boss wouldn't want you to use yours that way as well. Especially after he payed for the license.</p>
+<p>What I'm getting at is, that as newcomer to Lynis, it's sometimes hard to understand what exactly is being done in the background and how some results came to be.</p>
+<p>I'm looking forward to my next encounter, as I still have to</p>
+<ul>
+<li>write my own compliance rules</li>
+<li>check out historical data, after I fixed and unfixed stuff</li>
+<li>and most of all, find out if LE can actually be of use to the average pentester.</li>
+</ul>
+<p>Also, what's up with that?<br />
+<br />
+I did everything imaginable to get this to show a red cross - without any luck!</p>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="../../index.html">HashtagSecurity</a> &copy; 2019</section>
+        <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HashtagSecurity</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="wot-verification" content="06cd687a47e37736daed"/> 
+    <link rel="stylesheet" type="text/css" href="../assets/css/mofirst-min.css?v=8ff1f2e80d"/>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script> <!-- disqus loader needs latest jquery -->
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="HashtagSecurity" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Server Patching with unattended-upgrades" />
+    <meta property="og:description" content="I can&#x27;t believe I haven&#x27;t written about this yet. Unattended upgrades are a great way to keep your servers up to date, but there are a few things that didn&#x27;t work out of the box, so here is a summary of how my patch process is set up. Why unattended-upgrades?" />
+    <meta property="og:url" content="fredericmohr.github.io/ghostblog/server-patching-with-unattended-upgrades/" />
+    <meta property="article:published_time" content="2015-05-10T19:46:31.000Z" />
+    <meta property="article:modified_time" content="2015-05-10T19:47:26.000Z" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Server Patching with unattended-upgrades" />
+    <meta name="twitter:description" content="I can&#x27;t believe I haven&#x27;t written about this yet. Unattended upgrades are a great way to keep your servers up to date, but there are a few things that didn&#x27;t work out of the box, so here is a summary of how my patch process is set up. Why unattended-upgrades?" />
+    <meta name="twitter:url" content="fredericmohr.github.io/ghostblog/server-patching-with-unattended-upgrades/" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Frederic Mohr" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "HashtagSecurity",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "fredericmohr.github.io/ghostblog/content/images/2014/Oct/tw-logo_400x400-1.png",
+            "width": 60,
+            "height": 60
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Frederic Mohr",
+        "url": "fredericmohr.github.io/ghostblog/author/frederic/",
+        "sameAs": []
+    },
+    "headline": "Server Patching with unattended-upgrades",
+    "url": "fredericmohr.github.io/ghostblog/server-patching-with-unattended-upgrades/",
+    "datePublished": "2015-05-10T19:46:31.000Z",
+    "dateModified": "2015-05-10T19:47:26.000Z",
+    "description": "I can&#x27;t believe I haven&#x27;t written about this yet. Unattended upgrades are a great way to keep your servers up to date, but there are a few things that didn&#x27;t work out of the box, so here is a summary of how my patch process is set up. Why unattended-upgrades?",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "fredericmohr.github.io/ghostblog/"
+    }
+}
+    </script>
+
+    <script src="../public/ghost-sdk.min.js?v=8ff1f2e80d"></script>
+<script>
+ghost.init({
+	clientId: "ghost-frontend",
+	clientSecret: "5a567477c5aa"
+});
+</script>
+    <meta name="generator" content="Ghost 2.23" />
+    <link rel="alternate" type="application/rss+xml" title="HashtagSecurity" href="../rss/index.html" />
+</head>
+<body>
+<!--NAVIGATION-->
+<div class="nav_bar">
+	<div class="nav_container">	
+		<ul class="nav">
+			<li id="nav-index"><a href="../index.html" class="icon-home"></a></li>
+			<li id="nav-kalibook"><a href="../getting-started-with-kali-linux/index.html" class="icon-book"></a></li>
+			<li id="nav-about"><a href="../about/index.html" class="icon-info"></a></li>
+		</ul>
+
+		<!-- Follow Me -->
+		<div class="follow_me">
+			<a href="https://twitter.com/HashtagSecurity" title="Twitter"><img alt="twitter" src="../assets/images/twi.png?v=8ff1f2e80d"></a>
+			<a href="https://www.hashtagsecurity.com/rss" title="RSS"><img alt="rss" src="../assets/images/rss.png?v=8ff1f2e80d"></a>
+		</div>
+	</div>
+</div>
+<div class="navline"></div>
+<!-- End Header -->
+<div class="outer_container">
+	<!-- PAGE -->
+	<div class="page_container">
+		<!-- CONTENT -->
+		<div class="post_container">
+			    <article class="post">
+
+
+        <h1 class="post-title">Server Patching with unattended-upgrades</h1>
+		<span class="post-meta"><a href="http://de.linkedin.com/in/fredericmohr"><b>Frederic Mohr</b></a> - <time datetime="2015-05-10">10 May 2015</time> </span>
+
+        <section class="post-content">
+            <!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="../content/images/2015/05/2015_05-unattended-upgrades.png" alt=""><br>
+I can't believe I haven't written about this yet. Unattended upgrades are a great way to keep your servers up to date, but there are a few things that didn't work out of the box, so here is a summary of how my patch process is set up.</p>
+<h3 id="whyunattendedupgrades">Why unattended-upgrades?</h3>
+<p>To be honest, running upgrades unattended can cause bad feelings with your colleagues if stuff breaks because of it. And it most likely will if you're not doing it right. Unattended-upgrades is a feature available in Ubuntu, Debian and most likely other Linux derivatives, which allows you to control which updates should be installed and when you want to get notified about it.</p>
+<p>From a security standpoint, unattended-upgrades is a no-brainer, you want to have the latest patches installed but you don't want and can't do it manually, unless you have near unlimited man power or really nothing better to do, which is pretty much never the case.</p>
+<p>From the classic admin &quot;keep things running&quot; approach, doing any changes whatsoever is not really something you'd want, much less so doing them unattended, meaning &quot;let the system do as it wants&quot;.</p>
+<p>This often leads to a discussion between security folks and administrators about whether or not this could actually be working. The problem, as so often in security, is that change is needed but for change not to end in disaster you need to know what you're doing and more importantly you need to know how your network and your servers behave.</p>
+<p>If you were to enable automatic updates on a Linux system without any knowledge of what that system is doing, it's probably not going to end well.</p>
+<h3 id="sowhatthen">So what then?</h3>
+<p>In order to get unattended-upgrades running without messing up your stuff, you need to</p>
+<ul>
+<li>understand what the host is doing</li>
+<li>implement the least needed upgrade process (usually security patches only)</li>
+<li>make test runs before you let it lose</li>
+<li>have backups ready, something which you should have always anyways!</li>
+</ul>
+<p>There are two main problems that I have experienced so far with unattended-upgrades and that you should be aware of.</p>
+<p><strong>3rd party applications need specific package versions</strong></p>
+<p>The first one is easy to fix but a PITA to find out. Usually you find out by crashing the service, try to figure out what caused the problem and find out that package x has to be version y but the most recent version in your distros repository is newer than that.</p>
+<p>Since you most likely can't fix the applications dependencies, there is only one way - set the package on hold. Distros using the <code>apt</code> package manager allow you to set the hold flag for packages, which means that they won't be upgraded along with the others. Be aware that this should only be done if no other way is possible as it can have side effects such as</p>
+<ul>
+<li>other applications can't be updated because they require x to be updates with them</li>
+<li>which sometimes leads to apt dependency f-ups</li>
+<li>It's possible that security patches won't be installed either</li>
+</ul>
+<p><strong>Service restarts mess things up</strong></p>
+<p>This was really my own fault, though it took some time to fix. Some services, such as MySQL for instance, can be tweaked during runtime. If an upgrade process restarts the service after updating the binaries, these runtime tweaks are lost. This can be a problem if</p>
+<ul>
+<li>you don't know about the restart</li>
+<li>you didn't document your tweaks properly.</li>
+</ul>
+<p>Another thing that can happen - it always can, no matter what you do, is that a service doesn't restart properly. One reason, although that didn't happen to me yet, is that a service won't restart because the config file still uses a deprecated version that was finally kicked out for good with this upgrade. If that happens you just were to lazy to switch to the new one during the transition time where both, the new and the old feature, where still supported. One good way of avoiding this is by actually using your log files.</p>
+<p>But monitoring, analyzing and getting the goods out of logs is a post for another day.</p>
+<p>Needless to say that backups, documentation and the ability to restart your services without messing things up is something you should have already and is not a requirement that only comes with unattended-upgrades.</p>
+<h3 id="installingunattendedupgrades">Installing unattended-upgrades</h3>
+<p>Installing the packages is as easy as it gets. Just run the following commands and you're good to go.</p>
+<pre><code>sudo apt-get install update-notifier-common unattended-upgrades
+</code></pre>
+<p>The <strong>update-notifier-common</strong> package is an optional addition, that will create the file <code>/var/run/reboot-required</code>, which tells you that the system requires a reboot to apply the updated or newly installed packages, and the file <code>/var/run/reboot-required.pkgs</code> which tells you which packages require the reboot.</p>
+<p>You can even add checks to your monitoring system or your message of the day (motd) to get notified about uninstalled packages or required reboots.</p>
+<pre><code>69 packages can be updated.
+0 updates are security updates.
+</code></pre>
+<p>You can get these with the following update-motd config files</p>
+<pre><code>$ cat /etc/update-motd.d/90-updates-available 
+#!/bin/sh
+if [ -x /usr/lib/update-notifier/update-motd-updates-available ]; then
+    exec /usr/lib/update-notifier/update-motd-updates-available
+fi
+
+$ cat /etc/update-motd.d/91-release-upgrade 
+#!/bin/sh
+# if the current release is under development there won't be a new one
+if [ &quot;$(lsb_release -sd | cut -d' ' -f4)&quot; = &quot;(development&quot; ]; then
+    exit 0
+fi
+if [ -x /usr/lib/ubuntu-release-upgrader/release-upgrade-motd ]; then
+    exec /usr/lib/ubuntu-release-upgrader/release-upgrade-motd
+fi
+
+$ cat /etc/update-motd.d/98-reboot-required 
+#!/bin/sh
+if [ -x /usr/lib/update-notifier/update-motd-reboot-required ]; then
+    exec /usr/lib/update-notifier/update-motd-reboot-required
+</code></pre>
+<p>They should be included in Ubuntu by default and updated on login by the <code>pam_motd</code> module. If you change or add config files, you can either logout and login for the changes to take affect, or install the <code>update-motd</code> package and run it.</p>
+<h3 id="configuringunattendedupgrades">Configuring unattended-upgrades</h3>
+<p>To give you a quick overview, this is what we want the system to do stay updated.</p>
+<ul>
+<li>Fetch the newest package information (apt-get update)</li>
+<li>Install security updates only</li>
+<li>Notify us via email, at first always, later only on error</li>
+<li>Do not reboot automatically</li>
+<li>Do not overwrite config files</li>
+</ul>
+<p>Let's take a look at how to set these things up. Unattended-upgrades has three config files that are of interest to us.</p>
+<p><strong>/etc/apt/apt.conf.d/20auto-upgrades</strong></p>
+<p>This config file is pretty simple and straight forward.</p>
+<pre><code>APT::Periodic::Update-Package-Lists &quot;1&quot;;
+APT::Periodic::Unattended-Upgrade &quot;1&quot;;
+</code></pre>
+<p>With this we enable point one and, partly, two of our bullet list. But we haven't configured point two yet. We enabled the installation of upgrades but haven't defined which upgrades we would like to have.</p>
+<p><strong>/etc/apt/apt.conf.d/50unattended-upgrades</strong></p>
+<p>Here is where all the magic happens. The following shows only the options that I am using, the default config offers more that that though, so you might want to <a href="https://raw.githubusercontent.com/fredericmohr/hashtagsecurity/master/misc/50unattended-upgrades">take a look at it</a>.</p>
+<pre><code>// Automatically upgrade security packages from these (origin:archive) pairs
+// Additional options are &quot;-updates&quot;, &quot;-proposed&quot; and &quot;-backports&quot;
+Unattended-Upgrade::Allowed-Origins {
+    &quot;${distro_id}:${distro_codename}-security&quot;;
+};
+
+Unattended-Upgrade::MinimalSteps &quot;true&quot;;
+
+// Send report email to this address, 'mailx' must be installed.
+Unattended-Upgrade::Mail &quot;spam@hashtagsecurity.com&quot;;
+
+// Set this value to &quot;true&quot; to get emails only on errors.
+Unattended-Upgrade::MailOnlyOnError &quot;true&quot;;
+
+// Do automatic removal of new unused dependencies after the upgrade (equivalent to apt-get autoremove)
+Unattended-Upgrade::Remove-Unused-Dependencies &quot;true&quot;;
+
+// Automatically reboot *WITHOUT CONFIRMATION* if a the file /var/run/reboot-required is found after the upgrade 
+// Unattended-Upgrade::Automatic-Reboot &quot;true&quot;;
+</code></pre>
+<p>If you are really brave, you can enable the last option as well. It worked quite well for me on some servers but you have to make sure that all service are started properly after a reboot. I've read somewhere that unattended-upgrades can be timed to avoid redundant servers rebooting at the same time, but I haven't looked into it so far.</p>
+<p>For more information on the configuration, check out the official Ubuntu documentation <a href="https://help.ubuntu.com/community/AutomaticSecurityUpdates">here</a> and <a href="https://help.ubuntu.com/community/AutoWeeklyUpdateHowTo">here</a>.</p>
+<p><strong>CRON</strong></p>
+<p>If you take a look at the file <code>/etc/cron.daily/apt</code>, you will see that we unattended-upgrades is already configured to run regularly.</p>
+<pre><code>1 #!/bin/sh
+2 #set -e
+3 #
+4 # This file understands the following apt configuration variables:
+5 # Values here are the default.
+6 # Create /etc/apt/apt.conf.d/02periodic file to set your preference.
+</code></pre>
+<p>We created, or modified the files in /etc/apt/apt.conf.d/ and thus configured the /etc/cron/apt process to suit our needs, so there is no need to add a new cron job for it.</p>
+<p>According to the <a href="https://wiki.debian.org/UnattendedUpgrades">Debian documentation</a>, the 02periodic file is an alternative config file for the 20auto-upgrades, so we don't need it.</p>
+<p><strong>Timing</strong></p>
+<p>The only problem I see with this, is that redundant servers might run updates or possibly even reboot themselves at the same time. The way it's setup now is that the <code>apt</code> cron job is executed once daily.</p>
+<p>Cron daily runs all scripts in <code>/etc/cron.daily/</code> once a day, the start time for this is defined in <code>/etc/crontab</code>.</p>
+<pre><code># cat /etc/crontab
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+# m h dom mon dow user  command
+17 *    * * *   root    cd / &amp;&amp; run-parts --report /etc/cron.hourly
+25 6    * * *   root    test -x /usr/sbin/anacron || ( cd / &amp;&amp; run-parts --report /etc/cron.daily )
+47 6    * * 7   root    test -x /usr/sbin/anacron || ( cd / &amp;&amp; run-parts --report /etc/cron.weekly )
+52 6    1 * *   root    test -x /usr/sbin/anacron || ( cd / &amp;&amp; run-parts --report /etc/cron.monthly )
+</code></pre>
+<p>As we can see, cron daily starts at 06:25 AM every day. In my case, <code>apt</code> is the first command to be executed as can be seen by the alphabetical order of scripts in <code>/etc/cron.daily/</code>.</p>
+<pre><code># ls -1 /etc/cron.daily/
+apt
+bsdmainutils
+creds
+dpkg
+logrotate
+man-db
+quota.dpkg-dist
+sysklogd
+</code></pre>
+<p>This might be different on your system, depending on the cron jobs you have installed but it should be among the first to run. If not and you want to be sure, just rename it to 01_apt.</p>
+<p>The reason why I care about the order of execution is because command running before apt could delay it's execution. We can easily change the start of cron daily for redundant systems, but if the first system would have a huge delay the might still end up running at the same time. The chance is slim, but why take chances if you can be sure.</p>
+<p>Here is an example for two redundant web servers.</p>
+<pre><code>web01: # grep daily /etc/crontab
+25 6    * * *   root    test -x /usr/sbin/anacron || ( cd / &amp;&amp; run-parts --report /etc/cron.daily )
+
+web02: # grep daily /etc/crontab
+25 8    * * *   root    test -x /usr/sbin/anacron || ( cd / &amp;&amp; run-parts --report /etc/cron.daily )
+</code></pre>
+<p>The time difference of two hours should be more then enough, keep in mind that two much time difference might result in other problems. Such as two servers being out of sync because the dependencies changed on one system but hasn't been updated on the other.</p>
+<p><strong>Logs</strong></p>
+<p>If you want to check on your recently applied updates, take a look at the following log files.</p>
+<ul>
+<li>/var/log/unattended-upgrades/unattended-upgrades.log</li>
+<li>/var/log/unattended-upgrades/*</li>
+<li>/var/log/dpkg.log</li>
+</ul>
+<h3 id="configfileschange">Config files change!</h3>
+<p>Here is one more add-on that I stumbled across recently. If you have done a few upgrades with apt-get, you should have seen this prompt at least once.</p>
+<p><img src="../content/images/2015/05/lastbreach1.png" alt=""><br>
+While this is a great thing if you're doing the upgrade manually, it's kind of a problem when you install them automatically.</p>
+<p>The image above is actually a screenshot from a mail my server sent me, after the upgrade process stopped because of this dialog. If this happens, the updates are not installed completely, and you will receive this mail daily until you fix it!</p>
+<p>So let's fix it. Open the config file <code>/etc/apt/apt.conf.d/local</code> and add the following lines.</p>
+<pre><code># keep old configs on upgrade, move new versions to &lt;file&gt;.dpkg-dist
+# e.g. /etc/vim/vimrc and /etc/vim/vimrc.dpkg-dist
+Dpkg::Options {
+   &quot;--force-confdef&quot;;
+   &quot;--force-confold&quot;;
+}
+</code></pre>
+<p>This will tell unattended-upgrades, to keep the original config files and move the new versions to <file>.dpkg-dist, so you can inspect them at a later point. What I was missing though, is a notification by mail that new .dpkg-dist files have been created.</p>
+<p>To get this information, I whipped up this small script. If you know a better way to solve this, please let me know. In the meantime, this will get the job done.</p>
+<pre><code>#!/bin/bash
+#
+# This script will search for .dist-dpkg files and notify you if any are found
+#
+REPORT_MAIL=&quot;upgrades@yourmail.com&quot;
+
+
+find / -name *.dpkg-dist &gt; /var/log/unattended-upgrades/unattended-upgrades-config-diff.log
+confcount=$(wc -l /var/log/unattended-upgrades/unattended-upgrades-config-diff.log |awk {'print $1'})
+
+if [ &quot;$confcount&quot; -ne &quot;0&quot; ];
+then
+	echo -e &quot;Subject: New Held-Back Config File Changes\nFor the following configs, changes have been held back during unattended-upgrade. \nPlease review them manually and delete the dpkg-dist file after you're done.\n\n $(cat /var/log/unattended-upgrades/unattended-upgrades-config-diff.log)\n\nRegards, \n$(hostname -f)&quot; | sendmail $REPORT_MAIL 
+fi
+</code></pre>
+<p>Just save this script somewhere on your server, make it executable and add it to your daily cron jobs. Make sure to change the email address!</p>
+<p>Also, make sure the script has write permissions to the <code>/var/log/unattended-upgrades/</code> folder, or otherwise it will fail.</p>
+<p><img src="../content/images/2015/05/lastbreach1-1.png" alt=""></p>
+<h3 id="summary">Summary</h3>
+<p>Unattended upgrades are not something you &quot;just enable&quot;. They have to be introduced into your environment carefully but it's time well spent as they can be quite helpful later on.</p>
+<p>Not only is security increased but you safe a lot of time when you finally have no other choice then moving on the the next distro release. Believe me, few things are more painful then having to perform full dist upgrades (e.g. 12.04 =&gt; 14.04) on way outdated production servers.</p>
+<p>Being more secure not only means that the risk of loosing money is smaller, it also means for admins that the risk of running around in panic trying to figure out how it happened and what can be done to stop it, is smaller. That's something you should keep in mind if you're an admin, or that you should keep handy as an argument if your working with admins.</p>
+<!--kg-card-end: markdown--><!--kg-card-end: markdown-->
+	</p>
+        </section>
+
+<br>
+<hr>
+<br>
+	<!-- START DISQUS IMPLEMENTATION -->
+        <script src="/assets/js/disqus.js?v=8ff1f2e80d></script>
+        <div id="disqus_thread"></div>
+        <!--<div class="post_disqus show-comments" title="Privacy: Click to enable Disqus (uses cookies!)"><b>Enable Disqus</b></div>
+	END DISQUS IMPLEMENTATION -->
+</article>
+
+
+		</div>
+
+		<!-- SIDEBAR -->
+		<div class="side_container">
+
+			<div class="side_sub_one well">
+				<b>Note</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>All information provided on this site is for educational purposes only. The site and it's author is in no way responsible for any misuse of the information.</p>
+			</div>
+			<div class="side_sub_one well">
+				<b>Links</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="../random-notes/index.html">Random Notes and CheatSheets</a><br>
+				<hr>
+				<a href="http://learnpythonthehardway.org/book/">Python the hard way</a><br>
+				<a href="http://cspplayground.com">CSP Playground</a><br>
+				<a href="http://www.offensive-security.com/metasploit-unleashed/Main_Page">Metasploit Unleashed</a><br>
+				<hr>
+				<a href="https://www.linkedin.com/profile/view?id=203397467">Me - LinkedIn</a><br>
+				<a href="https://ctftime.org/team/9072">Me - CTFTime.org</a><br>
+				</p>
+			</div>		
+			<div class="side_sub_one well">
+				<b>Blogs</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="http://wearetheartillery.blogspot.com.es/">WeAreTheArtillery</a><br>
+				<a href="https://www.imperialviolet.org">Imperial Violet</a><br>
+				<a href="http://www.nerd-supreme.de">NerdSupreme (DE)</a><br>
+				<a href="http://krebsonsecurity.com/">KrebsOnSecurity</a><br>
+				<a href="https://www.corelan.be/">Corelan Team</a><br>
+				<a href="http://blog.g0tmi1k.com/">G0tmi1k</a><br>
+				</p>
+			</div>		
+			<div class="side_sub_one well">
+				<b>Reddits</b>
+				<div class="side_sub_hl_blue"></div>
+				<p>
+				<a href="http://www.reddit.com/r/netsec/">/r/netsec</a><br>
+				<a href="http://www.reddit.com/r/Python/">/r/Python</a><br>
+				<a href="http://www.reddit.com/r/Defcon/">/r/Defcon</a><br>
+				<a href="http://www.reddit.com/r/securityCTF/">/r/securityCTF</a><br>
+				<a href="index.html"></a><br>
+				</p>
+			</div>		
+		</div>
+	</div> <!-- End of Sidebar -->
+</div>
+	<div class="footer">
+	<div class=navline></div>
+		HashtagSecurity<br><small>... keeping security in mind.<br><a href="../impressum">Impressum</a> | <a href="../datenschutzerklarung">Datenschutzerklärung</a> | <a href="../privacy-policy">Privacy Policy</a></small>
+	</div>
+</body>
+</html>

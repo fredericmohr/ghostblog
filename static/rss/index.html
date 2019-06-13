@@ -1,0 +1,1144 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[HashtagSecurity]]></title><description><![CDATA[... keeping security in mind.]]></description><link>fredericmohr.github.io/ghostblog/</link><image><url>fredericmohr.github.io/ghostblog/favicon.png</url><title>HashtagSecurity</title><link>fredericmohr.github.io/ghostblog/</link></image><generator>Ghost 2.23</generator><lastBuildDate>Thu, 13 Jun 2019 14:56:01 GMT</lastBuildDate><atom:link href="fredericmohr.github.io/ghostblog/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[HashtagSecurity will be back...]]></title><description><![CDATA[<!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="fredericmohr.github.io/ghostblog/content/images/2015/09/goodbye-705165_640_2.jpg" alt=""><br>
+To those of you who actually follow my blog and have noticed that it's become rather quiet recently - I'm sorry. The reason for this is that I've put all my efforts into the <a href="https://www.lastbreach.com/en/blog/">new company blog</a>, which is exactly where all my new posts went.</p>
+<p>I've started hashtagsecurity.com</p>]]></description><link>fredericmohr.github.io/ghostblog/hashtagsecurity-will-be-back/</link><guid isPermaLink="false">5d024b9ceb8170245371e84f</guid><dc:creator><![CDATA[Frederic Mohr]]></dc:creator><pubDate>Fri, 11 Sep 2015 14:12:35 GMT</pubDate><content:encoded><![CDATA[<!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="fredericmohr.github.io/ghostblog/content/images/2015/09/goodbye-705165_640_2.jpg" alt=""><br>
+To those of you who actually follow my blog and have noticed that it's become rather quiet recently - I'm sorry. The reason for this is that I've put all my efforts into the <a href="https://www.lastbreach.com/en/blog/">new company blog</a>, which is exactly where all my new posts went.</p>
+<p>I've started hashtagsecurity.com to write about infosec topics and to openly document some of the things I fought with over long nights, be it because they just wouldn't want to work or because I just couldn't see it - sleep deprived and all. It is a project that's very dear to me and I really want to keep it going. But I started something new with LastBreach and like all newborn, it requires a lot more attention than it's older brother.</p>
+<p>So even though I won't be posting anything here for a while, that doesn't mean that this place is dead - It's just sleeping...</p>
+<p>The more LastBreach will grow, the more I will get back my free time (hopefully), which I can then, once again, dedicate to this blog. For now, <a href="https://www.lastbreach.com/en/blog/">lastbreach.com</a> is where you will find my newest posts and for those of you who already follow me on <a href="https://twitter.com/@HashtagSecurity">twitter</a>, please continue to do so as I'm still active there.</p>
+<p>But before I lock this place up - I made a promise in one of the posts a few months (again, sorry) back, in regards to upcoming posts on Lynis and its use for pentesters. I'm happy to say, that I will be able to continue this series. So head over to lastbreach.com and stay tuned for more Lynis goodness, amongst other things, and thanks for reading my blog(s).</p>
+<p>See you!<br>
+Frederic</p>
+<!--kg-card-end: markdown--><!--kg-card-end: markdown-->]]></content:encoded></item><item><title><![CDATA[Server Patching with unattended-upgrades]]></title><description><![CDATA[<!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="fredericmohr.github.io/ghostblog/content/images/2015/05/2015_05-unattended-upgrades.png" alt=""><br>
+I can't believe I haven't written about this yet. Unattended upgrades are a great way to keep your servers up to date, but there are a few things that didn't work out of the box, so here is a summary of how my patch process is set up.</p>
+<h3 id="whyunattendedupgrades">Why unattended-upgrades?</h3>]]></description><link>fredericmohr.github.io/ghostblog/server-patching-with-unattended-upgrades/</link><guid isPermaLink="false">5d024b9ceb8170245371e84d</guid><dc:creator><![CDATA[Frederic Mohr]]></dc:creator><pubDate>Sun, 10 May 2015 19:46:31 GMT</pubDate><content:encoded><![CDATA[<!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="fredericmohr.github.io/ghostblog/content/images/2015/05/2015_05-unattended-upgrades.png" alt=""><br>
+I can't believe I haven't written about this yet. Unattended upgrades are a great way to keep your servers up to date, but there are a few things that didn't work out of the box, so here is a summary of how my patch process is set up.</p>
+<h3 id="whyunattendedupgrades">Why unattended-upgrades?</h3>
+<p>To be honest, running upgrades unattended can cause bad feelings with your colleagues if stuff breaks because of it. And it most likely will if you're not doing it right. Unattended-upgrades is a feature available in Ubuntu, Debian and most likely other Linux derivatives, which allows you to control which updates should be installed and when you want to get notified about it.</p>
+<p>From a security standpoint, unattended-upgrades is a no-brainer, you want to have the latest patches installed but you don't want and can't do it manually, unless you have near unlimited man power or really nothing better to do, which is pretty much never the case.</p>
+<p>From the classic admin &quot;keep things running&quot; approach, doing any changes whatsoever is not really something you'd want, much less so doing them unattended, meaning &quot;let the system do as it wants&quot;.</p>
+<p>This often leads to a discussion between security folks and administrators about whether or not this could actually be working. The problem, as so often in security, is that change is needed but for change not to end in disaster you need to know what you're doing and more importantly you need to know how your network and your servers behave.</p>
+<p>If you were to enable automatic updates on a Linux system without any knowledge of what that system is doing, it's probably not going to end well.</p>
+<h3 id="sowhatthen">So what then?</h3>
+<p>In order to get unattended-upgrades running without messing up your stuff, you need to</p>
+<ul>
+<li>understand what the host is doing</li>
+<li>implement the least needed upgrade process (usually security patches only)</li>
+<li>make test runs before you let it lose</li>
+<li>have backups ready, something which you should have always anyways!</li>
+</ul>
+<p>There are two main problems that I have experienced so far with unattended-upgrades and that you should be aware of.</p>
+<p><strong>3rd party applications need specific package versions</strong></p>
+<p>The first one is easy to fix but a PITA to find out. Usually you find out by crashing the service, try to figure out what caused the problem and find out that package x has to be version y but the most recent version in your distros repository is newer than that.</p>
+<p>Since you most likely can't fix the applications dependencies, there is only one way - set the package on hold. Distros using the <code>apt</code> package manager allow you to set the hold flag for packages, which means that they won't be upgraded along with the others. Be aware that this should only be done if no other way is possible as it can have side effects such as</p>
+<ul>
+<li>other applications can't be updated because they require x to be updates with them</li>
+<li>which sometimes leads to apt dependency f-ups</li>
+<li>It's possible that security patches won't be installed either</li>
+</ul>
+<p><strong>Service restarts mess things up</strong></p>
+<p>This was really my own fault, though it took some time to fix. Some services, such as MySQL for instance, can be tweaked during runtime. If an upgrade process restarts the service after updating the binaries, these runtime tweaks are lost. This can be a problem if</p>
+<ul>
+<li>you don't know about the restart</li>
+<li>you didn't document your tweaks properly.</li>
+</ul>
+<p>Another thing that can happen - it always can, no matter what you do, is that a service doesn't restart properly. One reason, although that didn't happen to me yet, is that a service won't restart because the config file still uses a deprecated version that was finally kicked out for good with this upgrade. If that happens you just were to lazy to switch to the new one during the transition time where both, the new and the old feature, where still supported. One good way of avoiding this is by actually using your log files.</p>
+<p>But monitoring, analyzing and getting the goods out of logs is a post for another day.</p>
+<p>Needless to say that backups, documentation and the ability to restart your services without messing things up is something you should have already and is not a requirement that only comes with unattended-upgrades.</p>
+<h3 id="installingunattendedupgrades">Installing unattended-upgrades</h3>
+<p>Installing the packages is as easy as it gets. Just run the following commands and you're good to go.</p>
+<pre><code>sudo apt-get install update-notifier-common unattended-upgrades
+</code></pre>
+<p>The <strong>update-notifier-common</strong> package is an optional addition, that will create the file <code>/var/run/reboot-required</code>, which tells you that the system requires a reboot to apply the updated or newly installed packages, and the file <code>/var/run/reboot-required.pkgs</code> which tells you which packages require the reboot.</p>
+<p>You can even add checks to your monitoring system or your message of the day (motd) to get notified about uninstalled packages or required reboots.</p>
+<pre><code>69 packages can be updated.
+0 updates are security updates.
+</code></pre>
+<p>You can get these with the following update-motd config files</p>
+<pre><code>$ cat /etc/update-motd.d/90-updates-available 
+#!/bin/sh
+if [ -x /usr/lib/update-notifier/update-motd-updates-available ]; then
+    exec /usr/lib/update-notifier/update-motd-updates-available
+fi
+
+$ cat /etc/update-motd.d/91-release-upgrade 
+#!/bin/sh
+# if the current release is under development there won't be a new one
+if [ &quot;$(lsb_release -sd | cut -d' ' -f4)&quot; = &quot;(development&quot; ]; then
+    exit 0
+fi
+if [ -x /usr/lib/ubuntu-release-upgrader/release-upgrade-motd ]; then
+    exec /usr/lib/ubuntu-release-upgrader/release-upgrade-motd
+fi
+
+$ cat /etc/update-motd.d/98-reboot-required 
+#!/bin/sh
+if [ -x /usr/lib/update-notifier/update-motd-reboot-required ]; then
+    exec /usr/lib/update-notifier/update-motd-reboot-required
+</code></pre>
+<p>They should be included in Ubuntu by default and updated on login by the <code>pam_motd</code> module. If you change or add config files, you can either logout and login for the changes to take affect, or install the <code>update-motd</code> package and run it.</p>
+<h3 id="configuringunattendedupgrades">Configuring unattended-upgrades</h3>
+<p>To give you a quick overview, this is what we want the system to do stay updated.</p>
+<ul>
+<li>Fetch the newest package information (apt-get update)</li>
+<li>Install security updates only</li>
+<li>Notify us via email, at first always, later only on error</li>
+<li>Do not reboot automatically</li>
+<li>Do not overwrite config files</li>
+</ul>
+<p>Let's take a look at how to set these things up. Unattended-upgrades has three config files that are of interest to us.</p>
+<p><strong>/etc/apt/apt.conf.d/20auto-upgrades</strong></p>
+<p>This config file is pretty simple and straight forward.</p>
+<pre><code>APT::Periodic::Update-Package-Lists &quot;1&quot;;
+APT::Periodic::Unattended-Upgrade &quot;1&quot;;
+</code></pre>
+<p>With this we enable point one and, partly, two of our bullet list. But we haven't configured point two yet. We enabled the installation of upgrades but haven't defined which upgrades we would like to have.</p>
+<p><strong>/etc/apt/apt.conf.d/50unattended-upgrades</strong></p>
+<p>Here is where all the magic happens. The following shows only the options that I am using, the default config offers more that that though, so you might want to <a href="https://raw.githubusercontent.com/fredericmohr/hashtagsecurity/master/misc/50unattended-upgrades">take a look at it</a>.</p>
+<pre><code>// Automatically upgrade security packages from these (origin:archive) pairs
+// Additional options are &quot;-updates&quot;, &quot;-proposed&quot; and &quot;-backports&quot;
+Unattended-Upgrade::Allowed-Origins {
+    &quot;${distro_id}:${distro_codename}-security&quot;;
+};
+
+Unattended-Upgrade::MinimalSteps &quot;true&quot;;
+
+// Send report email to this address, 'mailx' must be installed.
+Unattended-Upgrade::Mail &quot;spam@hashtagsecurity.com&quot;;
+
+// Set this value to &quot;true&quot; to get emails only on errors.
+Unattended-Upgrade::MailOnlyOnError &quot;true&quot;;
+
+// Do automatic removal of new unused dependencies after the upgrade (equivalent to apt-get autoremove)
+Unattended-Upgrade::Remove-Unused-Dependencies &quot;true&quot;;
+
+// Automatically reboot *WITHOUT CONFIRMATION* if a the file /var/run/reboot-required is found after the upgrade 
+// Unattended-Upgrade::Automatic-Reboot &quot;true&quot;;
+</code></pre>
+<p>If you are really brave, you can enable the last option as well. It worked quite well for me on some servers but you have to make sure that all service are started properly after a reboot. I've read somewhere that unattended-upgrades can be timed to avoid redundant servers rebooting at the same time, but I haven't looked into it so far.</p>
+<p>For more information on the configuration, check out the official Ubuntu documentation <a href="https://help.ubuntu.com/community/AutomaticSecurityUpdates">here</a> and <a href="https://help.ubuntu.com/community/AutoWeeklyUpdateHowTo">here</a>.</p>
+<p><strong>CRON</strong></p>
+<p>If you take a look at the file <code>/etc/cron.daily/apt</code>, you will see that we unattended-upgrades is already configured to run regularly.</p>
+<pre><code>1 #!/bin/sh
+2 #set -e
+3 #
+4 # This file understands the following apt configuration variables:
+5 # Values here are the default.
+6 # Create /etc/apt/apt.conf.d/02periodic file to set your preference.
+</code></pre>
+<p>We created, or modified the files in /etc/apt/apt.conf.d/ and thus configured the /etc/cron/apt process to suit our needs, so there is no need to add a new cron job for it.</p>
+<p>According to the <a href="https://wiki.debian.org/UnattendedUpgrades">Debian documentation</a>, the 02periodic file is an alternative config file for the 20auto-upgrades, so we don't need it.</p>
+<p><strong>Timing</strong></p>
+<p>The only problem I see with this, is that redundant servers might run updates or possibly even reboot themselves at the same time. The way it's setup now is that the <code>apt</code> cron job is executed once daily.</p>
+<p>Cron daily runs all scripts in <code>/etc/cron.daily/</code> once a day, the start time for this is defined in <code>/etc/crontab</code>.</p>
+<pre><code># cat /etc/crontab
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+# m h dom mon dow user  command
+17 *    * * *   root    cd / &amp;&amp; run-parts --report /etc/cron.hourly
+25 6    * * *   root    test -x /usr/sbin/anacron || ( cd / &amp;&amp; run-parts --report /etc/cron.daily )
+47 6    * * 7   root    test -x /usr/sbin/anacron || ( cd / &amp;&amp; run-parts --report /etc/cron.weekly )
+52 6    1 * *   root    test -x /usr/sbin/anacron || ( cd / &amp;&amp; run-parts --report /etc/cron.monthly )
+</code></pre>
+<p>As we can see, cron daily starts at 06:25 AM every day. In my case, <code>apt</code> is the first command to be executed as can be seen by the alphabetical order of scripts in <code>/etc/cron.daily/</code>.</p>
+<pre><code># ls -1 /etc/cron.daily/
+apt
+bsdmainutils
+creds
+dpkg
+logrotate
+man-db
+quota.dpkg-dist
+sysklogd
+</code></pre>
+<p>This might be different on your system, depending on the cron jobs you have installed but it should be among the first to run. If not and you want to be sure, just rename it to 01_apt.</p>
+<p>The reason why I care about the order of execution is because command running before apt could delay it's execution. We can easily change the start of cron daily for redundant systems, but if the first system would have a huge delay the might still end up running at the same time. The chance is slim, but why take chances if you can be sure.</p>
+<p>Here is an example for two redundant web servers.</p>
+<pre><code>web01: # grep daily /etc/crontab
+25 6    * * *   root    test -x /usr/sbin/anacron || ( cd / &amp;&amp; run-parts --report /etc/cron.daily )
+
+web02: # grep daily /etc/crontab
+25 8    * * *   root    test -x /usr/sbin/anacron || ( cd / &amp;&amp; run-parts --report /etc/cron.daily )
+</code></pre>
+<p>The time difference of two hours should be more then enough, keep in mind that two much time difference might result in other problems. Such as two servers being out of sync because the dependencies changed on one system but hasn't been updated on the other.</p>
+<p><strong>Logs</strong></p>
+<p>If you want to check on your recently applied updates, take a look at the following log files.</p>
+<ul>
+<li>/var/log/unattended-upgrades/unattended-upgrades.log</li>
+<li>/var/log/unattended-upgrades/*</li>
+<li>/var/log/dpkg.log</li>
+</ul>
+<h3 id="configfileschange">Config files change!</h3>
+<p>Here is one more add-on that I stumbled across recently. If you have done a few upgrades with apt-get, you should have seen this prompt at least once.</p>
+<p><img src="fredericmohr.github.io/ghostblog/content/images/2015/05/lastbreach1.png" alt=""><br>
+While this is a great thing if you're doing the upgrade manually, it's kind of a problem when you install them automatically.</p>
+<p>The image above is actually a screenshot from a mail my server sent me, after the upgrade process stopped because of this dialog. If this happens, the updates are not installed completely, and you will receive this mail daily until you fix it!</p>
+<p>So let's fix it. Open the config file <code>/etc/apt/apt.conf.d/local</code> and add the following lines.</p>
+<pre><code># keep old configs on upgrade, move new versions to &lt;file&gt;.dpkg-dist
+# e.g. /etc/vim/vimrc and /etc/vim/vimrc.dpkg-dist
+Dpkg::Options {
+   &quot;--force-confdef&quot;;
+   &quot;--force-confold&quot;;
+}
+</code></pre>
+<p>This will tell unattended-upgrades, to keep the original config files and move the new versions to <file>.dpkg-dist, so you can inspect them at a later point. What I was missing though, is a notification by mail that new .dpkg-dist files have been created.</file></p>
+<p>To get this information, I whipped up this small script. If you know a better way to solve this, please let me know. In the meantime, this will get the job done.</p>
+<pre><code>#!/bin/bash
+#
+# This script will search for .dist-dpkg files and notify you if any are found
+#
+REPORT_MAIL=&quot;upgrades@yourmail.com&quot;
+
+
+find / -name *.dpkg-dist &gt; /var/log/unattended-upgrades/unattended-upgrades-config-diff.log
+confcount=$(wc -l /var/log/unattended-upgrades/unattended-upgrades-config-diff.log |awk {'print $1'})
+
+if [ &quot;$confcount&quot; -ne &quot;0&quot; ];
+then
+	echo -e &quot;Subject: New Held-Back Config File Changes\nFor the following configs, changes have been held back during unattended-upgrade. \nPlease review them manually and delete the dpkg-dist file after you're done.\n\n $(cat /var/log/unattended-upgrades/unattended-upgrades-config-diff.log)\n\nRegards, \n$(hostname -f)&quot; | sendmail $REPORT_MAIL 
+fi
+</code></pre>
+<p>Just save this script somewhere on your server, make it executable and add it to your daily cron jobs. Make sure to change the email address!</p>
+<p>Also, make sure the script has write permissions to the <code>/var/log/unattended-upgrades/</code> folder, or otherwise it will fail.</p>
+<p><img src="fredericmohr.github.io/ghostblog/content/images/2015/05/lastbreach1-1.png" alt=""></p>
+<h3 id="summary">Summary</h3>
+<p>Unattended upgrades are not something you &quot;just enable&quot;. They have to be introduced into your environment carefully but it's time well spent as they can be quite helpful later on.</p>
+<p>Not only is security increased but you safe a lot of time when you finally have no other choice then moving on the the next distro release. Believe me, few things are more painful then having to perform full dist upgrades (e.g. 12.04 =&gt; 14.04) on way outdated production servers.</p>
+<p>Being more secure not only means that the risk of loosing money is smaller, it also means for admins that the risk of running around in panic trying to figure out how it happened and what can be done to stop it, is smaller. That's something you should keep in mind if you're an admin, or that you should keep handy as an argument if your working with admins.</p>
+<!--kg-card-end: markdown--><!--kg-card-end: markdown-->]]></content:encoded></item><item><title><![CDATA[Lynis Enterprise - The 2nd Encounter]]></title><description><![CDATA[<!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="fredericmohr.github.io/ghostblog/content/images/2015/05/2015_04-CISOfy_Lynis_second_encounter-1.png" alt=""><br>
+This time we will dive into compliance scans and take a look at how multiple hosts are displayed. I also want to find out why I am at risk of data loss - that's right, I still don't know!</p>
+<p>This round, I'll take a look at the documentation, which can</p>]]></description><link>fredericmohr.github.io/ghostblog/lynis-the-2nd-encounter/</link><guid isPermaLink="false">5d024b9ceb8170245371e84e</guid><dc:creator><![CDATA[Frederic Mohr]]></dc:creator><pubDate>Sat, 09 May 2015 10:12:16 GMT</pubDate><content:encoded><![CDATA[<!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="fredericmohr.github.io/ghostblog/content/images/2015/05/2015_04-CISOfy_Lynis_second_encounter-1.png" alt=""><br>
+This time we will dive into compliance scans and take a look at how multiple hosts are displayed. I also want to find out why I am at risk of data loss - that's right, I still don't know!</p>
+<p>This round, I'll take a look at the documentation, which can be found <a href="https://cisofy.com/documentation/lynis/">here</a>.</p>
+<h3 id="rtfmifyoucan">RTFM if you can!</h3>
+<p>In order to get different results, I wanted to add another host. But, because around 9 days went by since I last touched Lynis, I couldn't remember how exactly the Enterprise key was added to a new host.</p>
+<p>After searching and searching in the documentation, I found nothing but the information that the key is in the configuration panel. Great, but how do I add it? What's the secret option I need? I did check the config file, but there was no license key option to be found either.</p>
+<p>Then I remembered, that I ran Lynis as root from the /root/ folder, so I checked the config file there. And to no surprise, there it was.</p>
+<p><img src="fredericmohr.github.io/ghostblog/content/images/2015/05/lastbreach1-2.png" alt=""></p>
+<p>I should've checked <a href="https://hashtagsecurity.com/lynis-enterprise-the-1st-encounter/">this site</a> though, since it's all there...</p>
+<p>Anyway, putting this information in the documentation and a link to it in the configuration page would help a ton. Speaking of documentation, there are a few other things that I came across, such as the icon description being a little off</p>
+<p><img src="fredericmohr.github.io/ghostblog/content/images/2015/05/lastbreach1-3.png" alt=""></p>
+<p>and topics that are linked in the documentation or application but lead to nowhere.<br>
+<img src="fredericmohr.github.io/ghostblog/content/images/2015/05/lastbreach1-5.png" alt=""></p>
+<p>Parts of the documentation just don't seem to exist at all, while others at least have the decency to tell you so!</p>
+<p><img src="fredericmohr.github.io/ghostblog/content/images/2015/05/lastbreach1-6.png" alt=""></p>
+<h3 id="addingotherhosts">Adding other hosts</h3>
+<p>But enough about the docs, I wanted to add three more hosts so I have two 14.04 and two 12.04, which I could then scan with either the --check-all or the --pentest switch, to get an idea of how they impact the scan results. Also, this should give us a bit more then just &quot;21 Suggestions&quot; and might be more representative of what version is actually being used out there, with companies not always running the latest shit and all.</p>
+<pre><code>I want to see criticals and a red cross at compliance!
+</code></pre>
+<p>To get an overview, here are the hosts with their OS versions.</p>
+<pre><code>test-ossec-lynis01		Ubuntu 14.04	audit system --check-all
+test-ossec-lynis02		Ubuntu 14.04	audit system --pentest
+test-ossec-lynis03		Ubuntu 12.04	audit system --check-all
+test-ossec-lynis04		Ubuntu 12.04	audit system --pentest
+</code></pre>
+<p>After copying the lynis folder with the enterprise key to the other hosts, I ran the commands, to add the hosts to the enterprise web UI.</p>
+<p>One thing I noticed, is that the Ubuntu 12.04 hosts didn't show up in the UI after the scan completed. The culprit here was that the curl package wasn't installed on these hosts.</p>
+<p>After running <code>apt-get install curl -y</code> and running the scans again, they where listed with the other hosts.</p>
+<p><img src="fredericmohr.github.io/ghostblog/content/images/2015/05/lastbreach1-7.png" alt=""></p>
+<p>Two things stick out here, one is that the Ubuntu 12.04 version string is empty. The other is the bandage sign in the Lynis version column. Hovering over it says &quot;This version is outdated and needs an update&quot;. This being in the Lynis version column, I assume it's referring to the Lynis binary needing an update, which is strange since I rsynced the folder from the test-ossec-lynis01 host and should therefore be the same.</p>
+<pre><code>test-ossec-lynis03.prod.lan:~/lynis $ sudo ./lynis --check-update
+ == Lynis ==
+
+  Version         : 2.1.0
+  Status          : Up-to-date
+  Release date    : 16 April 2015
+  Update location : https://cisofy.com
+
+
+Copyright 2007-2015 - CISOfy, https://cisofy.com
+</code></pre>
+<p>Yup, it's the current version alright. Ideas? Ignore, for now at least.<br>
+Let's check out the findings instead.</p>
+<p>According to the dashboard, we now are at risk of system intrusion, which is never a good thing!</p>
+<p><img src="fredericmohr.github.io/ghostblog/content/images/2015/05/lastbreach1-8.png" alt=""></p>
+<p>Since I took a quick look after the host <code>test-ossec-lynis03</code> was added, I know that that's where the problem was first found.</p>
+<p><img src="fredericmohr.github.io/ghostblog/content/images/2015/05/lastbreach1-9.png" alt=""></p>
+<p>So what do we have here? Great, &quot;one or more vulnerable packages&quot;, I wonder which packages are vulnerable.</p>
+<p><img src="fredericmohr.github.io/ghostblog/content/images/2015/05/lastbreach1-10.png" alt=""></p>
+<p>Wait, what? That is one way to make a great design around no additional information whatsoever. I understand that I should update my system, but as a technical person I would love to be able to understand what exactly the threat is and where it has its source. Maybe this host is running under certain circumstances that make upgrades hard. In this case, I might want to check if an upgrade is really necessary.</p>
+<p>Note: I'm not saying that I'm a fan of the above scenario, but it does happen sometimes - unfortunately!</p>
+<p>Since I can't do much more then upgrading my server, let's just continue with the other hosts.</p>
+<p>The older hosts have the highest risk rating, no surprise there. But they didn't introduce new risks, which is interesting. I know that 12.04 still receives security updates, but I'm pretty sure that they're not running the latest versions.</p>
+<p><img src="fredericmohr.github.io/ghostblog/content/images/2015/05/lastbreach1-11.png" alt=""></p>
+<p>Fun fact, some problems solve themselves, such as the &quot;Old Lynis version&quot; one.</p>
+<p><img src="fredericmohr.github.io/ghostblog/content/images/2015/05/lastbreach1-12.png" alt=""></p>
+<p>Let's checkout one of the 12.04 hosts and see what they have to offer. Apparently there isn't much difference between the <code>--check-all</code> and <code>--pentest</code> checks, since the results are the same, at least when it comes to number of findings.</p>
+<p><img src="fredericmohr.github.io/ghostblog/content/images/2015/05/lastbreach1-13.png" alt=""></p>
+<p>I won't show the rest of the results as it's pretty much the same as the <a href="fredericmohr.github.io/ghostblog/lynis-the-2nd-encounter/">first scan results</a>. Obviously, we have the &quot;vulnerable packages&quot; finding and again I would love to know which packages are vulnerable, but it just shows the same page as before.</p>
+<p>Just out of curiosity, let's check real quick which packages are listed for security updates.</p>
+<pre><code>$ grep security /etc/apt/sources.list |sudo tee /tmp/security-updates-only.list
+$ sudo apt-get dist-upgrade -o Dir::Etc::SourceList=/tmp/security-updates-only.list
+</code></pre>
+<p><img src="fredericmohr.github.io/ghostblog/content/images/2015/05/lastbreach1-14.png" alt=""></p>
+<p>As you can see, there is definitely a difference between the two hosts, even if it's not a substantial as I would have thought. Still though, in a production environment, hosts are not all the same and having information on what exactly causes a problem goes a long way towards improving things.</p>
+<p>They should all be updated, since these are all security updates, but I would still love to know which of them is responsible for the &quot;system intrusion&quot; risk.</p>
+<h3 id="compliance">Compliance</h3>
+<p>I'm still compliant with running not compliance checks, so let's fix that next.</p>
+<p><img src="fredericmohr.github.io/ghostblog/content/images/2015/05/lastbreach1-16.png" alt=""></p>
+<p>It seems that policies are changed in the web interface, not via cli switches. This begs the question how the command is initiated, but let's try to run a scan with compliance first.</p>
+<p><img src="fredericmohr.github.io/ghostblog/content/images/2015/05/lastbreach1-17.png" alt=""></p>
+<p>I think &quot;High Secure&quot; should be enough, but ultimately I want to check all of the predefined policies.</p>
+<p>To check for compliancy, I need to run the rule checker.</p>
+<p><img src="fredericmohr.github.io/ghostblog/content/images/2015/05/lastbreach1-18.png" alt=""></p>
+<p>So my system is not compliant after all. Since it was that easy, I ran a quick check over all rule sets.</p>
+<p><img src="fredericmohr.github.io/ghostblog/content/images/2015/05/lastbreach1-19.png" alt=""></p>
+<p>Turns out it doesn't make that big a difference. Let's examine the findings one by one.</p>
+<p><strong>Firewall</strong> is pretty obvious, it's installed and running. Since this host is actually just a Linux container (LXC), the detected firewall is the host IPTables rule set.</p>
+<p><strong>Time synchronization is configured</strong>, is more of a general information than anything else. Is the configuration compliant with the defined rule sets? Should it not be configured? Why isn't it marked with a cross or checkmark?</p>
+<p>Clicking on the link just shows the rule definition but no further information on the findings.</p>
+<p><img src="fredericmohr.github.io/ghostblog/content/images/2015/05/lastbreach1-20.png" alt=""></p>
+<p>For the record, neither NTPd nor timed are running on the host, so the checks have probably failed. If it's not a compliance issue, why is it listed at all?</p>
+<p><strong>Malware</strong> includes a check if an anti malware tool (clamd) is installed and, apparently, if it's configuration is protected.</p>
+<p><img src="fredericmohr.github.io/ghostblog/content/images/2015/05/lastbreach1-21.png" alt=""></p>
+<p>This is probably a variable that Lynis sets after a certain check. What I'm wondering is how this could have gone off, since clamd isn't even installed.</p>
+<p><strong>Limited access to compiler</strong> seems to check if a compiler is installed!?</p>
+<p><strong>Compliant:</strong> check! I'm still compliant, at least according to the dashboard and the hosts overview. Even after running Lynis again - no change!</p>
+<p><img src="fredericmohr.github.io/ghostblog/content/images/2015/05/lastbreach1-22.png" alt=""></p>
+<p>So what exactly do compliance checks look for?</p>
+<pre><code>$ sudo apt-get install clamav
+$ sudo /etc/init.d/clamav-freshclam start
+$ ps aux |grep clam
+clamav    1915  5.0  0.0  52364  2908 ?        Ss   15:47   0:06 /usr/bin/freshclam -d --quiet
+$ sudo ./lynis audit system -c --quick --upload
+</code></pre>
+<p>Seems like it worked!</p>
+<p><img src="fredericmohr.github.io/ghostblog/content/images/2015/05/lastbreach1-23.png" alt=""></p>
+<p>The compliance check shows a read cross, let's see what the UI has to say about the updated status.</p>
+<p><img src="fredericmohr.github.io/ghostblog/content/images/2015/05/lastbreach1-24.png" alt=""></p>
+<p>What? OK, this doesn't make sense.</p>
+<p><img src="fredericmohr.github.io/ghostblog/content/images/2015/05/lastbreach1-25.png" alt=""></p>
+<p>There is no change in the result, whatsoever. And just for the record, here are the config permissions.</p>
+<pre><code>test-ossec-lynis03.prod.lan:~/lynis $ ls -lh /etc/clamav/
+-rw-r--r--  1 root   root 2.0K clamd.conf
+-r--r--r--  1 clamav adm   717 freshclam.conf
+drwxr-xr-x  2 root   root 4.0K onerrorexecute.d
+drwxr-xr-x  2 root   root 4.0K onupdateexecute.d
+</code></pre>
+<p>Only root is able to write and the config belongs to clamav. Seems reasonable to me.</p>
+<p>Taking a closer look at the policies, I found that some of them are empty and don't have any rules set. That would explain why so few results showed up in the overview page.</p>
+<p><img src="fredericmohr.github.io/ghostblog/content/images/2015/05/lastbreach1-26.png" alt=""></p>
+<p><img src="fredericmohr.github.io/ghostblog/content/images/2015/05/lastbreach1-27.png" alt=""></p>
+<p>While this makes sense, since it's hard to check for, let's say, every possible backup service that could be in place, it's also kind of misleading since the policies are named after &quot;HIPAA&quot;, &quot;ISO27x&quot; and &quot;PCI-DSS&quot;. Anyone getting a checkmark on these should check the rule tables before the auditor shows up!</p>
+<p><img src="fredericmohr.github.io/ghostblog/content/images/2015/05/lastbreach1-28.png" alt=""></p>
+<p>I'm not an expert in compliance, but I'm pretty sure that each of them has more then 8 things that should be done properly, before you can pat yourself on the shoulder!</p>
+<h3 id="summary">Summary</h3>
+<p>So what have we learned?</p>
+<ul>
+<li>The documentation is lacking in some parts</li>
+<li>Results could be more detailed, especially regarding the source of the problem</li>
+<li>I still don't know what puts me at risk of dataloss</li>
+<li>Now I also don't know which packet puts me at risk of system intrusion</li>
+<li>I also don't know how likely the exploitation of said risks is (linkt to CVSS?)</li>
+<li>I havent' seen a &quot;mark as false positive&quot; or &quot;ignore because can't be fixed&quot; option.</li>
+</ul>
+<p>All in all there is a lot of time that has to go into writing rules before Lynis Enterprise can really be used for compliance checks. On one hand I love it, as it forces people to create checks that fit their environment, on the other hand it would be great to have a ISO27001 rule set premade for some distros - say Ubuntu - to run a quick check and see how the host is holding up.</p>
+<p>What really stopped me from &quot;digging deeper&quot;, is that I wasn't able to figure out how the checks actually worked. I get that &quot;malware running&quot; is marked as compliant, if the &quot;process running&quot; variable contains &quot;clamd&quot;, but what is Lynis, the cli tool actually checking for and more importantly, how can I check the content of &quot;process running&quot; myself? I know it's a OSS tool and I could look at the source code, but that's not how I want to use my time - and your boss wouldn't want you to use yours that way as well. Especially after he payed for the license.</p>
+<p>What I'm getting at is, that as newcomer to Lynis, it's sometimes hard to understand what exactly is being done in the background and how some results came to be.</p>
+<p>I'm looking forward to my next encounter, as I still have to</p>
+<ul>
+<li>write my own compliance rules</li>
+<li>check out historical data, after I fixed and unfixed stuff</li>
+<li>and most of all, find out if LE can actually be of use to the average pentester.</li>
+</ul>
+<p>Also, what's up with that?<br>
+<img src="fredericmohr.github.io/ghostblog/content/images/2015/05/lastbreach1-29.png" alt=""><br>
+I did everything imaginable to get this to show a red cross - without any luck!</p>
+<!--kg-card-end: markdown--><!--kg-card-end: markdown-->]]></content:encoded></item><item><title><![CDATA[Lynis Enterprise – The 1st Encounter]]></title><description><![CDATA[<!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="fredericmohr.github.io/ghostblog/content/images/2015/04/2015_04-CISOfy_Lynis_Braindump.png" alt=""><br>
+I recently got my hands on a trial of Lynis Enterprise, the commercial SaaS version of the open source Linux system auditing software Lynis. In exchange I promised to write about my experience here and share some feedback with the developers.</p>
+<p>I could spent some time with the tool and</p>]]></description><link>fredericmohr.github.io/ghostblog/lynis-enterprise-the-1st-encounter/</link><guid isPermaLink="false">5d024b9ceb8170245371e84c</guid><dc:creator><![CDATA[Frederic Mohr]]></dc:creator><pubDate>Wed, 29 Apr 2015 22:06:08 GMT</pubDate><content:encoded><![CDATA[<!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="fredericmohr.github.io/ghostblog/content/images/2015/04/2015_04-CISOfy_Lynis_Braindump.png" alt=""><br>
+I recently got my hands on a trial of Lynis Enterprise, the commercial SaaS version of the open source Linux system auditing software Lynis. In exchange I promised to write about my experience here and share some feedback with the developers.</p>
+<p>I could spent some time with the tool and write about it afterwards, but instead I decided to write down my thoughts as I stumble across things. That means, that some questions might get answered later down the road, or that I write stuff that seems stupid, but in return this post will be more closely to how really I experienced my first encounter with Lynis. My thoughts? Unfiltered? On (digital) paper? This will get weird - you have been warned!</p>
+<p>I did run the open source version once on one of my servers and scrolled through the results, so to keep this fair, this is what I knew before I started.</p>
+<ul>
+<li>Lynis is in apt-get, but (of course) not in its most current version</li>
+<li>Out of the box, it doesn't run with normal user privileges (that can be fixed though)</li>
+</ul>
+<p><img src="fredericmohr.github.io/ghostblog/content/images/2015/04/pasted_image002-1.png" alt=""></p>
+<ul>
+<li>Lynis can simply be downloaded from cisofy.com and installed</li>
+<li>Lynis ./include/const folder must belong to root if it is run with root privileges</li>
+</ul>
+<p><img src="fredericmohr.github.io/ghostblog/content/images/2015/04/pasted_image003.png" alt=""></p>
+<ul>
+<li>Lynis results look like <a href="https://raw.githubusercontent.com/fredericmohr/hashtagsecurity/master/misc/lynis_example_report.txt">this</a>, but in color.</li>
+</ul>
+<p>Now that we're on equal footing, let's get started.</p>
+<h2 id="setup">Setup</h2>
+<p>The first thing I noticed after I logged into the web console was this.<br>
+<img src="fredericmohr.github.io/ghostblog/content/images/2015/04/pasted_image-1.png" alt=""><br>
+Which is not really a problem, but even though I don't have anything in production at that point, I still immediately asked myself &quot;When exactly will it expire&quot;, followed by &quot;and what type of license do I have?&quot;. The later is a result of me not paying for the trial, otherwise I would have probably known about the type of license I ordered. Or maybe I wouldn't have. Who knows how many licenses I have to manage.</p>
+<p>I almost instantly dropped the questions, as all I wanted to do is setup my first server to send data to LE. Trying to do so, I took a closer look at the overview page, which looks like this.<br>
+<img src="fredericmohr.github.io/ghostblog/content/images/2015/04/pasted_image005-1.png" alt=""><br>
+&quot;OK, so that's my username, I have a trial account, my email, no messages, no subscriptions,... hm, but how do I get started. What's that down there at the bottom, Control Panel, System, Compliance... No wait, that's just the change log. Maybe in the navigation panel? Ah, there it is, in the box on the right. First time user.&quot;</p>
+<p>Don't ask me why it took me so long to find this, but somehow I kept missing it. It could just be me, but I feel if you login for the first time, that box should present itself a little bit more.</p>
+<p>Now then, let's got to the systems page to add the first host...<br>
+<img src="fredericmohr.github.io/ghostblog/content/images/2015/04/pasted_image006.png" alt=""></p>
+<p><strong>Thoughts?</strong></p>
+<pre><code>Hm, adjust config and run with --upload switch.
+Looks easy enough. But what's that -k option? 
+For self signed certificates? 
+
+Maybe that's for the on-premise version.
+
+Yeah probably, but for a moment I felt unsure about this whole thing... 
+Sending my data to the cloud, to a unsigned cert?
+
+Nah, it'll be fine!
+
+...editing config
+...copy paste command
+sudo lynis audit system --quick --upload
+
+Damn, I ran the outdated apt-get version...
+sudo ./lynis audit system --quick --upload
+</code></pre>
+<h2 id="dashboard">Dashboard</h2>
+<p>The Dashboard showed the one host in a &quot;Technical&quot; overview, which I assume includes every option the Dashboard has to offer, while the other two &quot;Business&quot; and &quot;Operational&quot; only showed data regarding those areas.<br>
+What caught my eye though was that &quot;Data Loss&quot; was listed under &quot;Technical Risk&quot;, while at the same time, right next to it a nice, all green circle stated &quot;All systems are compliant&quot;. That strikes me as odd, although I never really thought that being compliant means being safe. Still, it seems strange seeing it on a dashboard for some reason.<br>
+<img src="fredericmohr.github.io/ghostblog/content/images/2015/04/pasted_image007.png" alt=""></p>
+<p>But what else is there? One system, zero outdated. Zero systems or Lynis clients? What's that Average rating. Average compared to? And based on? No events.<br>
+But I though I had risk of data loss. By the way, where can I see what's that all about exactly? Probably by clicking on the host link. But first I'll check out the tags.<br>
+<img src="fredericmohr.github.io/ghostblog/content/images/2015/04/pasted_image008.png" alt=""><br>
+Hm, white font color on white/gray background. For the record, the tags are &quot;firewall&quot;, &quot;ipv6&quot;, &quot;iptables&quot; and &quot;unknown&quot;. The last one fits my question perfectly. &quot;What are these tags for and why is data loss not one of them?&quot;<br>
+<img src="fredericmohr.github.io/ghostblog/content/images/2015/04/pasted_image009.png" alt=""><br>
+I know what tags are for - in general, but why these, and why not data loss. That seems to be the main risk that was identified on this host. Speaking of data loss, let's look for more detail on that.<br>
+Clicking on the host link brought me to this page.<br>
+<img src="fredericmohr.github.io/ghostblog/content/images/2015/04/pasted_image010.png" alt=""><br>
+What have we got here, OS information, Network information and Other. IPv6. Does this mean IPv6 is enabled or that is has been deemed as securely configured?<br>
+There we have the compliance check again, and there is a bit more information on the average rating. So it's average risk rating and it's a comparison to the same OS and over all scanned systems.</p>
+<p>I assume at this point, that this only includes my systems, since there is only one. The tags are readable this time. Scrolling down...<br>
+<img src="fredericmohr.github.io/ghostblog/content/images/2015/04/pasted_image011.png" alt=""><br>
+OK, so file integrity was gray because no checks have been performed. Is there a plugin for that or what do I have to do to get them. Maybe just another switch?<br>
+I think at some point I need to dig through the man page, but for now let's just keep wandering around.</p>
+<p>Wait, I am compliant because I have no policies assigned? That's an easy way out... and a bit confusing to be honest. Why wasn't this gray like the file integrity checks?</p>
+<p>Networking doesn't say anything about being secure, so I guess the green checkmark is about IPv6 being enabled. The same goes for the firewall audit. What else is there?<br>
+No expired certificates, one warning about a misconfiguration in <code>/etc/resolv.conf</code> and a bunch of suggestions to harden the host. These look eerily similar to the compliance checks from Nessus, although they are quite fewer in numbers.</p>
+<p>The only thing that really goes against my personal recommendation is enabling password aging limits. I simply don't believe that chaining passwords increases security, but that's a discussion for another time and place.<br>
+<img src="fredericmohr.github.io/ghostblog/content/images/2015/04/pasted_image013.png" alt=""><br>
+Last but not least, there are a few manual tasks and an empty scan history.<br>
+<img src="fredericmohr.github.io/ghostblog/content/images/2015/04/pasted_image014.png" alt=""></p>
+<h2 id="systemoverview">System Overview</h2>
+<p>Move along, nothing to see here!<br>
+Well, that's not entirely true. While there is only one host listed here, it's easy to see why this page might get useful later on.<br>
+<img src="fredericmohr.github.io/ghostblog/content/images/2015/04/pasted_image017.png" alt=""><br>
+21 Suggestions, 0 Warnings, the host version and name, last updated, Lynis version and of course compliance trickery. With multiple hosts, this will definitely come in handy, although I'm missing a &quot;sort by x&quot; feature.<br>
+Show hidden controls? Of course!<br>
+<img src="fredericmohr.github.io/ghostblog/content/images/2015/04/pasted_image018.png" alt=""><br>
+Bummer.</p>
+<h2 id="compliance">Compliance</h2>
+<p>Right, we haven't done this one yet. We got the checkmark though, that fine right?<br>
+<img src="fredericmohr.github.io/ghostblog/content/images/2015/04/pasted_image019.png" alt=""><br>
+Hm, but High Secure does have a nice ring to it and I wanna try the others as well. Maybe I'll even create a custom one – for Cyber. But before that, let's finish the round through the navigation panel.</p>
+<h2 id="fileintegrity">File Integrity</h2>
+<p>This page doesn't give much more information then the gray area in the dashboard did. I still wonder why Lynis didn't run file integrity checks. Or what I have to do in order to get them running. This would be a good place for a quick howto. <em>hint</em><br>
+<img src="fredericmohr.github.io/ghostblog/content/images/2015/04/pasted_image020.png" alt=""></p>
+<h2 id="reports">Reports</h2>
+<p>Ignoring the Improvement Plan page, which is more of a documentation page then a feature, brought me to reports.<br>
+<img src="fredericmohr.github.io/ghostblog/content/images/2015/04/pasted_image021.png" alt=""><br>
+Systems and applicable controls is basically just a list of hosts with their associated suggestions. It's nice to have it all in one place, but not worth yet another giant screenshot.<br>
+My systems overview and Systems without compliance policy is fairly obvious. It's the same thing as the Systems Overview page, with or without compliance policies. There is but one difference.<br>
+<img src="fredericmohr.github.io/ghostblog/content/images/2015/04/pasted_image022.png" alt=""><br>
+Needless to say, I instantly copied the report data into LibreOffice Calc. The result looks... well, bad.<br>
+<img src="fredericmohr.github.io/ghostblog/content/images/2015/04/pasted_image023.png" alt=""><br>
+I know, it's to small to read, but that's the overall structure of the report. Something tells me that won't be used much by anyone - unless I just did it wrong, or Libre Calc is nobody's favorite spreadsheet software. Anyway, an export to spreadsheet, csv, pdf function would be swell.</p>
+<h2 id="configuration">Configuration</h2>
+<p>The final page in the main navigation is configuration, which didn't bring much enlightenment to tell the truth.<br>
+<img src="fredericmohr.github.io/ghostblog/content/images/2015/04/pasted_image024.png" alt=""><br>
+So both Lynis and Lynis Control Panel are up to date. I guess the later is just interesting to people running the on premise version. No Lynis plugins found. Ok, so how do I get some?<br>
+This would be the right place for a link to, say, a plugin repository or at least the part of the documentation explaining how to get and use plugins.</p>
+<p>But let's continue with the Modules section. Most of these were either links to pages we already saw, or simply not clickable. The others were rather short in content.<br>
+<img src="fredericmohr.github.io/ghostblog/content/images/2015/04/pasted_image025.png" alt=""><br>
+Ok, so no events. That might change once a few more hosts are scanned.<br>
+<img src="fredericmohr.github.io/ghostblog/content/images/2015/04/pasted_image026.png" alt=""><br>
+Nope. Let's skip that.<br>
+<img src="fredericmohr.github.io/ghostblog/content/images/2015/04/pasted_image027.png" alt=""><br>
+Ah, there is something new. Security Controls. What's that for? Maybe the link will tell us more?<br>
+<img src="fredericmohr.github.io/ghostblog/content/images/2015/04/pasted_image028.png" alt=""><br>
+So it's advice on how to correct the specified flaws. Neat! It even has Ansible, CfEngine, Chef and Puppet snippets.<br>
+<img src="fredericmohr.github.io/ghostblog/content/images/2015/04/pasted_image029.png" alt=""><br>
+Or it doesn't. What's the checkmark for then I wonder.</p>
+<h2 id="summary">Summary</h2>
+<p>What you've just read is literally a brain dump. I wrote down everything while looking at Lynis Enterprise for the first time. I don't really have an opinion on it yet, other that I like it (no reason) and that I think it has potential to help Linux admins keep an eye on their hosts.</p>
+<p>I will take a closer look on file integrity and compliance checks and write about that in a more traditional manner. I will also try to figure out, how Lynis can benefit penetration testers in their work. It is clearly thought of as a program that should be used for continuous auditing, so I'm curious how much help it will be in one time assignments. Especially in regards to the difference between the enterprise and open source versions.</p>
+<p>After that, I probably have to take a closer look at the Lynis config file and documentation to answer questions like &quot;Can I tell Lynis that password aging is stupid&quot; or &quot;How do I add/enable/run plugins?&quot;.</p>
+<p>PS: @Michael, if you're reading this. I like the Business dashboard for management, but I still don't know why I'm at risk of data loss. That's probably the first question any auditor will have to answer. Maybe I just missed it, or maybe a link to the cause in the dashboard isn't such a bad idea.</p>
+<!--kg-card-end: markdown--><!--kg-card-end: markdown-->]]></content:encoded></item><item><title><![CDATA[Change OpenVAS Session Time]]></title><description><![CDATA[<!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="fredericmohr.github.io/ghostblog/content/images/2015/04/pasted_image005.png" alt=""><br>
+Here is a small piece of knowledge that prevented me from going nuts. Set you OpenVAS session expiry time before it drives you crazy!</p>
+<p>Openvas is a great vulnerability scanner, but the default session expiry time is set to 15 minutes, which is just plain annoying when you're running a</p>]]></description><link>fredericmohr.github.io/ghostblog/change-openvas-session-time/</link><guid isPermaLink="false">5d024b9ceb8170245371e84b</guid><dc:creator><![CDATA[Frederic Mohr]]></dc:creator><pubDate>Sun, 26 Apr 2015 09:52:55 GMT</pubDate><content:encoded><![CDATA[<!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="fredericmohr.github.io/ghostblog/content/images/2015/04/pasted_image005.png" alt=""><br>
+Here is a small piece of knowledge that prevented me from going nuts. Set you OpenVAS session expiry time before it drives you crazy!</p>
+<p>Openvas is a great vulnerability scanner, but the default session expiry time is set to 15 minutes, which is just plain annoying when you're running a scan and want to check in on it every know and then.</p>
+<p><img src="fredericmohr.github.io/ghostblog/content/images/2015/04/lastbreach02.png" alt=""></p>
+<p>Set Session Expire Time in GreenboneSecurityAssistant (GSA) to 60 Minutes by adjusting the init script. Depending on your installation and linux distro this file might be named different.</p>
+<pre><code>sudo vi /etc/init.d/openvas-gsa
+
+#Look for the Daemon startup parameters and add 
+--timeout 60
+</code></pre>
+<p><img src="fredericmohr.github.io/ghostblog/content/images/2015/04/pasted_image.png" alt=""></p>
+<p>Restart the service and login again in the web interface. Check the cookie for it's expiration time.<br>
+You can check your cookies in Firefox from the Privacy tab in the Settings by clicking on the &quot;remove individual cookies&quot; link and searching for GSA.</p>
+<p><img src="fredericmohr.github.io/ghostblog/content/images/2015/04/pasted_image001.png" alt=""></p>
+<p>Check the expiry date, it should have a difference of 60 minutes from your login time.</p>
+<!--kg-card-end: markdown--><!--kg-card-end: markdown-->]]></content:encoded></item><item><title><![CDATA[Disqus to fully support CSP]]></title><description><![CDATA[<!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="fredericmohr.github.io/ghostblog/content/images/2015/03/2015_03-Disqus_CSP_support.jpg" alt=""><br>
+I already blogged about my <a href="https://hashtagsecurity.com">problems with Disqus</a> and the Content Security Policy header <a href="fredericmohr.github.io/ghostblog/csp-disqus-are-buddies/">twice</a>, but recent changes in Disqus made me revisit the whole topic.</p>
+<p>Burak Yiğit Kaya, developer at Disqus, made a few changes we discussed about a month ago, that would improve the coexistence of Disqus and</p>]]></description><link>fredericmohr.github.io/ghostblog/disqus-fully-supports-csp/</link><guid isPermaLink="false">5d024b9ceb8170245371e84a</guid><dc:creator><![CDATA[Frederic Mohr]]></dc:creator><pubDate>Sun, 01 Mar 2015 16:42:15 GMT</pubDate><content:encoded><![CDATA[<!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="fredericmohr.github.io/ghostblog/content/images/2015/03/2015_03-Disqus_CSP_support.jpg" alt=""><br>
+I already blogged about my <a href="https://hashtagsecurity.com">problems with Disqus</a> and the Content Security Policy header <a href="fredericmohr.github.io/ghostblog/csp-disqus-are-buddies/">twice</a>, but recent changes in Disqus made me revisit the whole topic.</p>
+<p>Burak Yiğit Kaya, developer at Disqus, made a few changes we discussed about a month ago, that would improve the coexistence of Disqus and CSP on a website. While both could be run together before, these improvements transform the from a dirtily hacked state into a real dream team.</p>
+<p>If you ever implemented CSP on a site that includes third party components, which today nearly every site does in some form of social integration plugin, you know how many different hosts, urls and objects have to be whitelisted. And even if you whitelist everything, some cloud services depend on things like inline javascript, CSS or even the dreaded eval function (shudder).</p>
+<p>Back when Burak first contacted me, we came up with a few ideas on how to improve Disqus to work better with CSP, such as</p>
+<ul>
+<li>remove all inline CSS</li>
+<li>remove all inline Images (data:base64=…)</li>
+<li>Unify all ressources under two distinct domains,</li>
+<li>a.disquscdn.com for static content (cookieless domain)</li>
+<li>disqus.com for dynamic content</li>
+</ul>
+<p>I'm happy to report that all of the above improvements have now been implemented, which I think is awesome news. There is one more thing on the to-do list, which Burak said, he has yet to solve.</p>
+<ul>
+<li>move the beacon pixel at referrer.disqus.com to the other domain.</li>
+</ul>
+<p>The last one isn't really that important, but it removes one domain from the policy, which is always a good thing as it keeps the ruleset shorter and thus easier to maintain. But why is it so important to have a good integration with CSP? If the hack worked, why should Disqus care about a proper fix and more importantly – why should they spend resources on this?</p>
+<p>For one, supporting security features like CSP, and actually working together with people who have  questions, concerns or ideas for improvement on a products security, shows that a company actually cares. Of course, that's what every company always claims – especially in the light of any recent security fails – but here we have actual proof.</p>
+<p>There is more to it then that though. Up until now, getting CSP and Disqus on the same page required to either block certain requests or allow them via unsafe CSP options. I'm talking about things like inline CSS, images embedded as base64 encoded strings and alternate domains that serve nice-to-have content such as icons. Of course diminishing the security of our CSP is not really an option, but blocking sources in favor of keeping <code>unsafe-*</code> options disabled is also a bad choice, as it results in your CSP logs getting spammed with violations. You do log your violations, don't you?</p>
+<p>The CSP logs are a great way of receiving notifications as soon as someone stumbles across a potential XSS vulnerability and starts tinkering with it. If code is injected successfully, the CSP will block it and create a new entry in the log files. All you need to do is setup CSP and make sure that normal browsing of your site doesn't create any violations. Once your site is clean, setup some form of notification for anything that hits the logs.</p>
+<p>Of course that's only an option when your site is actually clean and not constantly throwing violation errors in your face.</p>
+<p>Finally, Burak told me that he wanted to write a howto on using Disqus with CSP, which is great.</p>
+<p>If you're curious as how my CSP looks, just take a look at my HTTP headers with</p>
+<pre><code>curl -I https://www.hashtagsecurity.com
+</code></pre>
+<p>This should give you the full ruleset, among other headers I've set.<br>
+If you have questions about CSP, use the comments, contact me on <a href="https://twitter.com/HashtagSecurity">Twitter</a>, or check out <a href="fredericmohr.github.io/ghostblog/csp/">my CSP talk</a>.</p>
+<!--kg-card-end: markdown--><!--kg-card-end: markdown-->]]></content:encoded></item><item><title><![CDATA[Protect Your Data]]></title><description><![CDATA[<!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="fredericmohr.github.io/ghostblog/content/images/2015/02/2015_02-htsec_protect_your_data.jpg" alt=""><br>
+Are cloud services safe to use, or are you better of creating your own data castle? Let's take a look at the difference between cloud services and self hosted solutions, and why trust is a key part of security.</p>
+<p>Cloud services have become widely used over the past years, and</p>]]></description><link>fredericmohr.github.io/ghostblog/dyi-home-cloud-security/</link><guid isPermaLink="false">5d024b9ceb8170245371e847</guid><dc:creator><![CDATA[Frederic Mohr]]></dc:creator><pubDate>Tue, 24 Feb 2015 19:25:00 GMT</pubDate><content:encoded><![CDATA[<!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="fredericmohr.github.io/ghostblog/content/images/2015/02/2015_02-htsec_protect_your_data.jpg" alt=""><br>
+Are cloud services safe to use, or are you better of creating your own data castle? Let's take a look at the difference between cloud services and self hosted solutions, and why trust is a key part of security.</p>
+<p>Cloud services have become widely used over the past years, and it looks like they'll be around for a while. But there are many concerns about the users privacy and the security of the stored data, both by professionals as well as the users of these services.</p>
+<p>With government surveillance, the Snowden leaks and general cloud security fails, like the Apple iCloud incident, many decided to take back control over their data and store it somewhere “safe”. But is hosting the data yourself really safer then the majority of cloud services?</p>
+<h3 id="cloudsecurity">Cloud Security</h3>
+<p>It's hard to tell whether a cloud service is safe to use or not. In all but a very few cases you get little to no insight in how data is secured, how the overall company security is setup and how your data is insured. That's right, insurance also plays a part. What if your sensitive data is being leaked by a pissed of employee? As a private user, such an incident might sting, but as a company this can be a real threat to existence, if the leaked data contains business critical information.</p>
+<p>Data safety might also be an issue. This new product might be all the rage at the moment, but is the small startup company behind it able to afford backups or is a RAID3 all that's protecting your data from being lost for good?</p>
+<p>In the end, all you can do is research and ask. Try to find out as much as possible about the service and company you want to entrust with your data, and don't be afraid to ask them about their security. Your first response is usually “We take security very seriously”, but if you persistently ask specific questions, you might just get a real answer.<br>
+Important things to keep in mind are</p>
+<ul>
+<li>Data Backups - If possible in a second datacenter or availability zone.</li>
+<li>2 Factor Authentication – User logins alone might no be enough to secure your login.</li>
+<li>Reputation – Are there any know security issues in the past? Is the company known at all?</li>
+<li>Data Control – Can you delete data for good? Or is it stored in the cloud forever?</li>
+</ul>
+<p>[Just a thought] – A security related questionnaire for cloud service providers, and a public index of companies that already provided answers to these would be a swell idea. Let me know if you're building, or know of, such a service.</p>
+<p>Of couse you could just decide to only trust yourself and do your own thing, and that's exactly the reason for this post. Over the past two years, I met lots of people who decided to go their own way, despite having next to no knowledge of how these things work.</p>
+<h3 id="canyoudobetterbr">Can you do better?<br></h3>
+<p>The big question is, if you can do it better. Since trust in cloud services has taken a huge hit, self hosted application have become a popular alternative. But there are many things to consider if you want to roll your own “cloud”.</p>
+<ul>
+<li>Do you know how to secure your server and the application that is running on it?</li>
+<li>Do you have the time to continuously apply patches to both system and application</li>
+<li>Do you have the time to regularly check for misconfiguration and security holes?</li>
+<li>Do you have enough space to make backups (not on your server!)</li>
+</ul>
+<p>Or in short</p>
+<ul>
+<li>Do you have ALL the required resources to do this?</li>
+</ul>
+<p>If you're answer is yes, then you should ask yourself one more question. Is it worth it? A lot of money, time and nerves is spent on hosting your own cloud applications in a secure manner, and since you started all of this because you want to protect your data, doing it in an insecure way would just be you, lying to yourself, about the security and safety of your data.</p>
+<p>There are of course ways to minimize the risk and required level of trust to use cloud services, such as encrypting everything before uploading it – just in case you feel a bit lost right now.</p>
+<p>Let me get one thing straight, I'm not trying to discourage anyone from running their own server. In fact, I would love to encourage anyone who wants to take back control over their data. I'm running my own server(s) for a couple of years now and I'm pretty happy with it. But I also want people to actually increase their security.</p>
+<pre><code>Feeling safe != being safe
+</code></pre>
+<p>The thing is, no matter what you do, when it comes to security, there will always be some level of trust involved. The further you minimize the required amount of trust in the ability and intentions of others, the more the required amount of resources will increase.</p>
+<p>For example, you could host your own Owncloud instance on a hosted vserver. Now you don't have to handover your data to Dropbox, Google or other services like theirs. But know, you have to put your trust in others.</p>
+<p>You trust the Owncloud developers and the company behind them to do a good job at writing secure code and not harboring ill intentions towards their users (or any government enforcement against them). Also, you probably trust the community behind the project to keep and eye out for any bugs, vulnerabilities or suspicious occurrences regarding the project. Next, you trust the hoster that provides you with the vserver you rented, to be honest enough not to copy all the data you store on your server somewhere else, where it would be outside of your control.</p>
+<p>Of course you could move everything to a local NAS running inside your home network, removing the issue with trusting a cheap hosting company, but probably suffering way slower connection speeds if you need your cloud to be available wherever you go.</p>
+<h3 id="raisethebarkeepthebalancebr">Raise the bar, keep the balance<br></h3>
+<p>Security is all about raising the bar, but you still have to keep the balance between higher security and required resources to do so. There is no absolute solution and everyone has to decide whats the best choice for themselves. So be sure to ask yourself these questions</p>
+<ul>
+<li>Am I really improving on what I already have?</li>
+<li>Do I have the required resources to do so?</li>
+<li>Is it worth the extra effort and do I want to spend my spare time on this?</li>
+<li>Is there no cheaper way (time, effort, money) to increase security?</li>
+</ul>
+<p>Especially the last part is often interesting. A compromise of cloud services and local encryption might help a lot of people get over the trust issue, without falling into a pit of increased work, lost time and most likely spent money.<br>
+Summary</p>
+<p>These are just a few thought that have been rumbling around inside my head, after I talked to a few people about home cloud setups. Most of these people have few to no knowledge about service administration or security, which is why I was a bit torn apart between recommending for and against it.</p>
+<p>Please share your thoughts on this with me, if you have any, either via Twitter <a href="https://twitter.com/HashtagSecurity">@HashtagSecurity</a> or in the comment section below.</p>
+<!--kg-card-end: markdown--><!--kg-card-end: markdown-->]]></content:encoded></item><item><title><![CDATA[(W)BP#3 - HAProxy SNI, IPython, PostgreSQL and VIM]]></title><description><![CDATA[<!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="fredericmohr.github.io/ghostblog/content/images/2015/02/del1-2.png" alt=""><br>
+A new bucket post - I will change them from weekly to &quot;whenever I feel like it&quot;. Mainly because I can't find the time to write actual posts between the bucket posts and I don't want this blog to consist solely of bucket posts.</p>
+<p><strong>SSL Client Certificate Support</strong></p>]]></description><link>fredericmohr.github.io/ghostblog/wbp3/</link><guid isPermaLink="false">5d024b9ceb8170245371e848</guid><dc:creator><![CDATA[Frederic Mohr]]></dc:creator><pubDate>Sat, 14 Feb 2015 13:14:53 GMT</pubDate><content:encoded><![CDATA[<!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="fredericmohr.github.io/ghostblog/content/images/2015/02/del1-2.png" alt=""><br>
+A new bucket post - I will change them from weekly to &quot;whenever I feel like it&quot;. Mainly because I can't find the time to write actual posts between the bucket posts and I don't want this blog to consist solely of bucket posts.</p>
+<p><strong>SSL Client Certificate Support for Owncloud</strong> - Meanwhile on the interwebs, the support for client certificate authentication in Owncloud's desktop client &quot;Mirall&quot; <a href="https://github.com/owncloud/client/issues/69">is progressing</a>. So I didn't do anything and I didn't learn anything... why is this even here?</p>
+<p>Because I'm really looking forward to it! In fact, I'm planning on writing a blog post about the lack of support for additional authentication layers in desktop applications next week!</p>
+<p>Also, I'm curious who will claim <s>my</s> <a href="https://www.bountysource.com/issues/905047-ssl-client-certificate">the bounty</a>! I assume <a href="https://github.com/qknight">@qknight</a>.</p>
+<p><strong>Windows NTP Problems Round 2</strong> - Apparently my &quot;fix&quot; from <a href="https://www.hashtagsecurity.com/wbp2/">last weeks post</a> didn't really fix my time issue with Windows 8. After a reboot, the clock is automatically set be off by one hour. Fortunately a friend of mine read the post and send me this link.</p>
+<p><a href="http://www.webupd8.org/2014/09/dual-boot-fix-time-differences-between.html">Dual Boot: Fix Time Differences Between Ubuntu And Windows</a></p>
+<p>The problem lies in my dual boot setup of Kubuntu 14.04 and Windows 8.1. For me the solution was this command.</p>
+<pre><code>sudo sed -i 's/UTC=yes/UTC=no/' /etc/default/rcS
+</code></pre>
+<p>If you want to fix the problem using Windows, checkout the link above. There is more then one way to do this.</p>
+<p><strong>SNI with HAProxy</strong> - Last week I encountered a few problems with HAProxy and Server Name Indication, or SNI.</p>
+<p>SNI is used by webservers, to distinguish between multiple SSL/TLS vhosts. In a normal HTTP setup, webservers can easily tell which site is requested. When TLS is in place, this becomes impossible without decrypting the traffic. In order to be able to have multiple websites hosted on the same IP and port (443), the client is required to send the hostname before transport encryption is established. That's exactly what SNI does.</p>
+<p>Usually SNI allows you to create different vhosts like this (pseudo code)</p>
+<pre><code>www.example.com:443
+  www.example.com settings
+private.example.com:443
+  private.example.com settings
+</code></pre>
+<p>In HAProxy however, it looks more like this (pseudo code)</p>
+<pre><code>*:443
+  use_backend www if sni is www.example.com
+  use_backend private if sni is private.example.com
+</code></pre>
+<p>The problem here is, that a lot of settings are done in the frontend, not the backend and therefore some settings cannot be set vhost specific. I found a solution to this problem, which I documented on <a href="http://serverfault.com/questions/662662/haproxy-with-sni-and-different-ssl-settings">serverfault.com</a>. If I find the time, I'll write a blog post that will explain everything in more detail.</p>
+<p><strong>Seriously, why is this never documented???</strong> - following a howto about something that includes PostgreSQL on Ubuntu 14.04 is always a pain. Mainly because these two lines seem to be missing every single time!</p>
+<pre><code>$ sudo useradd -U -s /bin/bash postgres
+$ sudo pg_createcluster 9.3 main --start
+</code></pre>
+<p><small>source: <a href="http://askubuntu.com/questions/463594/starting-postgresql-server-postgres-user-unknown">askubuntu.com</a></small></p>
+<p><strong>IPython Notebook</strong> - Looking for a new web based notebook? I did! And I found &quot;IPython Notebook&quot; which is, to keep it short, awesome.<br>
+To showcase a few of the many features I like...</p>
+<p><small>Run Python code</small><br>
+<img src="fredericmohr.github.io/ghostblog/content/images/2015/01/del1-7.png" alt=""><br>
+<small>Use Markdown</small><br>
+<img src="fredericmohr.github.io/ghostblog/content/images/2015/01/del1-8.png" alt=""><br>
+<small>Preview</small><br>
+<img src="fredericmohr.github.io/ghostblog/content/images/2015/02/del1-3.png" alt=""></p>
+<p><strong>VIM modelines</strong><br>
+VIM modelines look something like this<br>
+<img src="fredericmohr.github.io/ghostblog/content/images/2015/01/del1-10.png" alt=""><br>
+and can be used to set VIM settings for specific files. By appending the modeline, VIM will adjust the global settings accordingly, unless modelines is disabled.</p>
+<p>Modelines can be temporarily enabled by running <code>:verbose set modeline</code> or permanently by adding <code>set modeling</code> to your <code>~/.vimrc</code>.</p>
+<p>Note that modelines <a href="http://vim.wikia.com/wiki/Modeline_magic">is off by default when editing as root.</a>.</p>
+<p><strong>VIM jar</strong> - VIM never ceases to amaze me, and the limit to things one can learn about it seems to be non-existent.</p>
+<p>I looked for a tool to explore the contents of a jar file. As it turns out, it's just a zipped archive so unpack it and that's it - however, you could just open it with vim and have a look around without extracting the files first.</p>
+<p>If you have unzip installed that is.<br>
+<img src="fredericmohr.github.io/ghostblog/content/images/2015/02/del1.png" alt=""></p>
+<p>I usually use tar, so unzip is something I don't have installed by default but know I might just have enough reason to install it as well.<br>
+<img src="fredericmohr.github.io/ghostblog/content/images/2015/02/del1-1.png" alt=""></p>
+<p><strong>Kubuntu on L420</strong> - Just a quick addition, I recently bought a Thinkpad L420 for 220€ on ebay. Unfortunately Kubuntu only booted with the <code>acpi=off</code> and <code>nolapic</code> flags. After a BIOS upgrade with this <a href="http://support.lenovo.com/us/en/downloads/ds013626">boot CD</a> everything worked fine. Just in case anyone faces this issue as well.</p>
+<p><strong>Links</strong> - Interesting things I found on the webs</p>
+<ul>
+<li><a href="https://github.com/KeyboardFire/mkcast">https://github.com/KeyboardFire/mkcast</a></li>
+</ul>
+<!--kg-card-end: markdown--><!--kg-card-end: markdown-->]]></content:encoded></item><item><title><![CDATA[Security vs. Compatibility - Fight!]]></title><description><![CDATA[<!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="fredericmohr.github.io/ghostblog/content/images/2015/01/sec_vs_compatability.jpg" alt=""><br>
+How do you secure a web page for private use? Easy if you ask me, use client certificates and a secure connection over TLS, preferably with a signed certificate.</p>
+<p>So far so great, the website is pretty secure know as only someone with the right certificate can visit it. But</p>]]></description><link>fredericmohr.github.io/ghostblog/security-compatibility-and-the-web/</link><guid isPermaLink="false">5d024b9ceb8170245371e844</guid><dc:creator><![CDATA[Frederic Mohr]]></dc:creator><pubDate>Wed, 04 Feb 2015 19:40:55 GMT</pubDate><content:encoded><![CDATA[<!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="fredericmohr.github.io/ghostblog/content/images/2015/01/sec_vs_compatability.jpg" alt=""><br>
+How do you secure a web page for private use? Easy if you ask me, use client certificates and a secure connection over TLS, preferably with a signed certificate.</p>
+<p>So far so great, the website is pretty secure know as only someone with the right certificate can visit it. But what about compatibility with client programs? Well - fuck!</p>
+<p>Turns out, most endpoint clients don't really support additional authentication mechanisms. In a best case scenario, one login with a strong password should be sufficient to secure something. However, I like to add additional layers of security to prevent possible flaws in the web application from ruining my day.</p>
+<p>Here are some additional layers we could use to increase security.</p>
+<ul>
+<li><em>HTTP Proxy</em> - Add additional authentication running the webapp behind a web proxy</li>
+<li><em>Client Certificates</em> - The secure connection to the server requires the client to provide a valid certificate before browsing the site</li>
+<li><em>Basic Auth</em> - Webservers often offer a basic authentication mechanism, requiring a valid login to connect to the requested site</li>
+<li><em>VPN</em> - Running the web application inside a private network, forcing users to be connected to the network either physically or virtually.</li>
+</ul>
+<p>The first three share the same problem, not all client software supports these authentication mechanisms. If any is supported at all it would be the proxy, but even that's not available everywhere. Plus, you'd need to set a rule in your browser to only use the proxy for that single domain, otherwise you're browsing everywhere via proxy, which can have a pretty hefty impact on your browsing performance.</p>
+<p>Client certificates and basic-auth are easy to setup and also pretty secure, providing that the underlying connection is not flawed. However, they enjoy even less support in client software except for common browsers, which can put you in the situation of having to choose between the client or the security layer.</p>
+<p><em>&quot;You could always use SSH and open a tunnel between the web application and the client!&quot;</em> - that's a dirty hack! We're not going to talk about that! It works, yes. But I don't see it as a good, permanent solution.</p>
+<p>It seems to me, that VPN is the clear winner here. It's independent of client software and can be run in split-tunnel mode. This is pretty much all theory though, spun together in that head of mine. I would like to know If any of my potential readers have thoughts (or dare I even say opinions) on this, especially the use of VPN as alternative to the other solutions.</p>
+<p>Tweet to <a href="https://twitter.com/HashtagSecurity">@HashtagsSecurity</a> or use the comment system below.</p>
+<!--kg-card-end: markdown--><!--kg-card-end: markdown-->]]></content:encoded></item><item><title><![CDATA[We got hacked! Now what?]]></title><description><![CDATA[<!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="fredericmohr.github.io/ghostblog/content/images/2015/01/hacked_now_what-1.jpg" alt=""><br>
+Almost a year ago, I experienced my first real security incident. The company's bulletin board was compromised and it was my job to oversee and coordinate the incident response. The teams and I where pretty much thrown into the cold water, as we've never experienced an incident of that size</p>]]></description><link>fredericmohr.github.io/ghostblog/we-got-hacked-now-what/</link><guid isPermaLink="false">5d024b9ceb8170245371e825</guid><dc:creator><![CDATA[Frederic Mohr]]></dc:creator><pubDate>Thu, 29 Jan 2015 13:26:51 GMT</pubDate><content:encoded><![CDATA[<!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="fredericmohr.github.io/ghostblog/content/images/2015/01/hacked_now_what-1.jpg" alt=""><br>
+Almost a year ago, I experienced my first real security incident. The company's bulletin board was compromised and it was my job to oversee and coordinate the incident response. The teams and I where pretty much thrown into the cold water, as we've never experienced an incident of that size before.</p>
+<p>Right after the incident I wrote the following blog post, which I'm now able to publish. Please note that I didn't change anything deliberately, as I wrote it back when my memories on everything where still fresh in all detail.</p>
+<h3 id="anoteupfront">A note up front!</h3>
+<p>Please note that this is a private blog and although I <s>am</s> was an employee of CHIP Digital GmbH, all opinions depicted here are solely my own!</p>
+<p>This is a write-up of last weeks events from my perspective and how I experienced it.</p>
+<p>If you're not from Germany, you might have missed the news that the bulletin board at forum.chip.de was hacked. CHIP is a technical magazine targeted to end users and the board has around 2.4 million registered users. Not all of them are active, some have never even activated their account but it's still a decent amount of users. Unfortunately, this only makes it so much worse if there is a breach.</p>
+<h3 id="sowhathappened">So what happened?</h3>
+<p>Well, if you speak German you can read the official statement <a href="http://www.chip.de/artikel/CHIP-Forum_68832986.html">here</a> or try your luck with the Google translator.</p>
+<p>In summary, on Monday, 24.03.2014, someone gained unauthorized access to our bulletin board. As of right now, still don't know how they got access but the compromised account in question had at least some higher permissions, allowing the attacker to compromise further employee accounts. As soon as we noticed that there was something fishy going on, we took the system offline and notified users that the board is under maintenance. We hired external forensic experts to secure any evidence of the breach and analyze the system, so we could figure out what happened, and how it happened. Once we were told that there is a chance that user data has been accessed, we notified all email addresses in the database (2.4M).</p>
+<p>At the time of this writing, we're still unsure if user data has been stolen.</p>
+<h3 id="butthereismore">But there is more!</h3>
+<p>All of the above seems quite simple. We got hacked, we hired forensic experts, we notified our users.</p>
+<p>First of all, there are some points I want to make clear:</p>
+<ol>
+<li>First contact: I've never worked with forensic analysts before</li>
+<li>As you might have guessed, this is one of those situations that are hard to prepare for</li>
+<li>Yes, we made mistakes! (We're not perfect! Again - my opinion!)</li>
+<li>Time ran really fast this week...</li>
+</ol>
+<p>That being said, let's take a closer look at my last week.</p>
+<h3 id="monday">Monday</h3>
+<p>I have to admit my first mistake right here - I didn't check my mail. I went home after work and didn't check my phone. That's why I missed out on a lot of information. If I had checked my mail, I might have been able to make a decision much earlier. This wouldn't have prevented the incident, but we might have been able to get forensics at Tuesday morning.</p>
+<h3 id="tuesday">Tuesday</h3>
+<p>I checked my mails during breakfast and that's where all the information hit me in one big wave. It was from that point on, that I didn't had a real brake for a good amount of time (and I wasn't the only one!). So I rushed to work and tried to figure out what exactly happened, who got what information and if anyone had come up with some sort of plan.</p>
+<p>Before I continue, I have to thank all my co-workers for doing a really great job! (Don't even think about me doing all the work - I was quite busy, but there where a lot of people who gave everything!)</p>
+<p>Just before the first meeting was called in, I managed to contact a forensics company and asked if they had someone who could come in ASAP. They had to check - which meant I had to wait. It didn't matter, because I had just enough time to rush to the meeting which was about to begin. Why even bother with meeting in a situation like this? Well, as it turns out the meetings where (although exhausting) really important as they kept us focused on what's important and in-sync information wise. The first one was a bit chaotic, since almost all colleagues from the technical department where attending and we had to find out what we knew and how we would go about fixing it. But it was a good way to figure out who would join which team, and who had the necessary know-how to help which party.</p>
+<p>Overall there where four main teams. (I'm deeply sorry if I missed anyone. These are not all of the people that helped, just a rough overview of the main groups)</p>
+<p><strong>The forensics team</strong><br>Charged with the analysis of the systems, this &quot;team&quot; consisted of one of my co-workers, me and of course the forensic experts. We had one analyst with us on-site, and it was our job to support him (from here on called Mr. M.) by handing him logfiles, database dumps, giving him physical access to the servers and answering all of his questions.</p>
+<p><strong>The &quot;Revive&quot; team</strong> <br><br>
+I call it that, since &quot;Revive&quot; is the word from their whiteboard that got stuck in my mind. These guys where busy the whole time, getting the board back online in a secure way so that users could login and interact again. Their first goal on Tuesday was to get the board back online in read-only mode. The system was set to read only so that the content was available again (on new servers of course!) but couldn't be tampered with in case the attacker returned. The second goal was to setup the whole board with tightened security on new hardware, since the old one couldn't be used. You might think that setting up a bulletin board is an easy task, but this system is very complex and they had to jump through quite a few hoops in order to get there. This was by far more than just recovering a backup. We didn't even know if the backups could be trusted! - This is all you will be hearing from this team, since I wasn't part of it. But for me it was an amazing example of their skills put to the test and I'm glad to be working with such great people!</p>
+<p><strong>The communication team</strong><br><br>
+The communication team was a bit vaguely defined since a lot of people had part of it at some point, but the core of it included of course our public relations manager, top level management, part of the community team and myself (mostly for technical questions). This team was formed after the meeting and put in charge of informing our users and handling communication through out the company and with our data privacy officer, lawyers and such. They had to gather and distribute all information, sort it and make decisions based on it - and they made the right ones in my opinion!</p>
+<p><strong>The community team</strong><br><br>
+This is the only real team. The community team normally moderates the bulletin board, as well as social media like Twitter, Youtube and the like. Aside from their role in the communication team, they had to answer all questions that came in, some of which had to be checked with forensics in order to avoid spreading rumors or making statements that where not true (or not yet declared as facts by Mr. M).</p>
+<p>As you can see, a lot of people had to make sure everyone was up to date on the information, which was a lot of work that had to be done on the side. After the meeting, I called back our forensics contact and he told me that one of his analysts (Mr. M.) could be on-site in about two hours. Once Mr. M. arrived, we had to brief him on the incident and he quickly explained the next steps. First of all we had to take a complete dump of the compromised servers hard disk, since that takes a long time to finish. In case you wonder - no, you can't use your standard backup software. He didn't need a backup of the files on the disk, but a complete image the disk. We handed Mr. M. our webserver log files and dumped the complete database so he could analyze it. We spent the rest of the day going through log entries line by line and trying to figure out which IPs belonged to the attacker and which actions where taken. Mr. M. took the files back to his lab, where he continued to work on till late at night.</p>
+<h3 id="wednesday">Wednesday</h3>
+<p>Wednesday morning, we drove back to the data center to get the disk image. Unfortunately I had made a mistake when calculating the approximate time the dump process would take so the image wasn't done yet. First of all, I used the size of the data stored on the disks and compared it to the data transfer speed, which was wrong because the size of a complete image is obviously not the size of data stored, but of the complete disk array. The second mistake I made is that I trusted my own calculation. I could have checked if the copy job was finished from my workstation and we lost valuable time because of that.</p>
+<p>Since we couldn't analyze the disk image we continued to analyze logfiles and the database dumps. It was helpful that we had the (tamper-proof) webserver logs from Akamai to cross-reference if any of our logfiles had been tampered with. Later that day we found first signs of a possible access to the database. At this point, it was still just guessing but we decided that we needed to go public if there is a possibility that user data has been accessed.  That was also the point where I started to jump between the forensics and the communications team. I became in charge of making sure that any publicized information was correct (from a technical or forensic point of view). The thing we wanted to avoid the most, was that rumors or even wrong information got out.</p>
+<p>Much later, we went back to the data center to get the disk images, which Mr. M. took back to his lab in order to analyze them properly. I did get to go home, but I spent the rest of my evening documenting everything I knew so we where all on the same page.</p>
+<h3 id="thursday">Thursday</h3>
+<p>On Wednesday evening we had made the decision to go public and that the message should go out to our users the next day at 15:00. It bugged me, that we would wait so long until we would send the message, but as it turned out we needed the time and I'm glad that our management new better than I did. Preparing a message in two both German and English was one thing, because we had to discuss the phrasing and what we could write (again, we didn't want to spread rumors, but tell people what we knew so far). The other thing was to prepare a short FAQ on what people should and could do to be safe in the meantime. The biggest problem however was handling the amount of outgoing mails and the expected responses. We decided to go with our newsletter service, to which we imported all of the email addresses. But we couldn't deliver all mails at once, so we had to send them in packages. The whole process took longer than I liked but we couldn't change it. Meanwhile the FAQ was published. Unfortunately, because we where all in a hurry, someone set the FAQs publishing timestamp to 1972.</p>
+<p>That was the end of the day and most of what I remember of it. It doesn't sound like a whole day of work, but there where so many ends to tie together and so many decisions to be made on the spot, that I was totally powered out when I got home. The rest of the day, we tried to monitor the web for any reaction to our outgoing mail. It was much more quiet than I expected.</p>
+<p>Here are some examples of the problems we had to deal with that day. It's good that everyone has it's own opinion because it can help find the best solution but time was short and we had to make sure that we used it as efficient as we could.</p>
+<p><strong>Our passwords are hashed, do we write encrypted?</strong><br><br>
+This is a problem in the German language. Most (not technical affine) people say &quot;verschlüsselt&quot; (en: &quot;encrypted&quot;), for both hashing and encryption. The problem is, that hashing doesn't have a German translation that is as widely used as the counterpart for encryption. So by writing &quot;verschlüsselt&quot; we would make sure that most user understood what we where saying but at the same time risked, that users who knew the difference might think that we couldn't tell hashing from encryption. As it turned out, that's exactly what some of the users where thinking (and posting). Oh well.</p>
+<p><strong>Do we write forensics or just experts?</strong><br><br>
+For me it was pretty clear that we would tell people that we hired external forensic experts, not just external experts. Why? Because we have experts for various fields,  but forensics just isn't one of them. Forensic isn't part of our daily work, in fact this was the first forensic job we had since I started working at CHIP, so it makes sense that we don't have a full-time forensic analyst.</p>
+<p><strong>Where do we put the FAQ?</strong><br><br>
+This is a tough nut to crack for every company that finds itself in this kind of situation. You obviously don't want to spread bad news but you want to make sure that all users are being notified. So we decided not to post it on the front page of our main website, but on the front of our bulletin board. Since the board was still read only, and our &quot;Revive&quot; team was still tinkering with it, we had problems putting a message online. So we took the fastest solution we got, by replacing the top ad with a custom banner. The way we did that, was to create a banner with a message to all our users and deliver it via our ad service.<br>
+There was just one little problem we didn't think of. (Again, lot of stress and time pressure - you might overlook something)</p>
+<p><strong>Adblockers!</strong><br><br>
+Everyone with an active adblocker didn't see our banner and therefore just saw a clean, read-only board without the message. The users still got the link to our FAQ hosted on our domain, but since the FAQ was published with a timestamp of 1972, some of our users thought this might all just be a fake and maybe someone was trying a phishing attack. - Not how we thought it would go!</p>
+<p><strong>Newsletters</strong><br><br>
+Also, since we sent our message via our newsletter service, some of our users filtered it or received it as spam. We even got some comments from users saying they deleted it without reading it because they thought it was just another newsletter. Damn!</p>
+<h3 id="friday">Friday</h3>
+<p>This was the day! The community team was prepared to answer the responses from 2.4 million outgoing mails while the rest of us tried to keep an eye on what was going on in the web.</p>
+<p>Which sites wrote or blogged about us yet, what questions haven't we answered so far and the biggest question - should we publish an article with further information? It's a tightrope walk between flooding people with unnecessary information, and handing over only the important facts without hiding something. We where prepared to answer all the questions that could possibly come in, but in order to avoid wrong statements we agreed that answers to technical questions had to be checked with me before sending them out. It worked quite well, mostly because the amount of incoming questions and responses where lower than expected. Also, most of them where from users who had already forgotten they still had an account with our site and simply asked us to delete it.</p>
+<p>Still, it was a tough ride that was going on our nerves because we didn't know when the big flame-wave was going to hit us.</p>
+<h3 id="summary">Summary</h3>
+<p>As of right now, forensic analysis is still going on so we don't have all of the information yet. I think we did quite well considering the situation. But there is always something to learn from your mistakes and that's what I'm trying to do.<br>
+Below is a list of things I came up with that can help anybody who wants to prepare for a situation like this.</p>
+<ol>
+<li>It can happen to anyone - Yes we are a computer magazine and many people think that we &quot;should have known better&quot;. But the fact is that there is no such thing as being secure, only best-effort. And you want to make sure that your best-effort is something you can present without feeling the need to hide something!</li>
+<li>Always check how your data is secured and document it. You don't want to be in the position where you have to check first if someone asks you that question</li>
+<li>Create a workflow to check regularly if the way you are storing your data is still state-of-the-art or if you have to improve on it.</li>
+<li>Prepare for emergency - This is really hard, because how do you prepare for something you don't know yet? Define a group of people with the skills required to
+<ul>
+<li>check your systems - The technical goto person who can answer all technical questions or at least find out the answer. This should also be the person to speak with forensics.<br></li>
+<li>handle communication with your data privacy officer, law enforcement, your lawyers, management, etc.<br></li>
+<li>make decisions - you need someone who can make the required decisions, and make them fast. If you have multiple managers, let them decide who gets to make the call. The more people involved in decisions, the longer it's going to take!</li>
+<li>backup if some of the people above are not available.</li>
+</ul>
+</li>
+<li>Time is of the essence - create a detailed workflow on how to communicate and make sure everyone knows and uses it. If you need to collaborate on documents or statements, make sure all you use the same software.</li>
+<li>Create an emergency response team, a group of people who know how to handle a system that has been compromised. They don't need to be forensic experts, but they should now what to do in order to prepare the scene for the analysts.</li>
+<li>Make breaks - force yourself to make a break every once in a while. Situations like these are stressful and at some point you will make a mistake if you don't rest. Lock your workstation and go for a 10 minute walk if it's nice outside. Otherwise, get a coffee and don't drink it at your desk! (or at a meeting!)</li>
+<li>Talk to your CEO and PR about disclosure and what their official statement is. When the situation comes, they might want to reconsider so write down what the decision was and exactly why they made it. This can safe time, and that's all that counts!</li>
+<li>Find a forensics company if you don't have your own analyst. If something like this goes down, you don't want to spend time on searching for a suitable company. Keep the phone number in your drawer!</li>
+<li>Get your employees on board
+<ul>
+<li>tell them what happened and that they are not allowed to communicate anything on their own!</li>
+<li>choose a dedicated person that your employees can contact for questions or forward questions to they received (in case something has been leaked already)</li>
+<li>don't hide information from them - if it's a fact or even a strong possibility, you should tell them!</li>
+</ul>
+</li>
+</ol>
+<p>I'm glad that we made the right decisions, even if we didn't think of everything. And as amazing as it was to see all those people giving all they got to resolve this problem, I still hope that we don't have to deal with this kind of situation again.</p>
+<div class="license_container">
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a><br><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">We got hacked! now what?</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://twitter.com/HashtagSecurity" property="cc:attributionName" rel="cc:attributionURL">HashtagSecurity</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.<br>Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="https:/www.hashtagsecurity.com" rel="dct:source">https:/www.hashtagsecurity.com</a>.
+</div><!--kg-card-end: markdown--><!--kg-card-end: markdown-->]]></content:encoded></item><item><title><![CDATA[Testing for GHOST Vulnerability with Ansible]]></title><description><![CDATA[<!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="fredericmohr.github.io/ghostblog/content/images/2015/01/ghost_vuln_check_ansible.jpg" alt=""><br>
+Yesterday, reports of a critical vulnerability in the GNU C Library (glibc) hit the news. If you have more then just a handful servers to check, this Ansible playbook might be helpful.</p>
+<p>You can read all about the vulnerability <a href="http://blog.sucuri.net/2015/01/critical-ghost-vulnerability-released.html">here</a>.</p>
+<p>Usually when I have to check multiple servers, I use</p>]]></description><link>fredericmohr.github.io/ghostblog/testing-for-ghost-vulnerability-with-ansible/</link><guid isPermaLink="false">5d024b9ceb8170245371e849</guid><dc:creator><![CDATA[Frederic Mohr]]></dc:creator><pubDate>Thu, 29 Jan 2015 11:52:23 GMT</pubDate><content:encoded><![CDATA[<!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="fredericmohr.github.io/ghostblog/content/images/2015/01/ghost_vuln_check_ansible.jpg" alt=""><br>
+Yesterday, reports of a critical vulnerability in the GNU C Library (glibc) hit the news. If you have more then just a handful servers to check, this Ansible playbook might be helpful.</p>
+<p>You can read all about the vulnerability <a href="http://blog.sucuri.net/2015/01/critical-ghost-vulnerability-released.html">here</a>.</p>
+<p>Usually when I have to check multiple servers, I use Ansible like this.</p>
+<pre><code>ansible 'servergroup' -m shell -a 'command to execute'
+</code></pre>
+<p>In the case of GHOST, this wasn't working for me as the test command contained both <code>'</code> and <code>&quot;</code> chars. Escaping them didn't seem to work either, so I wrote a small playbook to take care of it.</p>
+<pre><code>- hosts: hosts,or,groups,comma,separated
+  remote_user: sshuser
+  tasks:
+    - name: Check if host is vulnerable
+      shell: php -r '$e=&quot;0&quot;;for($i=0;$i&lt;2500;$i++){$e=&quot;0$e&quot;;} gethostbyname($e);'
+      register: ghostvuln
+    - debug: var=ghostvuln.stdout_lines
+</code></pre>
+<p>That's it. If you've never used ansible before, just follow these steps.</p>
+<ul>
+<li>
+<p>install Ansible from your OS repository</p>
+</li>
+<li>
+<p>add hosts to /etc/ansible/hosts</p>
+<pre><code>[groupname]
+host1
+host2
+</code></pre>
+</li>
+<li>
+<p>Make sure your SSH key is loaded with <code>ssh-add -L</code></p>
+</li>
+<li>
+<p>Test if Ansible reaches every hosts <br><br>
+<code>ansible 'group,or,hosts' -m shell -a 'hostname -f'</code></p>
+</li>
+<li>
+<p>Execute Ansible playbook <br><br>
+<code>ansible-playbook /path/to/playbook</code></p>
+</li>
+</ul>
+<p>If you get either one of these, everything is fine.<br>
+<img src="fredericmohr.github.io/ghostblog/content/images/2015/01/ghostvuln.png" alt=""><br>
+<img src="fredericmohr.github.io/ghostblog/content/images/2015/01/del1-4.png" alt=""></p>
+<p><code>changed</code> just means that the command could be executed, check further down for the result. As you can see in the second image, the command did not return <code>Segmentation Fault</code><br>
+<code>failed</code> means, that the could not be executed, in this case because php isn't installed.</p>
+<p>This is ans example of a vulnerable host returning a segfault message.<br>
+<img src="fredericmohr.github.io/ghostblog/content/images/2015/01/del1-5.png" alt=""></p>
+<p><strong>Note:</strong> The check command above uses PHP, which I don't have installed on all my servers. Since this is a glibc vulnerability, I'm pretty sure that hosts can be vulnerable even if PHP is not installed. I will update this post if I find a way to check servers without PHP. Until then, install php5-cli if you don't have php on the system.</p>
+<p><strong>Update 1:</strong> More info on this bug can be found <a href="http://www.cyberciti.biz/faq/cve-2015-0235-patch-ghost-on-debian-ubuntu-fedora-centos-rhel-linux/">here</a>, including how to get a list of services that use glibc (Debian/Ubuntu)</p>
+<pre><code>sudo lsof | grep libc | awk '{print $1}' | sort | uniq
+</code></pre>
+<p>Also, make sure to reboot the servers after you've installed the patches or the server will remain vulnerable!</p>
+<p><strong>Update 2:</strong> An easier way to check if your server is vulnerable, is to check for the glibc version by running the following command.</p>
+<pre><code>$ ldd --version
+ldd (Ubuntu EGLIBC 2.19-0ubuntu6.4) 2.19
+Copyright (C) 2014 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+Written by Roland McGrath and Ulrich Drepper.
+
+$ ansible 'servergroup' -m shell -a 'ldd --version |grep &quot;^ldd&quot;'
+</code></pre>
+<p>According to Tomas Hoger, the issues was fixed in glibc 2.18.</p>
+<p><img src="fredericmohr.github.io/ghostblog/content/images/2015/01/del1-6.png" alt=""><br>
+<small>source: <a href="https://bugzilla.redhat.com/show_bug.cgi?id=CVE-2015-0235">bugzilla.redhat.com</a></small></p>
+<!--kg-card-end: markdown--><!--kg-card-end: markdown-->]]></content:encoded></item><item><title><![CDATA[WBP#2 - SHA256, Flask, Safari, Keybase.io and more...]]></title><description><![CDATA[<!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="fredericmohr.github.io/ghostblog/content/images/2015/01/WBP2.jpg" alt=""><br>
+The Weekly Bucket Post goes into the second round. This week we have wrong sha256 hashes, problems with Safari and amongst other things an invitation to keybase.io!</p>
+<p><strong>sha256sum creates &quot;wrong&quot; hash</strong> - Recently I was wondering, why a SHA256 hash of the string <code>password</code> was listed in</p>]]></description><link>fredericmohr.github.io/ghostblog/wbp2/</link><guid isPermaLink="false">5d024b9ceb8170245371e843</guid><dc:creator><![CDATA[Frederic Mohr]]></dc:creator><pubDate>Sat, 24 Jan 2015 16:54:15 GMT</pubDate><content:encoded><![CDATA[<!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="fredericmohr.github.io/ghostblog/content/images/2015/01/WBP2.jpg" alt=""><br>
+The Weekly Bucket Post goes into the second round. This week we have wrong sha256 hashes, problems with Safari and amongst other things an invitation to keybase.io!</p>
+<p><strong>sha256sum creates &quot;wrong&quot; hash</strong> - Recently I was wondering, why a SHA256 hash of the string <code>password</code> was listed in neither the <a href="http://hashtoolkit.com/">Hash Toolkit</a> nor the <a href="http://leakdb.abusix.com">LeakDB</a> databases. Surely someone must have used <code>password</code> as password somewhere!?</p>
+<p>Turns out, <code>password</code> is of course in both those databases, what isn't listed though is <code>password\n</code>. The reason I fell into this trap, was because I forgot that the bash command <code>echo</code> always appends a newline unless you call it with the <code>-n</code> switch.</p>
+<pre><code># Same strings
+echo -ne &quot;string\n&quot; | sha256sum
+echo &quot;string&quot; |sha256sum
+
+# what you really want...
+echo -n &quot;string&quot; | sha256sum
+</code></pre>
+<p><strong>Browser Testing</strong> - Oh Safari, now I know why I don't use you... because I can't!<br><br>
+Last week, <a href="https://twitter.com/MikeyJck">@MikeyJck</a> was kind enough to let me know that Apple's Safari browser was asking for a client certificate when browsing on my site. While this is actually something I use on a few pages or subdomains, it should certainly not appear on the frontpage of this blog.</p>
+<p>Since I don't own a Mac, I went looking for ways to (efficiently) test websites with Safari - so far without great results!</p>
+<p>Safari was available for Windows once, but after version 5.1.7 Apple killed it and now it's only available for systems running OSX.</p>
+<p>The alternatives I found are not really alternatives in my opinion, as they either build on said Windows version or on making screenshots of your page which doesn't help much either when you're trying to debug strange behaviour.</p>
+<p><strong>Running late on Windows 8</strong> - For some reason my Windows 8.1 desktop was running an hour late. No matter what I did, it kept changing back to UTC, when it should be on UTC+1.</p>
+<p>This seems to be a very well known problem in Windows, the reason for which is the default NTP servers Microsoft has set for their operating system.</p>
+<p>By setting the NTP servers to pool.ntp.org, the clock jumped by one hour and displayed the correct time. What's interesting is that public posts about this problem where talking about a few minutes time difference. For me it was exactly one hour.</p>
+<p><small>Windows 8 time settings (in german - had no choice!)</small><img src="fredericmohr.github.io/ghostblog/content/images/2015/01/Win8NTPSettings.PNG" alt=""><br>
+<img src="fredericmohr.github.io/ghostblog/content/images/2015/01/Win8NTPSettings01.png" alt=""></p>
+<p><strong>Youtube, MP3 and distribution of malicious code</strong> - Last week I found myself in need to use one of those &quot;Youtube to MP3 downloaders&quot;, which I'm always kinda sceptical about. Not only is the sound quality crap, but obviously you have no control over what you're really downloading - and in most cases you don't really have a trustworthy brand behind it either.</p>
+<p>Said situation spawned some food for thought. I know that malicious code can be <a href="http://www.gnucitizen.org/blog/backdooring-mp3-files/">stored in MP3</a>, which really isn't something new. But I can't help but wonder if adding malicious sound tracks to youtube videos could make for a &quot;good&quot; distribution mechanism. Especially if you're trying target unsuspecting smartphone kiddies who're downloading their music from YT.</p>
+<p><strong>Keybase.io</strong> - There isn't much to say about keybase.io that isn't on the site itself already. It's pretty self explanatory and for everything else there is the FAQ. So I'm just gonna say this</p>
+<ul>
+<li>It's the new shit</li>
+<li>It's a great idea</li>
+<li>And it was about time somebody did it!</li>
+</ul>
+<p>Also, <a href="https://keybase.io/hashtagsecurity">I'm on there</a>! #TrackMeINeedSnapshots!<br>
+If you need an invitation, drop me a line on Twitter!<br>
+<img src="fredericmohr.github.io/ghostblog/content/images/2015/01/del1-3.png" alt=""></p>
+<p><strong>Local IP and DNS don't match</strong> - If you ever have connection problems to a host, but can still reach it via local console, give this a try.</p>
+<p>Normally I would run <code>ifconfig</code> and <code>nslookup</code> to compare the IP with the DNS entry. The <code>hostname</code> command has a nice feature to return both IPs, if there different.</p>
+<pre><code>$ ifconfig |grep &quot;inet addr&quot;
+eth0      Link encap:Ethernet  HWaddr 00:16:3e:47:65:1d  
+          inet addr:10.0.3.159  Bcast:10.0.3.255  Mask:255.255.255.0
+          inet6 addr: fe80::216:3eff:fe47:651d/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:124 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:87 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:14563 (14.5 KB)  TX bytes:13151 (13.1 KB)
+
+lo        Link encap:Local Loopback  
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0 
+          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+
+$ nslookup myhost.lan
+Server:         10.0.3.2
+Address:        10.0.3.2#53
+
+Name:   myhost.lan
+Address: 10.0.3.162
+
+$ hostname -I
+10.0.3.159 10.0.3.162 
+</code></pre>
+<p><strong>Interesting things I found on the interwebs</strong></p>
+<ul>
+<li><a href="http://tmate.io/">http://tmate.io/</a></li>
+<li><a href="https://keybase.io">https://keybase.io</a></li>
+<li><a href="http://internet-inspired.com/wrote/load-disqus-on-demand/">http://internet-inspired.com/wrote/load-disqus-on-demand/</a></li>
+<li><a href="http://pixabay.com">http://pixabay.com</a></li>
+<li><a href="https://github.com/jlund/streisand">https://github.com/jlund/streisand</a></li>
+</ul>
+<!--kg-card-end: markdown--><!--kg-card-end: markdown-->]]></content:encoded></item><item><title><![CDATA[CSP and Disqus are buddies!]]></title><description><![CDATA[<!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="fredericmohr.github.io/ghostblog/content/images/2015/01/Disqus_is_back.jpg" alt=""><br>
+After all that trouble I had with Disqus and my Content-Security-Policy, I finally got it working. Not only that, but I got some help from a Disqus JS dev!</p>
+<p>First of all, I want to apoligize for a few things in my <a href="https://hashtagsecurity.com/csp-disqus-gotta-go/">last post</a>. I blamed Disqus for using eval,</p>]]></description><link>fredericmohr.github.io/ghostblog/csp-disqus-are-buddies/</link><guid isPermaLink="false">5d024b9ceb8170245371e846</guid><dc:creator><![CDATA[Frederic Mohr]]></dc:creator><pubDate>Fri, 23 Jan 2015 13:28:08 GMT</pubDate><content:encoded><![CDATA[<!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="fredericmohr.github.io/ghostblog/content/images/2015/01/Disqus_is_back.jpg" alt=""><br>
+After all that trouble I had with Disqus and my Content-Security-Policy, I finally got it working. Not only that, but I got some help from a Disqus JS dev!</p>
+<p>First of all, I want to apoligize for a few things in my <a href="https://hashtagsecurity.com/csp-disqus-gotta-go/">last post</a>. I blamed Disqus for using eval, when it was really me who, unknowingly, invoked it by using the jQuery <code>load()</code> function.</p>
+<p>I also said that Disqus is not compatible with CSP at all - which is not really true.<br>
+Thanks to Burak Yiğit Kaya, a javascript developer at Disqus who reached out to me via Twitter, I now know more about how Disqus and CSP work together.</p>
+<p>And I want to thank Burak and Disqus for their reaction to my post.<br>
+Burak contacted me, not to tell me that I was wrong, but to try and understand what the problem was in order to fix it.</p>
+<pre><code>We take security quite seriously and also respect users treating it highly so I'll do my best to make this easier for you.
+</code></pre>
+<p>And he did! Which is awesome, because I have heard this one so many times already, and it's very rare that there's more behind it then just PR.</p>
+<p>But back to the technical stuff. After some back and forth with Burak, I finally got a working CSP which looks like this.</p>
+<pre><code>Content-Security-Policy: default-src 'self'; script-src 'self' a.disquscdn.com/embed.js hashtagsecurity.disqus.com code.jquery.com; img-src 'self' referrer.disqus.com/juggler/stat.gif a.disquscdn.com/next/assets/img/; frame-src 'self' disqus.com/embed/comments/; style-src 'self' 'unsafe-inline' a.disquscdn.com;
+</code></pre>
+<p><strong>unsafe-inline</strong><br><br>
+This CSP still contains the <code>unsafe-inline</code> option for style sources, which is not really a good thing. Burak told me that I can ignore it, as it's doing is making the loading logo spin.<br>
+<img src="fredericmohr.github.io/ghostblog/content/images/2015/01/del1-2.png" alt=""></p>
+<p>While I can absolute go without the spinning logo, there is another problem here. Ignoring CSP violations, even if there just a spinning icon, will at some point have a negative impact on your CSP logs if you have them enabled.</p>
+<p>So it works, but it's still not perfect.</p>
+<p><strong>Too many sources</strong><br><br>
+The other thing that would need improvement is the amount of different sources. Burak explained, that they use a.disquscdn.com as a cookieless domain, and refferer.disqus.com as a stat beacon to check if the load was successfull. As I said to him before, this is just a nice to have. It would increase maintainability of CSPs but it's not absolutely necessary.</p>
+<p>Burak came up with the idea, to unify the sources under two domains.<br>
+<code>a.disquscdn.com</code> and <code>some-subdomain.disqus.com</code></p>
+<p><strong>Disqus CSP</strong><br><br>
+Something I didn't know before, is that Disqus ships with it's own Content-Security-Policy. As Burak told me, if you load Disqus and take a look at the response headers of the <code>discus.com/embed/comments</code> request, you can see a custom CSP is being set.<br>
+<img src="fredericmohr.github.io/ghostblog/content/images/2015/01/disquscsp.png" alt=""></p>
+<pre><code>content-security-policy:script-src https://*.twitter.com:* https://api.adsnative.com/v1/ad.json *.adsafeprotected.com *.google-analytics.com https://glitter-services.disqus.com https://*.services.disqus.com:* disqus.com http://*.twitter.com:* a.disquscdn.com api.taboola.com referrer.disqus.com *.scorecardresearch.com *.moatads.com https://admin.appnext.com/offerWallApi.aspx 'unsafe-eval' https://mobile.adnxs.com/mob *.services.disqus.com:*
+</code></pre>
+<p>For me this is just show even more that Disqus actually cares about security. Otherwise, they wouldn't have bothered to limit the sources in the first place.</p>
+<p><strong>Summary</strong><br><br>
+So, Disqus is back on hashtagsecurity.com. And now it's not just a convenient comment system anymore. I actually have an opinion about it now.</p>
+<p>The conversation between Burak and me brought a few things to light that could be improved, and Burak said he will look into it. Although he couldn't make any promises, I'm looking forward to see these improvements go live in the future.</p>
+<ul>
+<li>Move inline CSS into an external file to remove <code>unsafe-inline</code> style source</li>
+<li>Unify sources under <code>a.disquscdn.com</code> and <code>some-subdomain.disqus.com</code></li>
+</ul>
+<p>And something we didn't talk about, which I noticed later. The Disqus homepage only shows how to implement Disqus inline. Another option showing how to do it CSP compatible would be a great addition, especially for people just getting started with this kind of thing.</p>
+<p><strong>Wait, so what with the eval problem?</strong><br><br>
+Oh yeah, I almost forgot to mention that. The eval problem only occured, because I don't want Disqus to be loaded automatically. Instead I want visitors to click on the big blue bar below the article whenever they want to leave a comment.</p>
+<p>The way I did this was by loading Disqus via jQuerys <code>load()</code> function. Which seems to use the <code>eval()</code> function internally.</p>
+<p>After playing with both jQuery and plain old JS for a bit, I finally found this [nifty little helper}(<a href="http://internet-inspired.com/wrote/load-disqus-on-demand/">http://internet-inspired.com/wrote/load-disqus-on-demand/</a>) which works like a charm. So kudos to <a href="https://twitter.com/nternetinspired">@nternetinspired</a> for solving this problem way before me!</p>
+<!--kg-card-end: markdown--><!--kg-card-end: markdown-->]]></content:encoded></item><item><title><![CDATA[CSP: "Disqus gotta go!"]]></title><description><![CDATA[<!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="fredericmohr.github.io/ghostblog/content/images/2015/01/Disqus_gotta_go.jpg" alt=""><br>
+Recently I noticed that Disqus isn't loading anymore. It was easy to figure out that CSP was the reason why. In the end I was left with nothing more then the choice of which one needs to go.</p>
+<p><strong>Update: Burak Yiğit Kaya, a javascript developer at Disqus reached out to</strong></p>]]></description><link>fredericmohr.github.io/ghostblog/csp-disqus-gotta-go/</link><guid isPermaLink="false">5d024b9ceb8170245371e845</guid><dc:creator><![CDATA[Frederic Mohr]]></dc:creator><pubDate>Thu, 22 Jan 2015 00:14:35 GMT</pubDate><content:encoded><![CDATA[<!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="fredericmohr.github.io/ghostblog/content/images/2015/01/Disqus_gotta_go.jpg" alt=""><br>
+Recently I noticed that Disqus isn't loading anymore. It was easy to figure out that CSP was the reason why. In the end I was left with nothing more then the choice of which one needs to go.</p>
+<p><strong>Update: Burak Yiğit Kaya, a javascript developer at Disqus reached out to me to to address the problems in this post. I will write another post about the results shortly!</strong></p>
+<p>Obviously my choice was to keep CSP - this is a security blog after all. But let's take a look at what brought me to the point of giving up.</p>
+<p>At first I tried to fix the problem the old fashioned way. Everytime Disqus required a rule change, I did it. At first I thought this might even work, up until my CSP looked something like this: (split for better readability)</p>
+<pre><code>default-src	'self'; 
+script-src  'self' 
+			a.disquscdn.com/embed.js 
+			hashtagsecurity.disqus.com 
+			code.jquery.com; 
+img-src 	'self' 
+			referrer.disqus.com/juggler/stat.gif 
+            a.disquscdn.com/next/assets/img/;
+frame-src   'self' 
+			disqus.com/embed/comments/ 
+            disqus.com/home/forums/hashtagsecurity; 
+style-src 	'self' 
+            a.disquscdn.com;&quot; 
+</code></pre>
+<p>So far so semi-good. You might have noticed that I restricted the allowed sources to exactly to the least necessary space to decrease risk of XSS. However, all of that quickly lost it's weight when Disqus finally requested to more changes.</p>
+<pre><code>default-src	'self'; 
+script-src  'self' 
+      		'unsafe-eval' 
+			a.disquscdn.com/embed.js 
+			hashtagsecurity.disqus.com 
+			code.jquery.com; 
+img-src 	'self' 
+			referrer.disqus.com/juggler/stat.gif 
+            a.disquscdn.com/next/assets/img/;
+frame-src   'self' 
+			disqus.com/embed/comments/ 
+            disqus.com/home/forums/hashtagsecurity; 
+style-src 	'self' 
+			'unsafe-inline' 
+            a.disquscdn.com;&quot; 
+</code></pre>
+<p><strong>Update: unsafe-eval was actually my fault. Appearently the jQuery function <code>.load()</code> is using eval internally.</strong></p>
+<p>That's right, to work properly Disqus needs <s>unsafe-eval script and</s> unsafe-inline style. For those of you not really familiar with CSP, let me explain the problem real quick.</p>
+<p>CSP, or Content-Security-Policy, is meant to prevent XSS by restricting the sources of javascript, CSS stylesheets and other things such as images, frames, etc. To be able to do this, two important things have to be disallowed.</p>
+<ol>
+<li>
+<p>Inline JS or CSS code embedded directly in HTML files, such as these two examples</p>
+<pre><code> &lt;script&gt;alert(&quot;inline javascript&quot;)&lt;/script&gt;
+	style=&quot;height:100% width:100%&quot;
+</code></pre>
+</li>
+<li>
+<p>No use of the Javascript <code>eval</code> function (as it's deemed highly insecure!)</p>
+</li>
+</ol>
+<p>Instead, JS and CSS should only be included as files via the <code>src=</code> option. The allowed sources can then be specified in the CSP rule. The problem with <code>unsafe-inline</code> and <code>unsafe-eval</code> is, that it enables the use ov the <code>eval</code> function and allows the use of inline CSS or JS code.</p>
+<p>As sort of a last resort, I tried to create a single page with an alternate hard coded CSP rule, just to see if this would work.</p>
+<p><strong>disqus.html</strong> - containing the bad CSP and Disqus loader</p>
+<pre><code>&lt;!-- META Header containing the full &quot;Disqus compatible&quot; CSP rule--&gt;
+&lt;meta http-equiv=&quot;Content-Security-Policy&quot; content=&quot;default-src 'self'; script-src 'unsafe-eval' 'self' a.disquscdn.com/embed.js hashtagsecurity.disqus.com code.jquery.com; img-src 'self' referrer.disqus.com/juggler/stat.gif a.disquscdn.com/next/assets/img/; frame-src 'self' disqus.com/embed/comments/ disqus.com/home/forums/hashtagsecurity; style-src 'self' 'unsafe-inline' a.disquscdn.com;&quot; /&gt;
+
+&lt;!-- DIV to load Disqus --&gt;
+&lt;div id=&quot;disqus_thread&quot;&gt;&lt;/div&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;disqus.js&quot;&gt;&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href=&quot;http://disqus.com/?ref_noscript&quot;&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;
+&lt;a href=&quot;http://disqus.com&quot; class=&quot;dsq-brlink&quot;&gt;blog comments powered by &lt;span class=&quot;logo-disqus&quot;&gt;Disqus&lt;/span&gt;&lt;/a&gt;
+</code></pre>
+<p><strong>disqus.js</strong> - containing the typical Disqus code</p>
+<pre><code>/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'hashtagsecurity'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</code></pre>
+<p>The problem here is, that loading the disqus.html into my blog by using an iframe resulted in something like this.</p>
+<p><img src="fredericmohr.github.io/ghostblog/content/images/2015/01/del1.png" alt=""></p>
+<p>On the first look, I though that did the trick. After checking with the <code>disqus.html</code> file, I saw that it should really look like this.</p>
+<p><img src="fredericmohr.github.io/ghostblog/content/images/2015/01/del1-1.png" alt=""></p>
+<p>What happened is, that the iframe which held <code>disqus.html</code> didn't resize properly in height. After looking a bit into dynamically resizing iframes to fit their content, I realized that this wouldn't be possible without adding more javascript which in turn resulted in further adjustments to my original CSP rule.</p>
+<p>At that point I decided that Disqus just isn't worth the pain. So until I found a better comment system that can easily be integrated alongside CSP, you can simply reach out to me via twitter. - <a href="https://twitter.com/HashtagSecurity">@HashtagSecurity</a></p>
+<!--kg-card-end: markdown--><!--kg-card-end: markdown-->]]></content:encoded></item><item><title><![CDATA[WBP#1 - All New Weekly Bucket Post]]></title><description><![CDATA[<!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="fredericmohr.github.io/ghostblog/content/images/2015/01/bucketpost.jpg" alt=""><br>
+Since I can't bring myself to write full blown blog posts on a regular basis, let's try to do something else. I will attempt to publish a short blogpost every friday about all the small things that I encountered during the last week.</p>
+<p><strong>PFX Certificates</strong> -<br>
+After finally receiving confirmation</p>]]></description><link>fredericmohr.github.io/ghostblog/wsp-weekly-short-post-01/</link><guid isPermaLink="false">5d024b9ceb8170245371e842</guid><dc:creator><![CDATA[Frederic Mohr]]></dc:creator><pubDate>Fri, 16 Jan 2015 16:18:50 GMT</pubDate><content:encoded><![CDATA[<!--kg-card-begin: markdown--><!--kg-card-begin: markdown--><p><img src="fredericmohr.github.io/ghostblog/content/images/2015/01/bucketpost.jpg" alt=""><br>
+Since I can't bring myself to write full blown blog posts on a regular basis, let's try to do something else. I will attempt to publish a short blogpost every friday about all the small things that I encountered during the last week.</p>
+<p><strong>PFX Certificates</strong> -<br>
+After finally receiving confirmation that our code signing certificate has been validated, I got a link to &quot;download&quot; it. And by download they actually mean, import it in your browsers certificate store. From there you can export it and set a password to encrypt the file if you want (you want!).</p>
+<p>So far so good, but our devs said they need a .pfx file, not the .p12 I had given them.<br>
+Thanks to <a href="http://akbarahmed.com/2011/11/04/convert-p12-to-pfx/">AkbarAhmed.com</a> this proved not to be a problem at all.</p>
+<pre><code>1.) A .p12 and .pfx are the exact same binary format, although the extension differs.
+2.) Based on #1, all you have to do is change the file extension.
+</code></pre>
+<p><strong>DNS updates</strong> -<br>
+Not really something new I learned, as something I already new but forgot in the meantime, was how to request a new dhcp lease on an ubuntu server.</p>
+<pre><code>$ sudo dhclient -v eth0 -r
+this kills your connection... do not attempt over SSH ;)
+$ sudo dhclient -v eth0
+$ id a
+</code></pre>
+<p>Since we're at linux 101 already, let's quickly do the other one as well.</p>
+<p><strong>Change hostname</strong> - Sure, this one is easy. Nevertheless, I got stuck for longer then I would like to admit. After editing the files <code>/etc/hosts</code> and <code>/etc/hostname</code>, I wanted to apply the settings without rebooting the server. However, that's where I encountered this little problem.</p>
+<pre><code>$ sudo /etc/init.d/hostname restart
+[sudo] password for user: 
+sudo: /etc/init.d/hostname: command not found
+</code></pre>
+<p>I could've sworn that this was the correct way to do this. Turns out, it's this now.</p>
+<pre><code>$ sudo hostname -F /etc/hostname
+</code></pre>
+<p>One more thing I noticed while setting the new hostname was this little gem, which returns the IP registered to the hostname.</p>
+<pre><code>$ hostname -I
+10.0.3.162
+</code></pre>
+<p>If I think back how many times I could've used that one in scripts in the past...</p>
+<p><strong>LXC Autostart</strong> - LXC or LinuX Containers are a great alternative to full virtualization, especiall when you're running things on a vserver like I do. However, when you have to reboot your vserver due to kernel updates, your containers either don't start at all or simultaneous, which makes it hard if you have services like dns/dhcp running in one of them.</p>
+<p>The solution is a little tool called <code>lxc-autostart</code>, which let's you decide in which order to start your LXCs. Here are a few config lines, which you can add to your containers config file in <code>/var/lib/lxc/containername/config</code>.</p>
+<pre><code>lxc.start.auto = 1		# 0=no, 1=yes
+lxc.start.delay = 0		# seconds to wait before starting (group specific)
+lxc.start.order = 500	# order, higher is first
+lxc.group = dns			# group,groups
+</code></pre>
+<p>After you've configured every host you want to autostart, you can start,stop or reboot them like this</p>
+<pre><code>sudo lxc-autostart [-r/-s] -g &quot;dns,web,db&quot;
+# -r=reboot, -s=shutdown, without is boot
+</code></pre>
+<p>Pay attention to the groups, all containers in group dns are started first. Within that group, you can define the order (e.g 500, 450, 400). If you set a start.delay value for one hosts, all groups and hosts that follow will also wait for that amount of time before starting.</p>
+<pre><code>#host 1
+lxc.start.delay = 0		# start immediately
+lxc.start.order = 500	# first host
+lxc.group = dns			# first group
+#host 2
+lxc.start.delay = 20	# on turn, wait 20 seconds, then start
+lxc.start.order = 450	# second server
+lxc.group = dns			# first group
+#host 3
+lxc.start.delay = 0		# start after host 2 (after 20 seconds + boot)
+lxc.start.order = 400	# third server
+lxc.group = dns			# first group
+#host 4
+lxc.start.delay = 0		# start immediately after group dns is done
+lxc.start.order = 500	# first in group web
+lxc.group = web			# second group
+</code></pre>
+<p><strong>CSP</strong> - I have spent quite a bit of my time with the Content-Security-Policy header. So far I have always found a way to manage without &quot;unsafe-inline&quot; (allowing inline css or js - BAD!) but when I tried to get Disqus working with my CSP I ran into an interesting problem. First of, I only used the unsafe-inline option for testing purposes. This will never get onto my production systems, NEVER!</p>
+<p>Here is what I did, in case you want to try it yourself.</p>
+<p><em>index.html</em></p>
+<pre><code>&lt;html&gt;
+  &lt;head&gt;
+      &lt;!-- CSP Without &quot;style-src unsafe-inline&quot; reports CSP violations (of course!)
+      &lt;meta http-equiv=&quot;Content-Security-Policy&quot; content=&quot;default-src 'self'; script-src 'self' a.disquscdn.com/embed.js hashtagsecurity.disqus.com; img-src 'self' referrer.disqus.com/juggler/stat.gif a.disquscdn.com/next/assets/img/; frame-src 'self' disqus.com/embed/comments/;&quot; /&gt;--&gt;
+      &lt;meta http-equiv=&quot;Content-Security-Policy&quot; content=&quot;default-src 'self'; script-src 'self' a.disquscdn.com/embed.js hashtagsecurity.disqus.com; img-src 'self' referrer.disqus.com/juggler/stat.gif a.disquscdn.com/next/assets/img/; frame-src 'self' disqus.com/embed/comments/; style-src 'self' unsafe-inline;&quot; /&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+      &lt;h1&gt;CSP with DISQUS&lt;/h1&gt;
+      &lt;div id=&quot;disqus_thread&quot;&gt;&lt;/div&gt;
+      &lt;script type=&quot;text/javascript&quot; src=&quot;disqus.js&quot;&gt;&lt;/script&gt;
+      &lt;noscript&gt;Please enable JavaScript to view the &lt;a href=&quot;http://disqus.com/?ref_noscript&quot;&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;
+      &lt;a href=&quot;http://disqus.com&quot; class=&quot;dsq-brlink&quot;&gt;blog comments powered by &lt;span class=&quot;logo-disqus&quot;&gt;Disqus&lt;/span&gt;&lt;/a&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p><em>disqus.js</em></p>
+<pre><code>/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'hashtagsecurity'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</code></pre>
+<p>And finally, running a webserver in the directory that holds both those files</p>
+<pre><code>python -m SimpleHTTPServer 8080
+</code></pre>
+<p>What I found was, that it doesn't really matter whether I enable &quot;style-src unsafe-inline&quot; or not, since the inline style is in the embed.js file which is pulled from discuscdn.com. It appears that in that case, CSP still sees it as a violation.</p>
+<p><img src="fredericmohr.github.io/ghostblog/content/images/2015/01/snapshot02.jpg" alt=""></p>
+<p>If anyone can explain to me exactly why this is, I'd be very happy to hear about it.</p>
+<p>Speaking of CSP, I digged out the <a href="https://github.com/fredericmohr/hashtagsecurity/blob/master/csp_analysis_sourcecode/reportv.php">PHP Based CSP violation logger</a> I used for debugging in the past. Just make sure to move the reports file to a private directory. Don't want everyone reading your CSP reports.</p>
+<p><strong>Local Web Servers</strong> - Since I was playing around with CSP rules and violations, I found myself in need of a webserver. Installing apache2 or NGINX just to deliver a handful of pages to myself seemed a bit overkill, so I looked towards minimal webservers.</p>
+<p>My favourite, being installed by default on most linux systems, is definitely pythons simple server</p>
+<pre><code>python -m SimpleHTTPServer 8080
+Serving HTTP on 0.0.0.0 port 8080 ...
+</code></pre>
+<p>I used a PHP based CSP reporting tool to collect more info about found violations, however the integrated http server in python doesn't support PHP. Luckily, php does :)</p>
+<pre><code>sudo apt-get install php5-cli
+php5 -S 127.0.0.1:8000 -t /path/to/docs/
+</code></pre>
+<p><strong>Keepass Password Generation Profiles</strong> - Password rules for password generators can be very helpful. Keepass offers an option to customize the way passwords are generated, which is great as the default policies are really bad!</p>
+<p><img src="fredericmohr.github.io/ghostblog/content/images/2015/01/snapshot02-1.jpg" alt=""><br>
+<img src="fredericmohr.github.io/ghostblog/content/images/2015/01/snapshot02-2.jpg" alt=""><br>
+<img src="fredericmohr.github.io/ghostblog/content/images/2015/01/snapshot02-5.jpg" alt=""><br>
+<img src="fredericmohr.github.io/ghostblog/content/images/2015/01/snapshot02-3.jpg" alt=""><br>
+<img src="fredericmohr.github.io/ghostblog/content/images/2015/01/snapshot02-6.jpg" alt=""><br>
+<img src="fredericmohr.github.io/ghostblog/content/images/2015/01/snapshot02-4.jpg" alt=""></p>
+<p>Luckily, <a href="http://stackoverflow.com/questions/55556/characters-to-avoid-in-automatically-generated-passwords">dF.</a> over at stackoverflow.com has a nice list of chars for that.</p>
+<p><img src="fredericmohr.github.io/ghostblog/content/images/2015/01/snapshot02-7.jpg" alt=""></p>
+<p>A 12-char password policy in Keepass, this would look like this.</p>
+<pre><code>Whitelist chars (not all of them, just an example!)
+[\!\#\%\+\2\3\4\5\6\7\8\9\:\=\?\@\A\B\C\D\E\F\G\H\J\K\L\M\N\P\R\S]{12}
+</code></pre>
+<p><img src="fredericmohr.github.io/ghostblog/content/images/2015/01/snapshot02-11.jpg" alt=""><br>
+<img src="fredericmohr.github.io/ghostblog/content/images/2015/01/snapshot02-8.jpg" alt=""></p>
+<p>If you prefer a &quot;blacklist chars&quot; approach, you can do it like this:</p>
+<pre><code>Bad Chars: il10o8B3Evu![]{}
+PW Policy: [dAs^\i^\l^\1^\0^\o^\8^\B^\3^\E^\v^\u^!^\[^\]^\{^\}]{12}
+Char Rule: == [d]igits, mixed [A]lpha, [s]pecial, [^] except, [\] escape char
+</code></pre>
+<p><img src="fredericmohr.github.io/ghostblog/content/images/2015/01/snapshot02-10.jpg" alt=""><br>
+<img src="fredericmohr.github.io/ghostblog/content/images/2015/01/snapshot02-9.jpg" alt=""></p>
+<p>More info on Keepass generation rules can be found <a href="http://keepass.info/help/base/pwgenerator.html">here</a>.</p>
+<p><strong>Keepass and KeeFox</strong> - Not much to say here except that it has gotten real easy lately, to integrate keepass into Firefox. Just follow the steps on <a href="http://askubuntu.com/questions/291002/how-to-integrate-keypass2-and-firefox-using-keefox-passifox-in-ubuntu-13-04-13">stackoverflow</a>.</p>
+<p><strong>Web Password Manager</strong> - I'm always on the lookout for web based password managers, that can be hosted on-site. Especially if they're open source, or better yet free (as in speech).</p>
+<p>I haven't had the time yet to take a closer look, but at first glance <a href="http://rattic.org/">RatticDB</a> seems promising, although early stage. I will write more about it once I have spend more time with it - assuming it proves useful.</p>
+<p><img src="fredericmohr.github.io/ghostblog/content/images/2015/01/snapshot02-12.jpg" alt=""></p>
+<p><strong>Flask Blueprint Templates</strong> - suck! I'm sorry but I can't say it any other way.<br>
+I like the idea of how blueprints (sort of plugins in pythons web framework Flask) access templates. If I have an app, with it's index.html lying in <code>app/templates/index.html</code> and a sub app or plugin within said app that has it's own templates folder, like this <code>app/subapp/templates/</code> everything is great as long as I don't have any name conficts in templates.</p>
+<pre><code>Accessing /app/templates/index.html within the subapp
+render_template(&quot;index.html&quot;)
+
+Accessing /app/subapp/templates/subapp.html within the subapp
+render_template(&quot;subapp.html&quot;)
+
+Accessing /app/subapp/templates/index.html within the subapp
+- not possible - 
+</code></pre>
+<p>To be able to access the subapp index.html file, you would have to either rename the it, or build a structure like this:</p>
+<pre><code>/app/subapp/templates/subapp/index
+Blueprint(&quot;subapp&quot;, __name__, template_folder=&quot;templates&quot;)
+render_template(&quot;subapp/index.html&quot;)
+</code></pre>
+<p>It works, but it's annyoing as hell. I can understand the usecase if you want to frequently access the main apps templates in subapps, but I think there should be an option to limit the subapp to it's own template folder.</p>
+<!--kg-card-end: markdown--><!--kg-card-end: markdown-->]]></content:encoded></item></channel></rss>
